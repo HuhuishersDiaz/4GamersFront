@@ -8,6 +8,14 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  body{
+    background-color: #000;
+  }
+  .imgload{
+    width:100%;
+    
+  }
+
   h1,
   h2,
   h3,
@@ -226,8 +234,8 @@
       height: 21px;
       border-radius: 4px;
       background-color: #f91757;
-    margin: auto;
-  }
+      margin: 15px auto;
+    }
   .line-divider p {
     font-family: Roboto;
     font-size: 16.2px;
@@ -244,7 +252,7 @@
   .containertorneos{
     background-color: #27313d;
   }
-
+/* 
   .card{
     margin: 10px;
-  }
+  } */
