@@ -38,7 +38,7 @@
 
 
   <div class="line-divider"><p>TORNEOS DESTACADOS</p></div> 
-    <div class="container panels-card">
+    <div class="container-fluid panels-card">
       <div class="row">
         <div class="col-md-6 pt-4">
           <div class="card  text-white " style="width: 100% ; height:auto;">
@@ -56,7 +56,6 @@
 
               </div>
                 <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 <p class="card-text">Last updated 3 mins ago</p>
               </div>
               
@@ -79,7 +78,6 @@
 
               </div>
                 <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 <p class="card-text">Last updated 3 mins ago</p>
               </div>
               
@@ -102,7 +100,6 @@
 
               </div>
                 <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 <p class="card-text">Last updated 3 mins ago</p>
               </div>
               
@@ -125,7 +122,6 @@
 
               </div>
                 <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 <p class="card-text">Last updated 3 mins ago</p>
               </div>
               
@@ -136,12 +132,12 @@
     </div>
   <div>
     <div class="line-divider"><p>TIENDA</p></div> 
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-md-3 col-6 col-sm-3 col-lg-3 col-xl-2">
           <div class="card  text-white " style="width: 100% ; height:auto;background: transparent !important;">
             <img class="card-img" src="../assets/back_gris.png" alt="Card image">
-            <div class="card-img-overlay text-center" style="padding: 0 !important;line-height: 1px;">
+            <div class="card-img-overlay text-center" style="padding: 0 !important">
 
               <h5 class="card-title">Card title</h5>
                 <img src="../assets/moneda1.png" alt="">
@@ -153,10 +149,10 @@
       </div>
     </div>
   </div>
-  <div class="line-divider"><p>&nbsp;</p></div> 
 
-  <div style="background-image: url(../assets/banner_witcher.png) 100% 100%;">
-    <div class="container">
+  <div style="background-image: url(assets/banner_witcher.png); background-size: cover;">
+    <br>
+    <div class="container-fluid" style="padding: 100px;">
       <div class="row">
         <div class="col-md-6 col-6">
           <div class="card text-left">
@@ -182,4 +178,4 @@
 
 <app-footer></app-footer>
 
-<router-outlet class="container"></router-outlet>
+<router-outlet ></router-outlet>
