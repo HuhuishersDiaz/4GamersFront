@@ -9,6 +9,9 @@ import { VersusComponent } from './pages/versus/versus.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TorneosComponent } from './pages/torneos/torneos.component';
 import { TiendaComponent } from './pages/tienda/tienda.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegistrarComponent } from './pages/registrar/registrar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { TiendaComponent } from './pages/tienda/tienda.component';
     VersusComponent,
     HomeComponent,
     TorneosComponent,
-    TiendaComponent
+    TiendaComponent,
+    PerfilComponent,
+    LoginComponent,
+    RegistrarComponent
   ],
   imports: [
     BrowserModule,

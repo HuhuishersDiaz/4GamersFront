@@ -252,6 +252,9 @@
   .containertorneos{
     background-color: #27313d;
   }
+  .btn-danger{
+    background-color:  #f91757 !important;
+  }
 /* 
   .card{
     margin: 10px;
