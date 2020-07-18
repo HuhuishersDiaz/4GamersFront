@@ -20,6 +20,15 @@ const routes: Routes = [
     path : 'tienda', component : TiendaComponent
   },
   {
+    path : 'perfil', component : TiendaComponent
+  },
+  {
+    path : 'registro', component : TiendaComponent
+  },
+  {
+    path : 'login', component : TiendaComponent
+  },
+  {
     path : '**', pathMatch : 'full' ,redirectTo : 'home'
   },
 ];
