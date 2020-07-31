@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {GlobalService} from './services/global.service';
+import {Router} from '@angular/router';
+import {GamersService} from './provides/GamersService';
+import {UserInfo} from './models/interfaces';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
+
+@Component({selector: 'app-root', templateUrl: './app.component.html', styleUrls: ['./app.component.css']})
 export class AppComponent {
-  title = 'FrontGamers';
+    
+    constructor(private global : GlobalService, private router : Router, private gamers : GamersService) {
+
+        global.InfoUser();
+
+  
+    }
+
+
 }

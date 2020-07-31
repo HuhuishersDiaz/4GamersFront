@@ -1,0 +1,20 @@
+@media (max-width: 991.98px) { 
+
+
+    .movildesign{
+        display: none;
+   } 
+   .homedesig{
+       margin-left: 0px !important;
+   }
+
+ }
+ @media (min-width: 991.98px) { 
+
+
+    .iconMovil{
+        display: none;
+    } 
+
+
+ }

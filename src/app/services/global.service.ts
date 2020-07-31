@@ -1,0 +1,60 @@
+
+import { Injectable } from '@angular/core';
+import { User  } from "../models/usuario";
+import { UserInfo } from "../models/interfaces";
+import { SocketsService } from './sockets.service';
+import { GamersService } from '../provides/GamersService';
+
+@Injectable()
+
+export class GlobalService {
+  tokens : number = 0;
+  constructor( private _socket : SocketsService,private gamers : GamersService) { 
+      var idpersona =  localStorage.getItem("idPersona") || null;
+      if(idpersona){
+        this.cargarTokens(idpersona)
+      }
+  }
+
+  public saveData(userinfo:UserInfo){
+    localStorage.setItem("idPersona",userinfo._id.toString());
+    localStorage.setItem("Nombre",userinfo.nombre.toString());
+    localStorage.setItem("Username",userinfo.username.toString());
+    localStorage.setItem("Correo",userinfo.email.toString());
+  }
+
+ public isUser() {
+  
+    var idpersona =  localStorage.getItem("idPersona") || null;
+    if(!idpersona){
+      return false;
+    }
+    return true;
+
+  }
+  public InfoUser(){
+    var idpersona =  localStorage.getItem("idPersona") || null;
+    var Nombre =  localStorage.getItem("Nombre") || null;
+    var Username =  localStorage.getItem("Username") || null;
+    var Email =  localStorage.getItem("Correo") || null;
+    var user = new UserInfo(idpersona,Nombre,Username,Email,this.tokens)
+    this._socket.SendUserInfo(user);
+    return user;
+  }
+   public  User(){
+    var idpersona =  localStorage.getItem("idPersona") || null;
+    var Nombre =  localStorage.getItem("Nombre") || null;
+    var Username =  localStorage.getItem("Username") || null;
+    var Email =  localStorage.getItem("Correo") || null;
+    var user = new UserInfo(idpersona,Nombre,Username,Email,this.tokens)
+    return user;
+  }
+  async cargarTokens(_id) {
+    
+    return  await this.gamers.getTokens(_id).then((data) => {
+          this.tokens = data.info.recordset[0]["totaltokens"];
+          return data.info.recordset[0]["totaltokens"];
+      }).catch(err => err);
+
+    }
+}

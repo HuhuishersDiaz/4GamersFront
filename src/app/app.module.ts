@@ -14,6 +14,18 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegistrarComponent } from './pages/registrar/registrar.component';
 import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 
+import { HttpClientModule } from "@angular/common/http";
+
+import { FormsModule }   from '@angular/forms';
+import { UsuariosService } from './provides/usuarios.service';
+import { GamersService } from './provides/GamersService';
+import { SocketsService } from './services/sockets.service';
+import { GlobalService } from "./services/global.service";
+import { UIGamersService } from './services/ui-gamers.service';
+
+import { EncuentroComponent } from './pages/encuentro/encuentro.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,13 +38,22 @@ import { RecuperarComponent } from './pages/recuperar/recuperar.component';
     PerfilComponent,
     LoginComponent,
     RegistrarComponent,
-    RecuperarComponent
+    RecuperarComponent,
+    EncuentroComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [ 
+    UsuariosService,
+    SocketsService,
+    GlobalService, 
+    GamersService ,
+    UIGamersService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

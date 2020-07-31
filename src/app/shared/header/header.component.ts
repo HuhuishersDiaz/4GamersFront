@@ -1,15 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserInfo} from 'src/app/models/interfaces';
+import {GlobalService} from 'src/app/services/global.service';
+import {GamersService} from 'src/app/provides/GamersService';
+import {Router, NavigationStart} from '@angular/router';
+import {filter} from 'rxjs/operators';
 
-@Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
-})
+@Component({selector: 'app-header', templateUrl: './header.component.html', styleUrls: ['./header.component.css']})
+
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+    title = 'FrontGamers';
+    tokens;
+    user : UserInfo;
+    isLoggin : Boolean = false;
+    constructor(private global : GlobalService, private router : Router,) {
+        this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(data => {
+            if (this.global.isUser()) {
+                this.user = this.global.User();
+                this.cargarTokens();
+                this.isLoggin = true;
+            }
+        })
 
-  ngOnInit(): void {
-  }
+
+    }
+
+    ngOnInit(): void {}
+
+    async cargarTokens() {
+
+        await this.global.cargarTokens(this.user._id).then((data) => {
+            this.tokens = data;
+            console.log(data)
+        }).catch((err) => {
+            err
+        });
+
+
+    }
 
 }

@@ -1,1 +1,34 @@
-<p>login works!</p>
+<div class="main  text-white">
+    <div class="width:100%" class="text-center">
+    <img src="assets/logo_letras.png"  alt=""  width="100" style="margin: auto;">
+    </div>
+    <form action="">
+    
+
+    <div class="field">
+        <input type="email" name="email" id="email" [(ngModel)]="user.email" placeholder="">
+        <label for="email">Correo eléctronico</label>
+      </div>
+      
+      <div class="field">
+        <input type="password" name="password" id="password"  [(ngModel)]="user.password" placeholder=" ">
+        <label for="password">Contraseña</label>
+      </div>
+      <br>
+      <a routerLink="/recuperar" class="forgot"><p>¿Olvidaste tu contraseña?</p></a>
+    <br>
+    <br>
+    <div class="login row">
+        <button type="submit" class="btn bg-danger col-12 px-2" (click)="Login()">Login</button>
+       <button type="button" class="btn btn-block col-6 btn-fb btn-primary px-3"><i class="fab fa-facebook-f pr-1"></i> </button>
+       <button type="button" class="btn btn-block col-6 btn-fb btn-danger px-3"><i class="fab fa-google-plus-g   pr-1"></i> </button>
+
+    </div>
+      
+    </form>
+</div>
+<div class="text-center" style="background-color: white;"> 
+  <br>
+<p>¿Eres un usuario nuevo? <a routerLink="/registro">Registrate</a></p>
+<br>
+</div>

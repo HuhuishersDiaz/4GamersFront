@@ -1,1 +1,106 @@
-<p>perfil works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 text-center text-white">
+
+            <div>
+                <img src="/assets/boton_editarfotos.png" alt="">
+                <h1 class="font-weight-bold">4GAMERS ID</h1>
+                <p class="font-weight-bold">{{user.username}}</p>
+            </div>
+            <div class="contadores text-center">
+                <img src="/assets/contador_tokens2.png" alt="">
+                <p class="centrado font-weight-bold">{{ tokens }}</p>
+            </div>
+            <div class="contadores text-center">
+                <img src="/assets/Grupo 579.png" alt="">
+                <p class="centrado font-weight-bold">0</p>
+            </div>
+            <div class="contadores text-center">
+                <img src="/assets/contador_nivel.png" alt="">
+                <p class="centrado font-weight-bold"> Espartano</p>
+
+            </div>
+
+        </div>
+        <div class="col-md-6 text-white">
+            <div class="row">
+                <div class="col-4">
+                    <p>Partidas Jugadas</p>
+                    <div class="container_marcador">
+                        <strong>0</strong>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <p>Partidas Ganadas</p>
+                    <div class="container_marcador">
+                        <strong>0</strong>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <p>Partidas Perdidas</p>
+                    <div class="container_marcador">
+                        <strong>0</strong>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <br>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Nombre"
+                            aria-label="Nombre" aria-describedby="basic-addon2" [value]="user.nombre">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="email"
+                            aria-label="Email" aria-describedby="basic-addon2" [value]="user.email">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <br>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="ID: PlayStation"
+                            aria-label="ID : PlayStation" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="ID: Activision"
+                            aria-label="ID: Activision" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="ID: EpicGames"
+                            aria-label="ID: EpicGames" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <button class="submit " class="btn btn-danger float-right">
+                Guardar
+            </button>
+        </div>
+    </div>
+</div>

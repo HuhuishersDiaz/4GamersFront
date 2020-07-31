@@ -1,55 +1,62 @@
 <!-- Toolbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top" style="position: fixed !important; width: 100%; z-index: 1000;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top"
+  style="position: fixed !important; width: 100%; z-index: 1000;">
 
-    <!--  Show this only on mobile to medium screens  -->
-      <a class="navbar-brand d-lg-none" href="#">Navbar</a>
-    
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-    <!--  Use flexbox utility classes to change how the child elements are justified  -->
-      <div class="collapse navbar-collapse justify-content-between" id="navbarToggle">
-    
-        <ul class="navbar-nav">
-            <li class="nav-item " style="width: 80px;">
-                <img src="assets/perfil_icono.svg" alt="" style="position: fixed; width: 33px; top: 16px;">
-              <a class="nav-link " routerLink="/perfil"></a>
-            </li>
-         
-        </ul>
-        
-        
+  <!--  Show this only on mobile to medium screens  -->
+  <a class="navbar-brand d-lg-none" routerLink="/perfil">
+    <img src="assets/perfil_icono.svg" alt="" style=" width: 30px;">
+  </a>
+
+  <img src="assets/logo.svg" alt="" class="iconMovil" style="margin: auto;" width="80" routerLink="/home">
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!--  Use flexbox utility classes to change how the child elements are justified  -->
+  <div class="collapse navbar-collapse justify-content-between" id="navbarToggle">
+
+    <ul class="navbar-nav">
+      <li class="nav-item movildesign" style="width: 80px; ">
+        <img src="assets/perfil_icono.svg" alt="" style="position: fixed; width: 33px; top: 16px;">
+        <a class="nav-link " routerLink="/perfil"></a>
+      </li>
+
+    </ul>
+
+
     <!--   Show this only lg screens and up   -->
     <div class="navbar-brand">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" routerLink="/">HOME</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/versus">VERSUS</a>
-              </li>
-            <li class="nav-item " style="width: 80px;">
-                <img src="assets/logo.svg" alt="" style="position: fixed;" width="80">
-              <a class="nav-link " href="#"></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/torneos">TORNEOS</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/tienda">TIENDA</a>
-              </li>
-          </ul>
-          
+      <ul class="navbar-nav">
+        <li class="nav-item homedesig " style=" margin-right: 31px; margin-left: 80px;" routerLink="/home"
+          routerLinkActive="active">
+          <a class="nav-link">HOME</a>
+        </li>
+        <li class="nav-item homedesig" style=" margin-right: 31px;" routerLink="/versus" routerLinkActive="active">
+          <a class="nav-link">VERSUS</a>
+        </li>
+        <li class="nav-item movildesign " style="width: 80px;  margin-right: 31px;">
+          <img src="assets/logo.svg" alt="" style="position: fixed;" width="80">
+          <a class="nav-link " href="#"></a>
+        </li>
+        <li class="nav-item homedesig" style=" margin-right: 31px;" routerLink="/torneos" routerLinkActive="active">
+          <a class="nav-link">TORNEOS</a>
+        </li>
+        <li class="nav-item homedesig" style=" margin-right: 31px;" routerLink="/tienda" routerLinkActive="active">
+          <a class="nav-link">TIENDA</a>
+        </li>
+      </ul>
     </div>
-        
-        
-        <ul class="navbar-nav">
-            <li class="nav-item " style="width: 100px;">
-                <img src="../../../assets/contador_tokens.svg" style="position: fixed;right: 19px; width: 147px;">
-              <a class="nav-link " routerLink="/tienda" style="font-weight: bold;top: 3px;">1500</a>
-            </li>
-        </ul>
-      </div>
-  </nav>
-  
+
+    <ul class="navbar-nav">
+      <li class="nav-item movildesign " style="width: 100px;" *ngIf="isLoggin">
+        <img src="../../../assets/contador_tokens.svg" style="position: fixed;right: 19px; width: 147px;">
+        <a class="nav-link " routerLink="/tienda" style="font-weight: bold;top: 3px;">{{tokens}}</a>
+      </li>
+      <li class="nav-item homedesig " *ngIf="!isLoggin">
+        <a class="nav-link " routerLink="/login"> LOGIN / REGISTRO</a>
+      </li>
+    </ul>
+  </div>
+</nav>

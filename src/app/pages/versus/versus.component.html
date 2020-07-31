@@ -1,7 +1,98 @@
-<div class="line-divider"><p>JUEGOS RECIENTES</p></div> 
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="line-divider">
+                <p>ENCUENTRA TU RIVAL </p>
+            </div>
+            <div class="row">
+                <div *ngFor="let versus of allversus" class="col-6 col-sm-6 col-md-3 col-lg-3">
+                    <div class="card">
+                        <img class="card-img" src="assets/{{versus.imglogo}}" alt="">
+                        <div class="card-body">
+                            <p class="card-text">
+                                {{versus.username}}
+                            </p>
+                            <p class="card-text">
+                                Apuesta: {{versus.apuesta}}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-danger btn-sm" (click)="AceptarVersus(versus)"> Entrar </button>
+                        </div>
+                    </div>
+                </div>
 
-<div class="line-divider"><p>SELECCIONA TU JUEGO</p></div> 
+                <div *ngFor="let versus of listVersus" class="col-6 col-sm-6 col-md-3 col-lg-3">
+                    <div class="card">
+                        <img class="card-img" src="assets/{{versus.imglogo}}" alt="">
+                        <div class="card-body">
+                            <p class="card-text">
+                                {{versus.username}}
+                            </p>
+                            <p class="card-text">
+                                Apuesta: {{versus.apuesta}}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-danger btn-sm" (click)="AceptarVersus(versus)"> Entrar </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="line-divider">
+                <p>PENDIENTES</p>
+            </div>
+            <div class="card" *ngFor="let item of misversus">
+                <div class="card-body">
+                    <h3>{{ item.juego }}</h3>
+                    <p>Apuesta {{item.apuesta}} </p>
+                </div>
+                <div class="card-footer" style="float:rigth" >
+                    <button class="btn btn-sm btn-danger" routerLink="/versus/encuentro/{{item.idversus}}"> Entrar</button>
+                </div>
+            </div>
+            <hr>
+        </div>
 
-<div class="container text-center"  >
-    <button class="btn btn-danger">JUGAR</button>
+    </div>
+
 </div>
+<div class="line-divider">
+    <p>SELECCIONA TU JUEGO</p>
+</div>
+<div class="container">
+    <div class="row inner-scroll " style="align-items:center">
+        <div *ngFor="let item of juegos" class="col-4 col-sm-3 col-md-3 col-lg-3">
+
+            <div class="gallery-card">
+                <div class="gallery-card-body">
+                    <label class="block-check">
+                        <img src="assets/{{item.imgLogo}}" class="img-responsive" />
+                        <input type="radio" name="game" [value]="item" [(ngModel)]="versus.juego" />
+                        <span class="checkmark"></span>
+                    </label>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container text-center text-white">
+    <h3>CANTIDAD APOSTAR</h3>
+
+    <div class="container_marcador">
+        <img src="../../../assets/Grupo 585.png" alt="" srcset="" style="width: 80%;">
+        <div class="centrado row" style="width: 100%;">
+            <a style="width:100%" class="col-3" (click)="CantidadApostar(-1)">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <input style="width:50%" type="number" s class="col-8 text-white" [(ngModel)]="versus.apuesta"
+                class="inputTokens" />
+            <a style="width:100%" class="col-2" (click)="CantidadApostar(1)">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+    </div>
+    <br>
+    <button class="btn btn-danger" (click)="CrearVersus()" *ngIf="misversus">JUGAR</button>
+</div>
+
+

@@ -255,7 +255,18 @@
   .btn-danger{
     background-color:  #f91757 !important;
   }
+
+
+  .swal-overlay{
+    background-image : url("assets/splash_pc.jpg");
+    background-position: center;
+
+  }
+
 /* 
   .card{
     margin: 10px;
   } */
+
+
+  
