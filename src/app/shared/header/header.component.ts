@@ -15,10 +15,15 @@ export class HeaderComponent implements OnInit {
     isLoggin : Boolean = false;
     constructor(private global : GlobalService, private router : Router,) {
         this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(data => {
-            if (this.global.isUser()) {
+            let user = this.global.isUser();
+            console.log(user);
+            if (user) {
                 this.user = this.global.User();
                 this.cargarTokens();
                 this.isLoggin = true;
+            }else{
+                this.isLoggin = false;
+
             }
         })
 

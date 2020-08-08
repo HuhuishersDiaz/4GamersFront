@@ -1,0 +1,100 @@
+
+<div class="container">
+    <br><br><br>
+    <div class="row">
+       
+        <div class="col-md-6">
+            <div class="line-divider">
+                <p>METODO DE PAGO</p>
+              </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Nombre del Titular"
+                            aria-label="Nombre" aria-describedby="basic-addon2" [value]="">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Numero de Tarjeta"
+                            aria-label="Nombre" aria-describedby="basic-addon2" [value]="">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="MM/AA"
+                            aria-label="Nombre" aria-describedby="basic-addon2" [value]="">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="CVC "
+                        
+                        > 
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="basic-addon2">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="col-md-6 " style="background-color: #fff;">
+            <div class="line-divider">
+                <p>TU PEDIDO</p>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                    <label style="height: 0px;">
+                        <img src="/assets/tokens.svg" class="logo" width="30" />
+                        <STRONG>{{paquete.numTokens}}</STRONG>
+                      </label>
+                </div>
+                <div class="col-6 ">
+                    <label class="float-right mt-1" style="height: 0px;">
+                        <strong>S/. {{paquete.Costo}}</strong>
+                    </label>    
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-6">
+                    <label >
+                        <STRONG>TOTAL</STRONG>
+                      </label>
+                </div>
+                <div class="col-6 ">
+                    <label class="float-right mt-1" style="height: 0px;">
+                        <strong>S/. {{paquete.Costo}}</strong>
+                    </label>    
+                </div>
+            </div>
+            <br>
+            <div class="text-center">
+                <button class="btn btn-danger " (click)="Confirmar()" style="margin: auto;">CONFIRMAR PEDIDO</button>
+            </div>
+            <br>
+        </div>
+    </div>
+    <br><br><br>
+
+</div>

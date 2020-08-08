@@ -24,7 +24,17 @@ import { GlobalService } from "./services/global.service";
 import { UIGamersService } from './services/ui-gamers.service';
 
 import { EncuentroComponent } from './pages/encuentro/encuentro.component';
+import { EncuentrotorneoComponent } from './pages/encuentrotorneo/encuentrotorneo.component';
+import { FasestorneoComponent } from './pages/fasestorneo/fasestorneo.component';
 
+import { NgxLoadingModule ,ngxLoadingAnimationTypes } from 'ngx-loading';
+import { CampeonatoComponent } from './pages/campeonato/campeonato.component';
+import { EncuentroCampeonatoComponent } from './pages/encuentro-campeonato/encuentro-campeonato.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { CompraComponent } from './pages/compra/compra.component';
+import { RetiroComponent } from './pages/retiro/retiro.component';
+import { ValidarretiroComponent } from './pages/validarretiro/validarretiro.component';
+import { NgxOrgChartModule } from 'ngx-org-chart';
 
 @NgModule({
   declarations: [
@@ -39,13 +49,24 @@ import { EncuentroComponent } from './pages/encuentro/encuentro.component';
     LoginComponent,
     RegistrarComponent,
     RecuperarComponent,
-    EncuentroComponent
+    EncuentroComponent,
+    EncuentrotorneoComponent,
+    FasestorneoComponent,
+    CampeonatoComponent,
+    EncuentroCampeonatoComponent,
+    CheckoutComponent,
+    CompraComponent,
+    RetiroComponent,
+    ValidarretiroComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    NgxLoadingModule.forRoot({}),
+    NgxOrgChartModule
+
   ],
   providers: [ 
     UsuariosService,

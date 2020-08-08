@@ -20,14 +20,14 @@ export class LoginComponent implements OnInit {
     this.user = new Login("","");
    }
 
-  ngOnInit(): void {
+  async ngOnInit() {
   }
   async Login(){
     console.log(this.user);
     let respuesta = await this.apiUser.Login(this.user).then(data=>data).catch(err=>err);
     if(respuesta.ok){
       console.log(respuesta);
-      this.global.saveData(new UserInfo(respuesta.user.idPersona.toString()|| null,respuesta.user.nombre.toString()|| null,respuesta.user.username.toString()|| null,respuesta.user.correo.toString()|| null,0))
+      await this.global.saveData(new UserInfo(respuesta.user.idPersona.toString(),respuesta.user.nombre.toString(),respuesta.user.username.toString(),respuesta.user.correo.toString(),0))
       this.global.InfoUser();respuesta.user.nombre.toString()|| null
       this.router.navigateByUrl('/Home');
     }

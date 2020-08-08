@@ -10,13 +10,14 @@ import { GamersService } from '../provides/GamersService';
 export class GlobalService {
   tokens : number = 0;
   constructor( private _socket : SocketsService,private gamers : GamersService) { 
-      var idpersona =  localStorage.getItem("idPersona") || null;
-      if(idpersona){
+      var idpersona =  localStorage.getItem("idPersona") ;
+      if(idpersona != null){
         this.cargarTokens(idpersona)
       }
   }
 
-  public saveData(userinfo:UserInfo){
+  async saveData(userinfo:UserInfo){
+
     localStorage.setItem("idPersona",userinfo._id.toString());
     localStorage.setItem("Nombre",userinfo.nombre.toString());
     localStorage.setItem("Username",userinfo.username.toString());
@@ -25,27 +26,30 @@ export class GlobalService {
 
  public isUser() {
   
-    var idpersona =  localStorage.getItem("idPersona") || null;
-    if(!idpersona){
+    var idpersona =  localStorage.getItem("idPersona");
+    console.log(idpersona);
+    if(idpersona == null){
+      console.log("La consulta es falsa ");
+
       return false;
     }
     return true;
 
   }
   public InfoUser(){
-    var idpersona =  localStorage.getItem("idPersona") || null;
-    var Nombre =  localStorage.getItem("Nombre") || null;
-    var Username =  localStorage.getItem("Username") || null;
-    var Email =  localStorage.getItem("Correo") || null;
+    var idpersona =  localStorage.getItem("idPersona");
+    var Nombre =  localStorage.getItem("Nombre") ;
+    var Username =  localStorage.getItem("Username") ;
+    var Email =  localStorage.getItem("Correo") ;
     var user = new UserInfo(idpersona,Nombre,Username,Email,this.tokens)
     this._socket.SendUserInfo(user);
     return user;
   }
    public  User(){
-    var idpersona =  localStorage.getItem("idPersona") || null;
-    var Nombre =  localStorage.getItem("Nombre") || null;
-    var Username =  localStorage.getItem("Username") || null;
-    var Email =  localStorage.getItem("Correo") || null;
+    var idpersona =  localStorage.getItem("idPersona") ;
+    var Nombre =  localStorage.getItem("Nombre") ;
+    var Username =  localStorage.getItem("Username") ;
+    var Email =  localStorage.getItem("Correo") ;
     var user = new UserInfo(idpersona,Nombre,Username,Email,this.tokens)
     return user;
   }

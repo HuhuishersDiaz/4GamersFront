@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+
+
 :host {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 14px;
@@ -268,5 +270,89 @@
     margin: 10px;
   } */
 
-
+  .ngx-org-vertical {
+    flex-direction: column-reverse;
+  }
+  .ngx-org-org-container {
+    display: contents;
+  }
+  .ngx-org-org-container-vertical {
+    flex-direction: column;
+  }
+  .ngx-org-connector {
+    flex: 1;
+  }
+  .ngx-org-connector-container {
+    display: flex;
+  }
+  .ngx-org-connector-container-horizontal {
+    flex-direction: column;
+  }
+  .ngx-org-reports {
+    display: flex;
+    flex: 1;
+  }
+  .ngx-org-reports-horizontal {
+    flex-direction: column;
+  }
+  .ngx-org-image {
+    background-repeat: no-repeat;
+    width: 2em;
+    height: 2em;
+    margin-right: 0.5em;
+    background-color: white;
+    border-radius: 50%;
+    padding: 0.25em;
+  }
+  .ngx-org-name {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  .ngx-org-title {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+  .ngx-org-box {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  .ngx-org-name {
+    font-family: 'Patua One', cursive;
+  }
+  .ngx-org-title {
+    font-family: 'Oswald', sans-serif;
+  }
+  .ngx-org-border {
+    border-color: #9E9E9E;
+  }
+  .ngx-org-box {
+    color: black;
+    width: 10em;
+  }
+  .ngx-org-self-vertical {
+    margin-bottom: 2%;
+  }
   
+
+  .ngx-org-horizontal {
+    padding: 1em 0;
+  }
+  .ngx-org-vertical {
+    padding: 0 0.2em;
+  }
+  .ngx-org-border {
+    border: 1px solid darkgrey;
+  }
+  .ngx-org-box {
+    padding: 0.5em 1em;
+    border-radius: 0.2em;
+    box-shadow: 0.05em 0.05em 0.2em 0.05em #0000002b;
+  }
+  .ngx-org-connector-horizontal {
+    width: 1em;
+  }
+  .ngx-org-connector-vertical {
+    height: 1em;
+  }
+  .ngx-org-vp{
+    width: 5px;
+  }

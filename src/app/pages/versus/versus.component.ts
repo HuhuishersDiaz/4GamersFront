@@ -21,7 +21,7 @@ export class VersusComponent implements OnInit {
     juegos : any;
     allversus;
     tokens : number = 0;
-    public listVersus : res[] = [];
+    public listVersus : any[] = [];
 
     public misversus : any[] = [];
     // swal : Sweetalert
@@ -31,18 +31,27 @@ export class VersusComponent implements OnInit {
 
 
         this.idpersona = localStorage.getItem("idPersona") || null;
+
         this.getVersus();
 
         this.verJuegos();
-        this.misVersus();
+        console.log(this.global.isUser());
+
+        if(this.global.isUser()){
+            console.log("Holaperro")
+            this.misVersus();
+            this.global.cargarTokens(this.idpersona).then(data=>{
+                console.log(data);
+                this.tokens = data;
+            }).catch(err=>{console.log(err);
+            })
+        }
+
         this._socket.onNewVersus().subscribe(data => {
             this.listVersus.push(data);
         });
         
-        this.global.cargarTokens(this.idpersona).then(data=>{
-            console.log(data);
-            this.tokens = data;
-        })
+        
 
     }
     async misVersus() {
@@ -53,7 +62,6 @@ export class VersusComponent implements OnInit {
                     console.log();
                     alert("Tienes una partida pendiente")
                     this.router.navigateByUrl('/versus/encuentro/'+this.misversus[0].idversus)
-
                 }
             });
         }
@@ -75,11 +83,18 @@ export class VersusComponent implements OnInit {
     }
 
     CantidadApostar(cantidad : number) {
-        if (cantidad > 50) {
-            alert("La cantidad maxima debe ser menoor o igual a 50 ");
+
+
+        this.versus.apuesta += cantidad;
+        if (this.versus.apuesta > 50) {
+            alert("La cantidad maxima debe ser mayor o igual a 50 ");
+            this.versus.apuesta = 50
+            return false;
+        }else if(this.versus.apuesta < 1){
+            alert("La cantidad minima debe ser menor o igual a1 ");
+            this.versus.apuesta = 1
             return false;
         }
-        this.versus.apuesta += cantidad;
         // alert(this.contador)
     }
 
@@ -142,7 +157,6 @@ export class VersusComponent implements OnInit {
     }
 
     async CrearVersus() {
-        console.log(this.tokens);
         
         if (!this.global.isUser()) {
             alert('Es necesario que te registres');
@@ -168,6 +182,7 @@ export class VersusComponent implements OnInit {
                         }else{
                             this._socket.createVersus(this.versus)
                             alert("Esperando Rival")
+                            this.misversus.push(this.versus)
                         }
                     }
                     console.log(data.info);

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GamersService } from 'src/app/provides/GamersService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tienda',
@@ -7,9 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TiendaComponent implements OnInit {
 
-  constructor() { }
+  tokens : any[] = [];
+  constructor(
+    private api :GamersService,
+    private router : Router
+  ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await this.PaquetesTokens();
   }
+  async PaquetesTokens(){
+    this.api.paquetesTokensTienda().then((paquetes:any)=>{
+      console.log(paquetes.info.recordset);
+      this.tokens =  paquetes.info.recordset;
+    })
+  }
+
+  async Comprar(paquete : any ){
+    console.log(paquete)
+    this.router.navigateByUrl('/tienda/checkout/'+paquete.idToken)
+  }
+
+  async Solicitar( id ){
+    this.router.navigateByUrl('/tienda/compra/'+id)
+  }
+
 
 }

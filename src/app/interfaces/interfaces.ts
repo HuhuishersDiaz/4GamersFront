@@ -21,11 +21,9 @@ export interface res {
 }
 
 
-export interface Recordset {
-}
+export interface Recordset {}
 
-export interface Output {
-}
+export interface Output {}
 
 export interface Info {
     recordsets: any[][];
@@ -51,10 +49,26 @@ export interface versusModel {
 }
 
 
-export interface infouser{
-    idpersona ?: number
-    idplataforma ?: string
-    nombre ?: string
-    plataforma ?: string
+export interface infouser {
+    idpersona ?: number,
+    idplataforma ?: string,
+    nombre ?: string,
+    plataforma ?: string,
     username ?: string
+}
+
+export interface inscripcion {
+    Lugar: String,
+    fecha: Date,
+    fkPersona: number,
+    fkTorneo: number,
+    idInscripcion: number,
+    status: boolean
+}
+export interface paquete{
+  Costo?: number,
+fecha?: Date,
+idToken?: number,
+imgPrecentacion?: string,
+numTokens?: number,
 }

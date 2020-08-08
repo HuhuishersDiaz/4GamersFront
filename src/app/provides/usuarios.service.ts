@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User, Login } from '../models/usuario';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class UsuariosService {
 
   user : User;
-   public  url = 'https://back4gamers.herokuapp.com/api/';
+   public  url = environment.apiUrl
   //public  url = 'http://localhost:3000/api/';
   constructor(private http : HttpClient) { }
   
