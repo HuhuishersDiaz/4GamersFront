@@ -72,3 +72,51 @@ idToken?: number,
 imgPrecentacion?: string,
 numTokens?: number,
 }
+
+
+export interface DetalleFase {
+    ok: boolean;
+    encuentro: Encuentro;
+    detalle: Detalle[];
+  }
+  
+export  interface Detalle {
+    idResEncuentro: number;
+    fkEncuentro: number;
+    fkInscripcion: number;
+    isWinner: boolean;
+    img?: any;
+    fecha: string;
+  }
+  
+ export  interface Encuentro {
+    IdEncuentro: number;
+    fkInscripcionAnfitrion: number;
+    fkInscripcionRival: number;
+    fkFase: number;
+    fecha: string;
+    Status: boolean;
+  }
+
+export interface FaseTorneo {
+    fkTorneo: string;
+    idFase: string;
+    imgFase: string;
+    numTokens: number;
+    activa?: boolean;
+    status?: string;
+  }
+
+  export interface encCamp {
+    idEncuentro ?: number;
+    fkCampeonato ?: number;
+    fkFase ?: number;
+    fkAnfitrion ?: number;
+    fkRival ?: number;
+    status ?: number;
+    fecha ?: Date;
+    nombreanfitrion ?: string;
+    imgAnfitrion ?: string;
+    nombrerival ?: string;
+    imgRival ?: string;
+}

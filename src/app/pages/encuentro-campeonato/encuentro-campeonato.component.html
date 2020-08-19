@@ -1,1 +1,140 @@
-<p>encuentro-campeonato works!</p>
+<!-- idpersona: 649251689, 
+    username: "armando.diaz", 
+    nombre: "Armando Diaz Diaz ",
+     idplataforma: "HuhuishersActi", 
+     plataforma: "Activicion" } -->
+
+     <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-8"
+                style="height: 380px; background-image: url(/assets/background_callofduty_versus.png);background-size: cover;">
+                <div class="row">
+                    <div class="text-center text-white" style="width: 45%; ">
+                        <div>
+                            <br>
+                            <img src="/assets/boton_editarfotos.png" width="100" alt="">
+                            <h5 class="font-weight-bold">{{ infoAnfitrion.username || '' }}</h5>
+                            <p class="font-weight-bold">ID {{ infoAnfitrion.plataforma|| ''}}</p>
+                            <p class="">{{ infoAnfitrion.idplataforma || ''}}</p>
+                        </div>
+                        <div class="contadores text-center">
+                            <img src="/assets/Grupo 579.png" alt="" width="200">
+                            <p class="centrado font-weight-bold">0</p>
+                        </div>
+                        <div class="contadores text-center">
+                            <img src="/assets/contador_nivel.png" alt="" width="200">
+                            <p class="centrado font-weight-bold"> Espartano</p>
+    
+                        </div>
+                    </div>
+                    <div style="width: 10%; height: 500px;" class="imagevs">
+                        <img src="assets/vs.svg" alt="" style="
+                        display: block;
+                        margin: auto;
+                        position: absolute;
+                        width: 300px;">
+                    </div>
+                    <div class="text-center text-white" style="width: 45%; ">
+                        <div>
+                            <br>
+                            <img src="/assets/boton_editarfotos.png" width="100" alt="">
+                            <h5 class="font-weight-bold">{{ infoRival.username || '' }}</h5>
+                            <p class="font-weight-bold">ID {{ infoRival.plataforma || ''}}</p>
+                            <p class="">{{ infoRival.idplataforma || ''  }}</p>
+                        </div>
+                        <div class="contadores text-center">
+                            <img src="/assets/Grupo 579.png" alt="" width="200">
+                            <p class="centrado font-weight-bold">0</p>
+                        </div>
+                        <div class="contadores text-center">
+                            <img src="/assets/contador_nivel.png" alt="" width="200">
+                            <p class="centrado font-weight-bold"> Espartano</p>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <div class="messaging">
+                    <div class="inbox_msg">
+                        <div class="mesgs">
+                            <div class="msg_history" #historiamMensajes>
+                                <div *ngFor="let item of mensajes">
+                                    <div class="incoming_msg" *ngIf="item.idPersona != idpersona">
+                                        <div class="received_msg">
+                                            <div class="received_withd_msg">
+                                                <p>{{ item.username }}:{{ item.message }}</p>
+                                                <span class="time_date"> </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="outgoing_msg" *ngIf="item.idPersona == idpersona">
+                                        <div class="sent_msg">
+                                            <p>{{ item.message }}</p>
+                                            <span class="time_date"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+                           
+                            <div class="type_msg">
+                                <br>
+                                <div class="">
+                                    <textarea type="text" class="write_msg" [(ngModel)]="mensaje" placeholder="Ingresa mensaje"
+                                        (keyup.enter)="enviarMensaje(mensaje)" style="width: 100%;" ></textarea>
+                                    <button class="btn btn-sm btn-danger" type="button" style="padding: 3px;float: right;" (click)="enviarMensaje(mensaje)">
+                                        Enviar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-12 text-white">
+               
+                <div *ngIf="!TenemosResultado" class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
+                    <label class="btn btn-outline-white">
+                        <input type="radio" name="options" id="option1" value="true" autocomplete="off"
+                            (click)="Reportar(true)" [(ngModel)]="victoria"> Victoria
+                    </label>
+                    <label class="btn  btn-outline-white">
+                        <input type="radio" name="options" id="option2" value="false" autocomplete="off"
+                            (click)="Reportar(false)" [(ngModel)]="victoria"> Derrota
+                    </label>
+                </div>
+                <div  *ngIf="!TenemosResultado" class="form-check col-md-6">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="terminos">
+                    <label class="form-check-label" for="exampleCheck1">
+                        Confirmo que el resultado marcado es el correcto. En
+                        caso de disputa entre usuarios, habra que subir pruebas.Los usuarios que envien reportes falsos
+                        seran baneados, tal y como se establece en los <a href=""> Términos de uso </a>y en las
+                        <a href=""> Reglas de juego </a>
+                    </label>
+                </div>
+                <button *ngIf="!TenemosResultado"  type="submit" class="btn btn-danger" (click)="Finalizar()"> Reportar </button>
+            
+                <div  *ngIf="Disputa">
+    
+                    <div class="form-group">
+                        <label for="">Subir Foto</label>
+                        <input type="file">
+                    </div>
+                <div class="form-group">
+                  <label for="">Descripcion</label>
+                  <textarea class="form-control" name="" id="" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-danger" (click)="subirDisputa()"> Subir Pruebas </button>
+    
+                </div>
+                <br><br><br><br>
+            </div>
+        </div>
+    </div>
+    
+    
+    

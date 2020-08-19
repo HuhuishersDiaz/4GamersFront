@@ -45,6 +45,7 @@ export class EncuentrotorneoComponent implements OnInit {
   idinscripcion: any;
 
   idinscripcionRival : string;
+    habilitarReporte: boolean = false;;
   constructor(private router : Router, private route : ActivatedRoute, private _socket : SocketsService, private global : GlobalService, private api : GamersService, private UI : UIGamersService) {
 
       this.idpersona = localStorage.getItem("idPersona");
@@ -206,6 +207,8 @@ export class EncuentrotorneoComponent implements OnInit {
         switch (RespuestaRival['info']) {
             case "Disputa":
                 alert("Tu encuentro se fue a disputa")
+                this.router.navigateByUrl(`/torneos/torneo/${this.idtorneo}/fases`)
+
                 break;
             case "Continua":
                 if(this.victoria== true){
@@ -340,5 +343,11 @@ export class EncuentrotorneoComponent implements OnInit {
 //           })
       })
   }
+
+  reportaen($event){
+    if($event.action == 'done'){
+       this.habilitarReporte =  true;
+    }
+}
 
 }

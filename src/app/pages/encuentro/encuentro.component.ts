@@ -3,7 +3,10 @@ import {
     OnInit,
     resolveForwardRef,
     ViewChild,
-    ElementRef
+    ElementRef,
+    HostBinding,
+    Output,
+    EventEmitter
 } from '@angular/core';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import {Observable, throwError} from 'rxjs';
@@ -15,12 +18,15 @@ import {UIGamersService} from 'src/app/services/ui-gamers.service';
 import {SocketsService} from 'src/app/services/sockets.service';
 import {infouser} from 'src/app/interfaces/interfaces';
 
+import * as alertify from 'alertifyjs'
+import swal from 'sweetalert';
+
 @Component({selector: 'app-encuentro', templateUrl: './encuentro.component.html', styleUrls: ['./encuentro.component.css']})
 
 export class EncuentroComponent implements OnInit {
 
     @ViewChild('historiamMensajes')private historiamMensajes : ElementRef;
-
+    @Output() navOut = new EventEmitter();
 
     order : any;
     public mensajes : any[] = [];
@@ -45,6 +51,9 @@ export class EncuentroComponent implements OnInit {
     };
     terminos;
     apuesta;
+    Disputa: boolean;
+    TenemosResultado : boolean = false;
+    habilitarReporte : boolean = false;
     constructor(private router : Router, private route : ActivatedRoute, private _socket : SocketsService, private global : GlobalService, private api : GamersService, private UI : UIGamersService) {
 
         this.idpersona = localStorage.getItem("idPersona") || null;
@@ -53,18 +62,19 @@ export class EncuentroComponent implements OnInit {
     }
 
 
-    ngOnInit() {
+    async ngOnInit() {
         this.idversus = this.route.snapshot.paramMap.get("id");
         this.username = localStorage.getItem("Username") || null;
 
-        this.ValidarVersus(this.idversus);
-
-        this.loadchat(this.idversus);
+        await this.ValidarVersus(this.idversus);
+        await this.ResVersus()
+        await this.loadchat(this.idversus);
 
         this._socket.onNewMessageVersus().subscribe(data => {
             this.mensajes.push(data);
             this.historiamMensajes.nativeElement.scrollTop = this.historiamMensajes.nativeElement.scrollHeight;
         });
+
 
     }
 
@@ -83,8 +93,7 @@ export class EncuentroComponent implements OnInit {
     }
 
     async ValidarVersus(idversus) {
-        await this.api.ValidarVersus(idversus).then((res) => {
-            // console.log(res);
+        await this.api.ValidarVersus(idversus).then((res) => { // console.log(res);
             if (res.ok) {
 
                 let infoUser = res.info.recordset[0];
@@ -94,12 +103,15 @@ export class EncuentroComponent implements OnInit {
                 this.apuesta = infoUser['Apuesta'];
                 // alert(res.info.recordset[0]);
                 if (this.idpersona == infoUser['fkAnfitrion'] || this.idpersona == infoUser['fkRival']) {
-                    alert("Bienvenido");
+                    swal("Bienvenido "+this.username, {
+                        icon: 'info',
+                        timer: 1000
+                    })
                     this.enviarMensaje("Se ha conectado")
 
                 } else {
                     this.router.navigateByUrl('/versus')
-                    alert('No perteneces a esta partida ');
+                    swal("No perteneces a esta partida")
                 }
 
                 this.api.idJuegopersona(idAnfitrion, this.idjuego).then(data => { // console.log(data.info.recordset[0]);
@@ -125,6 +137,16 @@ export class EncuentroComponent implements OnInit {
 
     }
 
+    async ResVersus(){
+        this.infoRival.idpersona
+        this.infoAnfitrion.idpersona
+
+        let resRival = await this.api.respuestarival(this.idversus,this.infoRival.idpersona).then(data => data).catch(err => err)
+        let resAnfitrion = await this.api.respuestarival(this.idversus,this.infoAnfitrion.idpersona).then(data => data).catch(err => err)
+        console.log(resRival);
+        console.log(resAnfitrion);
+
+    }
     async newMessage() {
 
         let mensaje = await this.enviarMensaje(this.mensaje)
@@ -133,15 +155,6 @@ export class EncuentroComponent implements OnInit {
 
     Reportar(info : boolean) {
         this.victoria = info;
-        // let mensaje;
-        // if (this.victoria) {
-        //     mensaje = "SE HA DECLARADO VICTORIOSO"
-        // } else {
-        //     mensaje = "SE HA DECLARADO PERDEDOR"
-        // }
-
-        // this.enviarMensaje(mensaje)
-
     }
 
     enviarMensaje(mensaje) {
@@ -189,7 +202,9 @@ export class EncuentroComponent implements OnInit {
 
             switch (RespuestaRival) {
                 case true:
-                    alert("Aqui marcmoas el resultado y guardamos las monedas en caso de que sea perdio")
+
+                    // alertify.alert(`Gracias por participar`);
+                    swal("Gracias por participar ");
 
                     this.api.marcarresultado(infoEncuentro).then(data => { // //console.log(data);
                     })
@@ -203,62 +218,79 @@ export class EncuentroComponent implements OnInit {
 
                     break;
                 case false:
-                    alert("Aqui mandamos el resultado pero esperamos el del rival para ver quien gano o si marco que gano ")
+                    swal("Esperando la respuesta del rival", {
+                        icon: 'info',
+                        timer: 2000
+                    })
                     this.api.marcarresultado(infoEncuentro).then(data => { // //console.log(data);
                     })
 
-                    this._socket.esperarrespuestaversus()
-                    .subscribe(data => { // {fkversus: "948516830", fkpersona: "649251689", iswinner: true, monto: 50, img: "img.jpg"}
+                    this._socket.esperarrespuestaversus().subscribe(data => { // {fkversus: "948516830", fkpersona: "649251689", iswinner: true, monto: 50, img: "img.jpg"}
                         if (data.iswinner == this.victoria) {
-                            alert("Tu encuentro se ha ido a disputa")
-                            infoEncuentro.iswinner = false;
-                            infoEncuentro.mensaje = "Disputa Versus"
-                             this.api.EstadodeCuenta(infoEncuentro).then(data => { // //console.log(data);
+                            swal("¡Tu encuentro se ha ido a disputa!", "Es necesario cargar pruebas ", {
+                                icon: 'info',
+                                timer: 2000
                             })
-                            this.router.navigateByUrl('/versus')
-
+                            infoEncuentro.iswinner = false;
+                            this.TenemosResultado = true;
+                            infoEncuentro.mensaje = "Disputa Versus"
+                            this.api.EstadodeCuenta(infoEncuentro).then(data => { // //console.log(data);
+                            })
+                            this.Disputa = true;
+                            this.Actualizar();
                         } else {
-                            alert("Felicidade has ganado " + data.monto + " tokens en un versus");
+                            swal("Felicidade has ganado " + this.apuesta + " tokens en un versus", {icon: 'success'})
                             infoEncuentro.mensaje = "Ganador Versus";
                             this.api.EstadodeCuenta(infoEncuentro).then(data => {})
+                            this.Actualizar();
                             this.router.navigateByUrl('/versus')
-
+                            
                         }
                     });
                     break;
                 case "Disputa":
-                    alert("Si es disputa le quitamos las monedas y marcamos el torneo como disputa");
+                    swal("¡Tu encuentro se ha ido a disputa!", "Es necesario cargar pruebas ", {
+                        icon: 'info',
+                        timer: 2000
+                    })
                     this.api.marcarresultado(infoEncuentro).then(data => { // console.log(data);
                     })
                     this._socket.enviarresultadoversus(infoEncuentro).then((data) => data).catch(err => err);
                     infoEncuentro.iswinner = false;
+                    this.TenemosResultado = true;
                     infoEncuentro.mensaje = "Disputa Versus"
                     this.api.EstadodeCuenta(infoEncuentro).then(data => { // console.log(data);
                     })
-                    this.router.navigateByUrl('/versus')
+                    this.Actualizar();
+                    this.Disputa = true;
+                    // this.router.navigateByUrl('/versus')
 
                     break;
                 case "Ganador":
                     this.api.marcarresultado(infoEncuentro).then(data => { // //console.log(data);
                     })
 
-                    alert("Felicidade has ganado " + this.apuesta + " tokens en un versus");
+                    swal("Felicidade has ganado " + this.apuesta + " tokens en un versus", {icon: 'success'})
                     infoEncuentro.mensaje = "Ganador Versus"
                     this.api.EstadodeCuenta(infoEncuentro).then(data => { // //console.log(data);
                     })
+                    this.Actualizar();
                     this.router.navigateByUrl('/versus')
 
                     break;
 
                 default:
-                    alert(RespuestaRival)
+                    // alert(RespuestaRival)
+                    swal(RespuestaRival, {
+                        icon: 'info',
+                        timer: 2000
+                    })
                     "break";
             }
 
 
         } else {
-            alert("Confirma los terminos y condiciones");
-
+            alertify.error("Confirma los terminos y condiciones")
         }
     }
 
@@ -304,4 +336,22 @@ export class EncuentroComponent implements OnInit {
     }
 
 
+    async subirDisputa(){
+        swal("Tu resultado ha sido enviado exitosamente! ","Espera nuestra respuesta", {icon: 'success'})
+        this.router.navigateByUrl('/versus')
+
+    }
+
+    name: string = 'Angular';
+
+    Actualizar() {
+        this.api.setUserLoggedIn(true);
+
+    }
+
+    reportaen($event){
+        if($event.action == 'done'){
+           this.habilitarReporte =  true;
+        }
+    }
 }

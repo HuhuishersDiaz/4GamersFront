@@ -9,7 +9,7 @@
         <div class="col-12 col-md-8 col-lg-8"
             style="height: 350px; background-image: url(/assets/background_callofduty_versus.png);background-size: cover;">
             <div class="row">
-                <div class="text-center text-white" style="width: 40%; ">
+                <div class="text-center text-white" style="width: 45%; ">
                     <div>
                         <br>
                         <img src="/assets/boton_editarfotos.png" width="100" alt="">
@@ -27,14 +27,14 @@
 
                     </div>
                 </div>
-                <div style="width: 20%; height: 500px;" class="imagevs">
+                <div style="width: 10%; height: 500px;" class="imagevs">
                     <img src="assets/vs.svg" alt="" style="
                     display: block;
                     margin: auto;
                     position: absolute;
                     width: 300px;">
                 </div>
-                <div class="text-center text-white" style="width: 40%; ">
+                <div class="text-center text-white" style="width: 45%; ">
                     <div>
                         <br>
                         <img src="/assets/boton_editarfotos.png" width="100" alt="">
@@ -77,11 +77,12 @@
                             </div>
                             <br>
                             <br>
+                            <br>
                         </div>
                        
                         <div class="type_msg">
                             <div class="input_msg_write">
-                                <input type="text" class="write_msg" [(ngModel)]="mensaje" placeholder="Type a message"
+                                <input type="text" class="write_msg" [(ngModel)]="mensaje" placeholder="Ingresa mensaje"
                                     (keyup.enter)="newMessage()"  />
                                 <button class="msg_send_btn" type="button" (click)="newMessage()"><i
                                         class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
@@ -92,9 +93,11 @@
             </div>
         </div>
 
+        <strong style="display: none;" ><countdown #cd [config]="{leftTime : 180}" (event)="reportaen($event)" ></countdown></strong>
+
         <div class="col-12 text-white">
-            <input type="file" /> Foto del Resultado
-            <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
+           
+            <div *ngIf="!TenemosResultado" class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
                 <label class="btn btn-primary">
                     <input type="radio" name="options" id="option1" value="true" autocomplete="off"
                         (click)="Reportar(true)" [(ngModel)]="victoria"> Victoria
@@ -104,7 +107,7 @@
                         (click)="Reportar(false)" [(ngModel)]="victoria"> Derrota
                 </label>
             </div>
-            <div class="form-check">
+            <div  *ngIf="!TenemosResultado" class="form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="terminos">
                 <label class="form-check-label" for="exampleCheck1">
                     Confirmo que el resultado marcado es el correcto. En
@@ -113,7 +116,22 @@
                     <a href=""> Reglas de juego </a>
                 </label>
             </div>
-            <button type="submit" class="btn btn-danger" (click)="Finalizar()"> Reportar </button>
+            <button *ngIf="habilitarReporte"  type="submit" class="btn btn-danger" (click)="Finalizar()"> Reportar </button>
+        
+            <div  *ngIf="Disputa">
+
+                <div class="form-group">
+                    <label for="">Subir Foto</label>
+                    <input type="file">
+                </div>
+            <div class="form-group">
+              <label for="">Descripcion</label>
+              <textarea class="form-control" name="" id="" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-danger" (click)="subirDisputa()"> Subir Pruebas </button>
+
+            </div>
+            <br><br><br><br>
         </div>
     </div>
 </div>

@@ -16,7 +16,7 @@ import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 
 import { HttpClientModule } from "@angular/common/http";
 
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsuariosService } from './provides/usuarios.service';
 import { GamersService } from './provides/GamersService';
 import { SocketsService } from './services/sockets.service';
@@ -35,6 +35,11 @@ import { CompraComponent } from './pages/compra/compra.component';
 import { RetiroComponent } from './pages/retiro/retiro.component';
 import { ValidarretiroComponent } from './pages/validarretiro/validarretiro.component';
 import { NgxOrgChartModule } from 'ngx-org-chart';
+
+import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
+import { CountdownModule } from 'ngx-countdown';
+
+
 
 @NgModule({
   declarations: [
@@ -57,16 +62,19 @@ import { NgxOrgChartModule } from 'ngx-org-chart';
     CheckoutComponent,
     CompraComponent,
     RetiroComponent,
-    ValidarretiroComponent
+    ValidarretiroComponent,
+    EncuentroCampeonatoComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     NgxLoadingModule.forRoot({}),
-    NgxOrgChartModule
-
+    NgxOrgChartModule,
+    NgxUsefulSwiperModule,
+    CountdownModule
   ],
   providers: [ 
     UsuariosService,

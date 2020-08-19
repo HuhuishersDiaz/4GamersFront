@@ -1,64 +1,73 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 text-center text-white">
-
-            <div>
-                <img src="/assets/boton_editarfotos.png" alt="">
-                <h1 class="font-weight-bold">4GAMERS ID</h1>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6  col-8 text-center text-white">
+            <div class="">
+                <div class="image-upload d-flex justify-content-center" >
+                    <label for="file-input">
+                        <img [src]="imageURL" alt="" width="250" height="250">
+                    </label>
+                    <input type="file" name="file" id="file-input" (change)="onFileSelect($event)" />
+                </div>
+                <h2 class="font-weight-bold">4GAMERS ID</h2>
                 <p class="font-weight-bold">{{user.username}}</p>
             </div>
             <div class="contadores text-center">
-                <img src="/assets/contador_tokens2.png" alt="">
+                <img src="/assets/contador_tokens2.png" alt="" usemap="#image-map" style="width: 100%;">
                 <p class="centrado font-weight-bold">{{ tokens }}</p>
+                <map name="image-map">
+                    <area routerLink="/tienda" coords="353,95,276,20" shape="rect">
+                </map>
             </div>
             <div class="contadores text-center">
-                <img src="/assets/Grupo 579.png" alt="">
+                <img src="/assets/Grupo 579.png" alt="" style="width: 100%;">
                 <p class="centrado font-weight-bold">0</p>
             </div>
             <div class="contadores text-center">
-                <img src="/assets/contador_nivel.png" alt="">
+                <img src="/assets/contador_nivel.png" alt="" style="width: 100%;">
                 <p class="centrado font-weight-bold"> Espartano</p>
 
             </div>
 
         </div>
-        <div class="col-md-6 text-white">
-            <div class="row">
-                <div class="col-4">
+        <div class="col-md-6 col-12 text-white text-center">
+            <div class="row ">
+                <div class="col-4 ">
                     <p>Partidas Jugadas</p>
                     <div class="container_marcador">
-                        <strong>0</strong>
+                        <strong>{{estadisticas.jugadas}}</strong>
                     </div>
                 </div>
                 <div class="col-4">
                     <p>Partidas Ganadas</p>
                     <div class="container_marcador">
-                        <strong>0</strong>
+                        <strong>{{estadisticas.ganadas}}</strong>
                     </div>
                 </div>
                 <div class="col-4">
                     <p>Partidas Perdidas</p>
                     <div class="container_marcador">
-                        <strong>0</strong>
+                        <strong>{{estadisticas.perdidas}}</strong>
                     </div>
                 </div>
 
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <br>
+                    <label for="">username</label><br>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Nombre"
-                            aria-label="Nombre" aria-describedby="basic-addon2" [value]="user.nombre">
+                            aria-label="Nombre" aria-describedby="basic-addon2" [value]="user.username">
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">
                                 <i class="fas fa-check"></i>
                             </span>
                         </div>
                     </div>
+                    <label for="">Email</label><br>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="email"
-                            aria-label="Email" aria-describedby="basic-addon2" [value]="user.email">
+                            aria-label="Email" aria-describedby="basic-addon2" [value]="user.correo">
                         <div class="input-group-append">
                             <span class="input-group-text" id="basic-addon2">
                                 <i class="fas fa-check"></i>
@@ -66,26 +75,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <br>
-                    <div class="input-group mb-3" *ngFor="let item of ids">
-                        <input type="text" class="form-control" placeholder="ID: {{item.nombre}}"
-                        [(ngModel)]="item.userid"
-                        > 
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">
-                                <i class="fas fa-check"></i>
-                            </span>
+                    <div *ngFor="let item of ids">
+                        <label for="">{{item.nombre}}</label><br>
+                        <div class="input-group mb-3" >
+                            <input type="text" class="form-control" placeholder="ID: {{item.nombre}}"
+                            [(ngModel)]="item.userid"
+                            > 
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
-            <button class="submit " class="btn btn-danger float-right" (click)="guardarids()"> 
+            <button class="submit " class="btn btn-danger" (click)="guardarids()"> 
                 Guardar
             </button>
-            <button class="submit " class="btn btn-danger float-right" (click)="cerrarsesion()"> 
+            <button class="submit " class="btn btn-danger" (click)="cerrarsesion()"> 
                 Cerrar Sesion
             </button>
         </div>

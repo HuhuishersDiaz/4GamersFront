@@ -21,15 +21,15 @@ export class GlobalService {
     localStorage.setItem("idPersona",userinfo._id.toString());
     localStorage.setItem("Nombre",userinfo.nombre.toString());
     localStorage.setItem("Username",userinfo.username.toString());
-    localStorage.setItem("Correo",userinfo.email.toString());
+    localStorage.setItem("Correo",userinfo.correo.toString());
   }
 
  public isUser() {
   
     var idpersona =  localStorage.getItem("idPersona");
-    console.log(idpersona);
+    // console.log(idpersona);
     if(idpersona == null){
-      console.log("La consulta es falsa ");
+      // console.log("La consulta es falsa ");
 
       return false;
     }

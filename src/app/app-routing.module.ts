@@ -16,6 +16,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { CompraComponent } from './pages/compra/compra.component';
 import { RetiroComponent } from './pages/retiro/retiro.component';
 import { ValidarretiroComponent } from './pages/validarretiro/validarretiro.component';
+import { EncuentroCampeonatoComponent } from './pages/encuentro-campeonato/encuentro-campeonato.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,9 @@ const routes: Routes = [
   },
   {
     path : 'campeonato/:id', component : CampeonatoComponent
+  },
+  {
+    path : 'campeonato/:idcampeonato/encuentro/:idEncuentro', component : EncuentroCampeonatoComponent
   },
   {
     path : 'tienda/checkout/:id', component : CheckoutComponent

@@ -1,11 +1,5 @@
-export class UserInfo{
+export class UserInfo {
 
-    constructor(
-            public _id : String ,
-            public nombre : String ,
-            public username : String ,
-            public email : String ,
-            public Tokens : number ,
-            ){
-    }
+    constructor(public _id : String, public nombre : String, public username : String, public correo : String, public Tokens : number, public img? : string) {}
 }
+

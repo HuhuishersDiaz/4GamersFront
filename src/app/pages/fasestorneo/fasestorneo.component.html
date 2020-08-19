@@ -1,6 +1,11 @@
-<div class="container">
-    <h5 class="text-white">EL TORNEO INICA EN : <strong>00:00:00:00</strong></h5>
-    
+<div class="container text-white">
+   <p *ngIf="dataTorneo.inicio > 0">LA PARTIDA INICIA EN:</p>
+   <p *ngIf="dataTorneo.inicio < 0">LA PARTIDA FINALIZA EN:</p>
+ 
+  <strong *ngIf="dataTorneo.inicio > 0" > 00:<countdown #cd [config]="{leftTime : dataTorneo.inicio}" (event)="inicio($event)" ></countdown></strong>
+  <strong *ngIf="dataTorneo.inicio < 0" > 00:<countdown #cd [config]="{leftTime : dataTorneo.fin}"  (event)="final($event)"></countdown></strong>
+  
+     
     <div *ngIf="fasesTorneo.length === 3; then tresfases else cuatrofases" class="row text-center text-white fasestorneo" >
       
     </div>
@@ -14,13 +19,13 @@
             <STRONG>{{item.numTokens}}</STRONG>
             </label>
 
-            <div *ngIf="!item.bloqueada; then buscar else bloqueado">
+            <div *ngIf="item.activa; then buscar else bloqueado">
             </div>
             <ng-template #buscar>
-               <button (click)="BuscarRival(item)" class="btn btn-sm btn-block btn-danger" style="width: 90%;margin: auto;">BUSCAR RIVAL</button>
+               <button (click)="BuscarRival(item)" class="btn btn-sm btn-block btn-danger" style="width: 90%;margin: auto;">{{ item.status }}</button>
             </ng-template>
             <ng-template #bloqueado>
-                <button (click)="BuscarRival(item)"  class="btn btn-sm btn-block btn-light disabled" style="width: 90%;margin: auto;">BLOQUEADO</button>
+                <button   class="btn btn-sm btn-block btn-light disabled" style="width: 90%;margin: auto;">{{ item.status }}</button>
             </ng-template>
          </div>
       </div>
@@ -33,18 +38,18 @@
             <p>PREMIO</p>
             <label>
             <img src="/assets/tokens.svg" class="logo" width="30" />
-            <STRONG>100</STRONG>
+            <STRONG>{{item.numTokens}}</STRONG>
             </label>
             <div>
                <!-- {{item.infoFase[0]}} -->
-               <div *ngIf="!item.bloqueada; then buscar else bloqueado">
+               <div *ngIf="item.activa; then buscar else bloqueado">
 
                </div>
                <ng-template #buscar>
                   <button (click)="BuscarRival(item)" class="btn btn-sm btn-block btn-danger" style="width: 90%;margin: auto;">BUSCAR RIVAL</button>
                </ng-template>
                <ng-template #bloqueado>
-                   <button (click)="BuscarRival(item)" class="btn btn-sm btn-block btn-light disabled" style="width: 90%;margin: auto;">BLOQUEADO</button>
+                   <button  class="btn btn-sm btn-block btn-light disabled" style="width: 90%;margin: auto;">BLOQUEADO</button>
                </ng-template>
            
             <!-- <p style="float: left;">Avanza gratis en : <strong>00:00:00</strong></p> -->
@@ -57,23 +62,10 @@
 
 
     <div class="row text-center text-white  ">
-       <!-- 
-       <div class="col-4">
-          <img src="../../../../assets/Rectángulo 59.png" alt="" style="width: 90%;">
-          <button class="btn btn-sm btn-block btn-danger" style="width: 90%;margin: auto;">BuscarRival</button>
-       </div>
-       <div class="col-4">
-          <img src="../../../../assets/Rectángulo 59.png" alt="" style="width: 90%;">
-           
-         
-         <ng-template #thenBlock>Content to render when condition is true.</ng-template>
-         <ng-template #elseBlock>Content to render when condition is false.</ng-template> 
-
-       </div> -->
        <div class="col-12">
           <br>
           <div class="progress">
-             <div class="progress-bar" role="progressbar" style="width: {{process}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+             <div class="progress-bar" role="progressbar" [ngStyle]="{'width': process+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
        </div>
     </div>

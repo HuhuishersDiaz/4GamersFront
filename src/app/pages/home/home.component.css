@@ -1,0 +1,204 @@
+.contDes > div {
+    width: 49%;
+    float: left;
+  }
+  
+  @media (max-width: 400px) {
+    .slider-pc{
+      display: none;
+    }
+    .contDes {
+      height: 40%;
+      margin-right: 10px;
+      padding: 0vw;
+    }
+    .cosEntrada {
+      font-size: 3vw !important;
+    }
+    .contDes > div .titulos {
+      font-size: 2.5vw;
+      white-space: nowrap;
+    }
+    .contDes > div strong {
+      font-size: 5vw;
+      white-space: nowrap;
+  
+    }
+    .contDes > button {
+      font-size: 10px;
+      padding: 2px;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+    .lugares {
+      font-size: 8px !important;
+      line-height: 7px  !important;
+    }
+    .contDes img {
+      width: 3vw;
+    }
+    .contDes > div .ir {
+      font-size: 2vw;
+      padding: 2px;
+      width: 100%;
+    }
+    .contDes > div > button {
+      font-size: 2vw;
+      padding: 0px;
+      margin-top: 0px;
+      background-color: rgb(50, 76, 109);
+      width: 50%; 
+      padding: 0px; 
+      font-weight: bold;
+    }
+  
+    .swiper-slide{
+      width: 100px !important;
+      margin-right: 15px !important;
+    }
+
+  }
+  @media (min-width: 401px ) and (max-width : 768px){
+      .cosEntrada {
+          font-size: 2.5vw !important;
+        }
+        .contDes {
+          height: 40%;
+          margin-right: 10px;
+          padding: 1vw;
+        }
+        .contDes > div .titulos {
+          font-size: 2.5vw;
+          white-space: nowrap;
+        }
+        .contDes > div strong {
+          font-size: 4vw;
+        }
+        .contDes > div .ir {
+          font-size: 2vw;
+          padding: 2px;
+          width: 20vw;
+        }
+        .reglas {
+          font-size: 2vw;
+          padding: 0px;
+          margin-top: 0px;
+          background-color: rgb(50, 76, 109) !important   ;
+          width: 50%; 
+          padding: 0px; 
+          font-weight: bold;
+        }
+      
+        .contDes .lugares {
+          font-size: 2vw;
+          line-height: 15px;
+        }
+        .contDes img {
+          width: 3vw;
+        }
+        .slider-pc{
+          display: none;
+        }
+      
+  }
+  
+  @media (min-width: 768px) and (max-width: 1200px) {
+ 
+    .slider-movil{
+      display: none;
+    }
+    .cosEntrada {
+      font-size: 1.5vw !important;
+    }
+    .contDes {
+      height: 40%;
+      margin-right: 10px;
+      padding: 1vw;
+    }
+    .contDes > div .titulos {
+      font-size: 1.3vw;
+      white-space: nowrap;
+    }
+    .contDes > div strong {
+      font-size: 2.2vw;
+    }
+    .contDes > div .ir {
+      font-size: 1vw;
+      padding: 2px;
+      width: 10vw;
+    }
+    .reglas {
+      font-size: 1vw;
+      padding: 0px;
+      margin-top: 0px;
+      background-color: rgb(50, 76, 109);
+      width: 50%; 
+      padding: 0px; 
+      font-weight: bold;
+    }
+  
+    .contDes .lugares {
+      font-size: 1vw;
+      line-height: 10px;
+    }
+    .contDes img {
+      width: 1.5vw;
+    }
+  }
+
+  @media (min-width: 1200px) { 
+    .slider-movil{
+      display: none;
+    }
+      .cosEntrada {
+          font-size: 1.5vw !important;
+        }
+        .contDes {
+          height: 40%;
+          margin-right: 10px;
+          padding: 1vw;
+        }
+        .contDes > div .titulos {
+          font-size: 1.3vw;
+          white-space: nowrap;
+        }
+        .contDes > div strong {
+          font-size: 2.2vw;
+        }
+        .contDes > div .ir {
+          font-size: 1vw;
+          padding: 5px;
+          width: 10vw;
+        }
+        .reglas {
+          font-size: 1vw;
+          padding: 0px;
+          margin-top: 0px;
+          background-color: rgb(50, 76, 109) !important   ;
+          width: 50%; 
+          padding: 0px; 
+          font-weight: bold;
+        }
+      
+        .contDes .lugares {
+          font-size: 1vw;
+          line-height: 15px;
+        }
+        .contDes img {
+          width: 1.5vw;
+        }
+
+
+        .videosPromosion{
+            padding: 100px;
+        }
+  }
+
+
+  
+
+  /* .swiper-slide{
+    width: 175px !important;
+    margin-right: 15px !important;
+  } */

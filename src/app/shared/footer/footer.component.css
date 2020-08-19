@@ -1,0 +1,49 @@
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 991px) {
+    .page-footer{
+        display: none;
+    }
+}
+@media only screen and (min-width: 992px) {
+    #footer-bar{
+        display: none
+    }
+}
+
+
+#footer-bar a svg {
+    margin-top: -8px;
+}
+
+#footer-bar a span {
+    position: relative;
+    z-index: 2;
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    margin-top: -6px;
+    opacity: .7;
+    font-family: roboto,sans-serif!important;
+}
+
+/* .active {
+    background-color: #666;
+    /* color: linear-gradient(181deg, rgba(223,203,117,1) 0%, rgba(191,160,82,1) 100%) !important; */
+  /* } */ */
+.active > svg{
+    fill: gray !important;
+}
+.active  svg{
+    fill: gray !important;
+}
+.active spam{
+    color: red !important;
+}
+.active > spam{
+    color: red !important;
+}
+/* 
+  .gradient-text {
+    background-image: linear-gradient(45deg, #f3ec78, #af4261);
+    }
+   */

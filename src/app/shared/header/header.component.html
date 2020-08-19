@@ -9,11 +9,17 @@
 
   <img src="assets/logo.svg" alt="" class="iconMovil" style="margin: auto;" width="80" routerLink="/home">
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
-    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
+  <!-- <button class="navbar-toggler" >
+      <img src="../../../assets/contador_tokens.svg" style="right: 19px; width: 147px;">
+      <p>{{tokens}}</p>
+  </button> -->
+  <a class="navbar-toggler" style="width: 100px;" *ngIf="isLoggin">
+    <img src="../../../assets/contador_tokens.svg" style="position: fixed;right: 19px; width: 113px;z-index: -1;">
+    <div class="nav-link " routerLink="/tienda" style="font-weight: bold; padding: .5rem 0.3rem;"><p>{{tokens}}&nbsp;&nbsp;</p></div>
+  </a>
+  <a class="navbar-toggler"  routerLink="/login" style="width: 100px;" *ngIf="!isLoggin">
+    LOGIN
+  </a>
   <!--  Use flexbox utility classes to change how the child elements are justified  -->
   <div class="collapse navbar-collapse justify-content-between" id="navbarToggle">
 

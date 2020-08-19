@@ -1,98 +1,169 @@
-<div class="container">
-    <div class="row">
-        <div class="col-8">
-            <div class="line-divider">
-                <p>ENCUENTRA TU RIVAL </p>
-            </div>
-            <div class="row">
-                <div *ngFor="let versus of allversus" class="col-6 col-sm-6 col-md-3 col-lg-3">
-                    <div class="card">
-                        <img class="card-img" src="assets/{{versus.imglogo}}" alt="">
-                        <div class="card-body">
-                            <p class="card-text">
-                                {{versus.username}}
-                            </p>
-                            <p class="card-text">
-                                Apuesta: {{versus.apuesta}}
-                            </p>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-danger btn-sm" (click)="AceptarVersus(versus)"> Entrar </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div *ngFor="let versus of listVersus" class="col-6 col-sm-6 col-md-3 col-lg-3">
-                    <div class="card">
-                        <img class="card-img" src="assets/{{versus.imglogo}}" alt="">
-                        <div class="card-body">
-                            <p class="card-text">
-                                {{versus.username}}
-                            </p>
-                            <p class="card-text">
-                                Apuesta: {{versus.apuesta}}
-                            </p>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-danger btn-sm" (click)="AceptarVersus(versus)"> Entrar </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="line-divider">
-                <p>PENDIENTES</p>
-            </div>
-            <div class="card" *ngFor="let item of misversus">
-                <div class="card-body">
-                    <h3>{{ item.juego }}</h3>
-                    <p>Apuesta {{item.apuesta}} </p>
-                </div>
-                <div class="card-footer" style="float:rigth" >
-                    <button class="btn btn-sm btn-danger" routerLink="/versus/encuentro/{{item.idversus}}"> Entrar</button>
-                </div>
-            </div>
-            <hr>
-        </div>
+<div class="line-divider">
+   <p>MIS VERSUS</p>
+ </div>
+ <div class="container">
+     <div  *ngFor="let item of misversus ">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+         <strong>{{item.Nombre}} </strong>  Apuesta : {{ item .Apuesta}}
+         <button type="button" class="btn btn-sm btn-danger float-right" style="position: absolute; top: 0; right: 0;"
+          (click)="CancelarVersus(item)">
+           Cancelar
+         </button>
+       </div>
+     </div>
 
     </div>
 
+
+<div class="line-divider">
+  <p>ENCUENTRA TU RIVAL</p>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <div class="row">
+        <div *ngFor="let versus of allversus" class="col-6 col-sm-6 col-md-3 col-lg-3" >
+          <div class="card">
+            <div class="card-img" style="background: rgba(0, 0, 0, 0.8);">
+              <img [src]="'http://4gamers.xplainerservicios.com/content/juegos/' +  versus.imglogo " style="width: 100%;" />
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+                {{ versus.username }}
+              </p>
+              <p class="card-text">Apuesta: {{ versus.apuesta }}</p>
+            </div>
+            <div class="card-footer">
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="AceptarVersus(versus)"
+              >
+                Entrar
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          *ngFor="let versus of listVersus"
+          class="col-6 col-sm-6 col-md-3 col-lg-3"
+        >
+          <div class="card">
+            <img
+            style="background: rgba(0, 0, 0,0.8);"
+              class="card-img"
+              [src]="
+                'http://4gamers.xplainerservicios.com/content/juegos/' +
+                versus.imglogo
+              "
+              alt=""
+            />
+            <div class="card-body">
+              <p class="card-text">
+                {{ versus.username }}
+              </p>
+              <p class="card-text">Apuesta: {{ versus.apuesta }}</p>
+            </div>
+            <div class="card-footer">
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="AceptarVersus(versus)"
+              >
+                Entrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-12 col-md-4">
+          <div class="line-divider">
+             <p>PENDIENTES</p>
+          </div>
+          <div class="card" *ngFor="let item of misversus">
+            <img [src]="'http://4gamers.xplainerservicios.com/content/juegos/'+item.imgLogo" class="img-responsive" width="100%" />
+            <div class="card-body">
+                <p>Apuesta {{item.apuesta}} </p>
+             </div>
+             <div class="card-footer" style="float:rigth" >
+                <button class="btn btn-sm btn-danger" routerLink="/versus/encuentro/{{item.idversus}}"> Entrar</button>
+                <button class="btn btn-sm btn-danger" (click)="CancelarVersus(item)"> Cancelar</button>
+             </div>
+          </div>
+          <hr>
+       </div> -->
+  </div>
 </div>
 <div class="line-divider">
-    <p>SELECCIONA TU JUEGO</p>
+  <p>SELECCIONA TU JUEGO</p>
 </div>
-<div class="container">
-    <div class="row inner-scroll " style="align-items:center">
-        <div *ngFor="let item of juegos" class="col-4 col-sm-3 col-md-3 col-lg-3">
-
-            <div class="gallery-card">
-                <div class="gallery-card-body">
-                    <label class="block-check">
-                        <img src="assets/{{item.imgLogo}}" class="img-responsive" />
-                        <input type="radio" name="game" [value]="item" [(ngModel)]="versus.juego" />
-                        <span class="checkmark"></span>
-                    </label>
-
-                </div>
-            </div>
-        </div>
+<div style="width: 100%;" class="contenedor">
+  <div *ngFor="let item of juegos" class="center">
+    <div class="gallery-card" style="margin: auto;">
+      <div
+        class="gallery-card-body"
+        [ngClass]="{ CheckActive: item.activa === true }"
+      >
+        <label class="block-check">
+          <img
+            [src]="
+              'http://4gamers.xplainerservicios.com/content/juegos/' +
+              item.imgLogo
+            "
+            class="img-responsive"
+            width="100%"
+          />
+          <input
+            type="radio"
+            name="game"
+            (change)="onChange(item)"
+            [value]="item"
+            [(ngModel)]="versus.juego"
+          />
+        </label>
+      </div>
     </div>
+  </div>
 </div>
+<hr />
 <div class="container text-center text-white">
-    <h3>CANTIDAD APOSTAR</h3>
-
-    <div class="container_marcador">
-        <img src="../../../assets/Grupo 585.png" alt="" srcset="" style="width: 80%;">
-        <div class="centrado row" style="width: 100%;">
-            <a style="width:100%" class="col-3" (click)="CantidadApostar(-1)">&nbsp;&nbsp;&nbsp;&nbsp;</a>
-            <input style="width:50%" type="number" s class="col-8 text-white" [(ngModel)]="versus.apuesta"
-                class="inputTokens" />
-            <a style="width:100%" class="col-2" (click)="CantidadApostar(1)">&nbsp;&nbsp;&nbsp;&nbsp;</a>
-        </div>
-    </div>
-    <br>
-    <button class="btn btn-danger" (click)="CrearVersus()" *ngIf="misversus">JUGAR</button>
+  <p style="size: 16px; font-weight: initial;">CANTIDAD A APOSTAR</p>
+  <br />
+  <div class="container_marcador">
+    <img
+      src="../../../assets/barra_contador.png"
+      alt=""
+      srcset=""
+      usemap="#image-map"
+    />
+    <input
+      style="width: 15%;"
+      type="text"
+      class="text-white"
+      [(ngModel)]="versus.apuesta"
+      class="inputTokens centrado"
+    />
+    <map name="image-map">
+      <area
+        (click)="CantidadApostar(-1)"
+        href="javascript:void(0)"
+        coords="0,1,31,29"
+        shape="rect"
+      />
+      <area
+        (click)="CantidadApostar(1)"
+        href="javascript:void(0)"
+        coords="195,27,167,0"
+        shape="rect"
+      />
+    </map>
+  </div>
+  <br /><br />
+  <button
+    class="btn btn-danger"
+    style="width: 300px; font-weight: initial; font-size: 19px;"
+    (click)="CrearVersus()"
+    *ngIf="misversus"
+  >
+    JUGAR
+  </button>
 </div>
-
-

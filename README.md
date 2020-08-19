@@ -25,3 +25,25 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+
+
+# Observaciones 
+# Versus Validaciones
+###  Crear 12 torneos  cada uno se activa en horas diferentes 
+
+## Incribirte al torneo y esperar a que pueda iniciar 
+
+## Regresar monedas del torneo sino se completa los participantes 
+ 
+## reportar 3 minutos despues de que haya iniciado el Encuentro
+
+## Checar campeonato
+
+## 
+
+
+
+
+

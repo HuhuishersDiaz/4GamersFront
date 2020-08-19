@@ -1,43 +1,42 @@
-<!-- <div class="line-divider">
-  <p>OFERTAS</p>
-</div> -->
-<div class="line-divider">
-  <p>TOKENS</p>
-</div>
-<div class="container">
-  <div class="row">
 
-     <div class="col-md-3 col-6 col-sm-3 col-lg-3 col-xl-2" *ngFor="let paquete of tokens">
-        <div class="card  text-white " style="width: 100% ; height:auto;background: transparent !important;" (click)="Comprar(paquete)">
-           <img class="card-img" src="/assets/back_gris.png" alt="Card image">
-           <div class="card-img-overlay text-center" style="padding: 0 !important">
-              <label style="height: 0px;">
-                <img src="/assets/tokens.svg" class="logo" width="30" />
-                <STRONG>{{paquete.numTokens}}</STRONG>
-              </label>
-              <img src="/assets/moneda1.png" alt="" style="width: 100%;"> 
-              <strong>${{paquete.Costo}}</strong>
-           </div>
-        </div>
-        <hr>
-     </div>
-
-  </div>
-</div>
-<div class="line-divider">
-  <p>TIENDA</p>
-</div>
+<div class="line-divider"> <p>OFERTAS</p></div>
 <div class="container">
-  <div class="row">
-     <div class="col-md-3 col-6 col-sm-3 col-lg-3 col-xl-2">
-        <div class="card  text-white " style="width: 100% ; height:auto;background: transparent !important;" (click)="Solicitar(123)">
-           <img class="card-img" src="/assets/back_gris.png" alt="Card image">
-           <div class="card-img-overlay text-center" style="padding: 0 !important">
-              <h5 class="card-title">Card title</h5>
-              <img src="assets/TARJETA.png" alt="" style="width: 100%;">
-              <strong>$99</strong>
-           </div>
-        </div>
-     </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-8 col-12 col-sm-12 ">
+     <img src="assets/banner_promo-01.png" alt="" class="img-responsive" style="width: 100%;">
+    </div>
   </div>
+
 </div>
+<div class="line-divider"> <p>TOKENS</p> </div>
+   <div class="container">
+      <div class="row d-flex justify-content-center">
+         <div class="col-md-3 col-4 col-sm-3 col-lg-3 col-xl-2 center-block"  *ngFor="let paquete of tokens">
+            <div
+               class="card text-white"
+               style="width: 100%; height: auto; background: transparent !important;"
+               (click)="Comprar(paquete)"
+               >
+               <img class="card-img" [src]="'http://4gamers.xplainerservicios.com/content/Tienda/' + paquete.imgPrecentacion"/>
+            </div>
+            <hr />
+         </div>
+      </div>
+   </div>
+   <div class="line-divider">
+      <p>TIENDA</p>
+   </div>
+   <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-3 col-4 col-sm-3 col-lg-3 col-xl-2 center-block"  *ngFor="let paquete of tokens">
+          <div
+             class="card text-white"
+             style="width: 100%; height: auto; background: transparent !important;"
+             (click)="Solicitar(paquete)"
+             >
+             <img class="card-img" src="/assets/tarjeta_psplus-01.png"/>
+          </div>
+          <hr />
+        </div>
+      </div>
+   </div>

@@ -175,5 +175,25 @@ export class SocketsService {
         })
     }
 
+    // ada
+    // ada
+    // Apartado de campeonatos
+    // ada
+    // ada
+    
+    onNewMessageCampeonato() {
+        return Observable.create(observer => {
+            this.socket.on('MessageCampeonato', data => {
+                if (data == null) {
+                    return false;
+                }
+                // console.log(data);
+                observer.next(data);
+            });
+        });
+    }
+    async chatCampeonato(data) { // console.log(data);
+        await this.socket.emit('chatCampeonato', data);
+}
 
 }
