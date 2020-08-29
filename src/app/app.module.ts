@@ -39,6 +39,7 @@ import { NgxOrgChartModule } from 'ngx-org-chart';
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { CountdownModule } from 'ngx-countdown';
 
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { CountdownModule } from 'ngx-countdown';
     NgxLoadingModule.forRoot({}),
     NgxOrgChartModule,
     NgxUsefulSwiperModule,
-    CountdownModule
+    CountdownModule,
+    ModalModule.forRoot()
   ],
   providers: [ 
     UsuariosService,

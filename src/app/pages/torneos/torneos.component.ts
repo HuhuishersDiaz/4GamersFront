@@ -124,12 +124,12 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
         let Inscripcion ;
 
         await this.api.getInscripcionCampeonatos(this.idpersona,item.idCampeonato).then((data:any)=>{
-            console.log(data)
+            // console.log(data)
             if(data.rowsAffected[0] > 0 ){
                 Inscripcion = data.recordset[0];
             }
         })
-        console.log(Inscripcion)
+        // console.log(Inscripcion)
         if(Inscripcion){
             if(Inscripcion.status == 1){
                 swal("Estas de vuelta","Bienvenido")
@@ -148,17 +148,13 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
                 }
             
                 this.api.EstadodeCuenta(infoOperacion).then((data : any)=>{
-
                     if(data.info.rowsAffected[0] == 1){
                         this.api.posInscripcionCampeonato(dataInscripcion).then(async (data: any)  => {
                             if(data.info == true){
                                 swal("Operacion exitosa","Bienvenido",{
                                     icon : 'success'
                                 })
-                            await this.api.BuscarRival(dataInscripcion).then(data=>{
-                                    console.log(data);
-                                });
-                                alert("Estamos BuscandoRival")
+                            
                              this.router.navigateByUrl("/campeonato/"+ item.idCampeonato)
                             }
                         })  

@@ -61,17 +61,27 @@
             <div style="border: 4px solid;height: 95%;">
               <div class="contDes">
                 <div>
-                  <p class="titulos">COSTO DE ENTRADA:</p>
-                  <label style="position: absolute;">
-                    <img src="/assets/tokens.svg" class="logo"  />
-                    <strong class="cosEntrada">{{ item.CosEntrada }}</strong>
-                  </label><br>
+                  <p class="titulos">COSTO DE ENTRADA: <br>
+                    <label style="position: absolute;">
+                      <img src="/assets/tokens.svg" class="logo"  />
+                      <strong class="cosEntrada">{{ item.CosEntrada }}</strong>
+                    </label><br>
+                  </p>
+                  
                 </div>
                 <div >
-                  <p class="titulos">TORNEO INICIA EN :</p>
-                  <strong>    
-                      00:<countdown #cd [config]="{leftTime : item.inicio}" ></countdown>
+                  <p *ngIf="item.inicio > 2" class="titulos"> TORNEO INICIA EN : <br> 
+                    <strong>    
+                      00:<countdown #cd [config]="{leftTime : item.inicio}" (event)="handleEvent($event)"></countdown>
                   </strong>
+                  </p>
+                  <p *ngIf="item.inicio < 2" class="titulos"> TORNEO FINALIZA EN : <br>
+                    <strong *ngIf="item.inicio < 2">
+                      00:<countdown #cd [config]="{leftTime : item.fin}" (event)="handleEvent($event)"></countdown>
+                    </strong>
+                  </p>
+                  
+                  
                   
                 </div>
               </div>
@@ -95,7 +105,7 @@
 </div>
 <div>
   <div class="line-divider"><p>TIENDA</p></div>
-  <div class="container-fluid slider-pc">
+  <div class="container slider-pc">
     <div class="row d-flex justify-content-center">
       <div
         class="col-md-3 col-4 col-sm-3 col-lg-3 col-xl-2 center-block"
@@ -145,26 +155,25 @@
 >
   <div class="line-divider" style="height: 4px;"></div>
   <div class="container-fluid videosPromosion" >
-    <div class="row">
-      <div class="col-md-6 col-6">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6  col col-6 col-xl-4">
         <br /><br />
         <div class="card text-left" style="background: transparent;" (click)="abrirVideo()">
           <img class="card-img" src="/assets/placeholder.png" alt="" />
           <div class="card-img-overlay text-center text-white" style="padding: 0 !important;">
-            <br>
-            <p style="font-size: 4.5vw;">¿COMO FUNCIONA <br>4GAMERS?</p>
+            <p style="font-size: 3vw; margin-top: 20%;">¿COMO FUNCIONA <br>4GAMERS?</p>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-6">
+      <div class="col-md-6 col-6 col-xl-4">
         <br /><br />
         <div class="card text-left" style="background: transparent;" (click)="abrirVideo()">
           <img class="card-img" src="/assets/placeholder.png" alt="" />
           <div class="card-img-overlay text-center text-white" style="padding: 0 !important;">
-            <br>
-            <p style="font-size: 4.5vw;">¿COMO COBRAR <br>TU DINERO?</p>
+            <p style="font-size: 3vw;margin-top: 20%;">¿COMO COBRAR <br>TU DINERO?</p>
           </div>
         </div>
+        <br>
         <button (click)="cobrar()" class="btn btn-sm bg4gamers float-right">
           COBRAR
         </button>

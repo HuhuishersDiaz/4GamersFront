@@ -97,6 +97,14 @@ export class GamersService {
             this.url
         }versus/misversus/${idpersona}`).toPromise()
     }
+
+    async acumuladoVersus(idpersona) {
+        return await this.http.get(`${
+            this.url
+        }users/acumuladoversus/${idpersona}`).toPromise()
+    }
+
+
     async Pendientes(idpersona) {
         return await this.http.get(`${
             this.url
@@ -184,6 +192,15 @@ export class GamersService {
 
     } 
 
+    async cancelarTorneo(data) {
+        let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
+
+        let options = {
+            headers: httpHeaders
+        };
+        return await this.http.post(`${this.url}torneos/cancelar`,data,options).toPromise()
+    } 
+
     async validarEncuentro(idencuentro){
         return await this.http.get(`${this.url}encuentros/infoEncuentro/${idencuentro}`).toPromise()
 
@@ -248,11 +265,9 @@ export class GamersService {
         return await this.http.get(`${this.url}users/estadisticas/${this.idPersona}`).toPromise()
     }
 
-    async CancelarVersus(idversus){
+    async CancelarVersus(data){
         // console.log(idAnfitrion);
-        let data = {
-            idversus : idversus,
-        }
+       
         
         let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
 
@@ -262,7 +277,18 @@ export class GamersService {
 
         return await this.http.post(this.url + "versus/cancelarversus", data, options).toPromise()
     }
+    async CancelarTodosVersus(data){
+        // console.log(idAnfitrion);
 
+        
+        let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
+
+        let options = {
+            headers: httpHeaders
+        };
+
+        return await this.http.post(this.url + "versus/cancelartodos", data, options).toPromise()
+    }
     async getCampeonatos() {
         return await this.http.get(`${this.url}campeonato`).toPromise()
     }
@@ -280,6 +306,14 @@ export class GamersService {
     }
     async detallefasecampeonato(fkcampeonato : string ,fkfase : string  ) {
         return await this.http.get(`${this.url}campeonato/fases/${fkcampeonato}/${fkfase}`).toPromise()
+    }
+
+    async encuentrosFaseCampeonato(fkcampeonato : string ,fkfase : string  ){
+        return await this.http.get(`${this.url}campeonato/encuentrosFase/${fkcampeonato}/${fkfase}`).toPromise()
+    }
+    
+    async ganadorcampeonato(fkcampeonato : string) {
+        return await this.http.get(`${this.url}campeonato/ganador/${fkcampeonato}`).toPromise()
     }
     async EncuentroActivo(idPersona : string ) {
         return await this.http.get(`${this.url}campeonato/encuentroActivo/${idPersona}`).toPromise()
@@ -336,8 +370,7 @@ export class GamersService {
 
         return await this.http.post(this.url + "campeonato/reportarresultado", data, options).toPromise()
     }
-
-    async BuscarRival(data : any){
+    async guardarGanadorfase(data){
         // console.log(idAnfitrion);
         
         let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
@@ -346,7 +379,12 @@ export class GamersService {
             headers: httpHeaders
         };
 
-        return await this.http.post(this.url + "campeonato/match", data, options).toPromise()
+        return await this.http.post(this.url + "campeonato/ganadorfase", data, options).toPromise()
+    }
+
+    async faseactivacampeonato(idcampeonato : string , idpersona : any){
+        // console.log(idAnfitrion);
+        return await this.http.get(`${this.url}campeonato/faseactiva/${idcampeonato}/${idpersona}`).toPromise()
     }
 
 

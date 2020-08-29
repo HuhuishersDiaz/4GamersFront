@@ -18,7 +18,10 @@ export class SocketsService {
     private url = environment.socketURL;
     private socket;
     public ListVersus = [];
+    idPersona: string;
     constructor(private UI : UIGamersService, private route : Router, private api : GamersService) {
+        this.idPersona = localStorage.getItem("idPersona");
+
         this.socket = io(this.url);
 
         this.socket.on('Confirmajugarversus', (infoRival) => { // console.log(infoRival);
@@ -27,6 +30,10 @@ export class SocketsService {
                 alertify.success('Ok')
 
                 this.respuestaconfirmacionversus(infoRival, true);
+                this.api.CancelarTodosVersus({idpersona : this.idPersona}).then(data=>{
+                    console.log(data);
+                        
+                })
                 this.api.AgregarRival(infoRival).then(data => {
                     if (data['info'].rowsAffected[0] == 1) {
                         this.route.navigateByUrl('/versus/encuentro/' + infoRival.idversus)
@@ -194,6 +201,22 @@ export class SocketsService {
     }
     async chatCampeonato(data) { // console.log(data);
         await this.socket.emit('chatCampeonato', data);
-}
+    }
+    async EsperarRivalCampeonato(data) { // console.log(data);
+        return new Promise(async (resolve)=>{
+            this.socket.emit('buscarRivalCampeonato',data, (_respuesta : any) => {
+                // console.log(_respuesta);
+                resolve(_respuesta);
+            });
+        })
+    }
+    async EsperarResultadoRivalCampeonato  (data) { // console.log(data);
+        return new Promise(async (resolve)=>{
+             this.socket.emit('EsperarResultadoCampeonato',data, (_respuesta : any) => {
+                // console.log(_respuesta);
+                resolve(_respuesta);
+            });
+        })
+    }
 
 }

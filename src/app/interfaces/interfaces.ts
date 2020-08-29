@@ -54,7 +54,8 @@ export interface infouser {
     idplataforma ?: string,
     nombre ?: string,
     plataforma ?: string,
-    username ?: string
+    username ?: string,
+    imguser ? : string
 }
 
 export interface inscripcion {

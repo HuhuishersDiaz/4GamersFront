@@ -42,9 +42,10 @@ export class PerfilComponent implements OnInit {
     ]
     tokens : number = 0;
     imageURL: string = "/assets/boton_editarfotos.png";
-
+    rango : string ;
+    ptsRanngo : number  = 0;
     estadisticas : any ={
-        ganadas : 0,perdidas : 0,jugadas : 0
+        ganadas : 0,perdidas : 0,jugadas : 0 ,copas : 0 ,ptsRanngo : 0 ,
     }
 
     // router.post('/insertIdsPlataforma', async (req, res, next) => {
@@ -82,6 +83,19 @@ export class PerfilComponent implements OnInit {
         await this.InfoUsuario()
         await this.cargarTokens();
         await this.Estadisticar();
+        this.ptsRanngo = this.estadisticas.ptsRanngo[0].ptsRango || 0;
+        if(this.ptsRanngo >= 0 && this.ptsRanngo < 100 ){
+            this.rango = "MILICIA"
+        }else  if(this.ptsRanngo > 101 && this.ptsRanngo < 400 ){
+            this.rango = "LEGIONARIO";
+        } else if(this.ptsRanngo > 401 && this.ptsRanngo < 900 ){
+            this.rango = "CENTURIÓN";
+        }else if(this.ptsRanngo > 900){
+            this.rango = "ESPARTANO";
+        }
+        console.log(this.ptsRanngo)
+
+        // if(this.estadisticas.pts)
         // console.log(this.user);
         
         if(this.user.img != null){

@@ -5,6 +5,7 @@
 <div class="container-fluid panels-card">
   <div class="row">
     <div class="col-md-6 pt-4" *ngFor="let item of listCampeonatos">
+ 
       <div class="card text-white" style="width: 100%; height: auto;">
         <img
           class="card-img"
@@ -27,17 +28,27 @@
             <div style="border: 4px solid;height: 95%;">
               <div class="contDes">
                 <div>
-                  <p class="titulos">COSTO DE ENTRADA:</p>
-                  <label style="position: absolute;">
-                    <img src="/assets/tokens.svg" class="logo"  />
-                    <strong class="cosEntrada">{{ item.cosEntrada }}</strong>
-                  </label><br>
+                  <p class="titulos">COSTO DE ENTRADA: <br>
+                    <label style="position: absolute;">
+                      <img src="/assets/tokens.svg" class="logo"  />
+                      <strong class="cosEntrada">{{ item.cosEntrada }}</strong>
+                    </label><br>
+                  </p>
+                  
                 </div>
                 <div >
-                  <p class="titulos">TORNEO INICIA EN :</p>
-                  <strong>    
-                      00:<countdown #cd [config]="{leftTime : item.tiempo}" (event)="handleEvent($event)"></countdown>
+                  <p *ngIf="item.inicio > 2" class="titulos"> TORNEO INICIA EN : <br> 
+                    <strong>    
+                      00:<countdown #cd [config]="{leftTime : item.inicio}" (event)="handleEvent($event)"></countdown>
                   </strong>
+                  </p>
+                  <p *ngIf="item.inicio < 2" class="titulos"> TORNEO FINALIZA EN : <br>
+                    <strong *ngIf="item.inicio < 2">
+                      00:<countdown #cd [config]="{leftTime : item.fin}" (event)="handleEvent($event)"></countdown>
+                    </strong>
+                  </p>
+                  
+                  
                   
                 </div>
               </div>
@@ -47,7 +58,7 @@
                 </div>
                 <div>
                   <p class="lugares">LUGARES <br> DISPONIBLES</p>
-                  <button class="btn btn-danger ir" style="font-weight: bold;" (click)="entrarCampeonato(item)" >
+                  <button class="btn btn-danger ir" style="font-weight: bold; width: 114% !important;" (click)="entrarCampeonato(item)" >
                   IR AL CAMPEONATO
                   </button>
                 </div>
@@ -81,21 +92,27 @@
             <div style="border: 4px solid;height: 95%;">
               <div class="contDes">
                 <div>
-                  <p class="titulos">COSTO DE ENTRADA:</p>
-                  <label style="position: absolute;">
-                    <img src="/assets/tokens.svg" class="logo"  />
-                    <strong class="cosEntrada">{{ item.CosEntrada }}</strong>
-                  </label><br>
+                  <p class="titulos">COSTO DE ENTRADA: <br>
+                    <label style="position: absolute;">
+                      <img src="/assets/tokens.svg" class="logo"  />
+                      <strong class="cosEntrada">{{ item.CosEntrada }}</strong>
+                    </label><br>
+                  </p>
+                  
                 </div>
                 <div >
-                  <p *ngIf="item.inicio > 2" class="titulos"> TORNEO INICIA EN :</p>
-                  <p *ngIf="item.inicio < 2" class="titulos"> TORNEO FINALIZA EN :</p>
-                  <strong  *ngIf="item.inicio > 2" >    
+                  <p *ngIf="item.inicio > 2" class="titulos"> TORNEO INICIA EN : <br> 
+                    <strong>    
                       00:<countdown #cd [config]="{leftTime : item.inicio}" (event)="handleEvent($event)"></countdown>
                   </strong>
-                  <strong *ngIf="item.inicio < 2">
-                    00:<countdown #cd [config]="{leftTime : item.fin}" (event)="handleEvent($event)"></countdown>
-                  </strong>
+                  </p>
+                  <p *ngIf="item.inicio < 2" class="titulos"> TORNEO FINALIZA EN : <br>
+                    <strong *ngIf="item.inicio < 2">
+                      00:<countdown #cd [config]="{leftTime : item.fin}" (event)="handleEvent($event)"></countdown>
+                    </strong>
+                  </p>
+                  
+                  
                   
                 </div>
               </div>

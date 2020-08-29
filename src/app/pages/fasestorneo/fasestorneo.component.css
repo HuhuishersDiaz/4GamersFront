@@ -1,0 +1,51 @@
+[data-toggle="collapse"] i:before{
+    content: "\f077";
+}
+
+[data-toggle="collapse"].collapsed i:before{
+    content: "\f078";
+}
+
+.progress{
+    background-color  :  rgb(153,153,153);
+    height: 10px;
+}
+
+.fasestorneo{
+    background-color: rgb(39,49,61);
+}
+.panel-heading{
+    font-size: 13px;
+    font-weight: 600;
+}
+
+@media (max-width: 768px)  {
+    .btnBuscarRival{
+        width: 90%;
+        padding: initial;
+        margin: auto;
+        margin-top: 10px;
+    }
+}
+@media (min-width: 768px)  {
+    .btnBuscarRival{
+        width: 90%;
+        padding: initial;
+        margin: auto;
+        font-size: 26px;
+        margin-top: 10px;
+    }
+    .text-premio{
+        font-size: 30px;
+    }
+
+    .logo{
+        width: 30px;
+    }
+    .numtokens{
+        font-size:20px;
+    }
+}
+
+
+

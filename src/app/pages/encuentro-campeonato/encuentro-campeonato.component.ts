@@ -71,12 +71,11 @@ export class EncuentroCampeonatoComponent implements OnInit {
         monPremio: 0,
         numjugadores: 0
     }
+    encuentros : any[];
     constructor(private router : Router, private route : ActivatedRoute, private _socket : SocketsService, private global : GlobalService, private api : GamersService, private UI : UIGamersService) {
 
         this.idpersona = localStorage.getItem("idPersona");
         this.username = localStorage.getItem("Username");
-
-
     }
 
 
@@ -104,9 +103,11 @@ export class EncuentroCampeonatoComponent implements OnInit {
 
     }
     async validatEncuentro(idEncuento) {
+        console.log(idEncuento)
         await this.api.getEncuentroCampeonato(idEncuento).then((data : any) => {
+            console.log(data)
             this.dataEncuentro = data.info;
-
+            
             this.api.idJuegopersona(this.dataEncuentro.fkAnfitrion, this.dataCampeonato.fkJuego).then(data => { // console.log(data.info.recordset[0]);
                 if (data.ok) {
                     this.infoAnfitrion = data.info.recordset[0];
@@ -118,9 +119,14 @@ export class EncuentroCampeonatoComponent implements OnInit {
                     this.infoRival = data.info.recordset[0];
                 }
             });
-
-
         })
+
+        await this.api.encuentrosFaseCampeonato(this.idCampeonato,this.dataEncuentro.fkFase).then((data : any)=>{
+            console.log(data)
+            this.encuentros  =  data.info.recordset;
+            // alert("aqui llegan todos los encuentros")
+        })
+
         this.enviarMensaje("Se ha conectado")
 
     }
@@ -172,9 +178,17 @@ export class EncuentroCampeonatoComponent implements OnInit {
 
         }
 
+        console.log(this.encuentros)
+        let numerodeencuentro = this.encuentros.findIndex(c=> c.idEncuentro == this.idEncuentro)
+        alert(numerodeencuentro);
+        let dataganador = {
+            idcampeonato : this.idCampeonato,
+            idfase : this.dataEncuentro.fkFase,
+            idpersona : this.idpersona,
+            numEcuentro : numerodeencuentro
+        }
+        // return false;
         if (this.terminos) {
-            // vamos a ver si existe alguna respuesta nuestra anteriormente
-            
 
             if(this.victoria == false){
             
@@ -202,6 +216,27 @@ export class EncuentroCampeonatoComponent implements OnInit {
                             icon: 'info',
                             timer: 2000
                         })
+                        let data = {
+                            fkrival : idRival,
+                            idencuentro : this.idEncuentro
+                        }
+                        let Respuesta;
+                        await this._socket.EsperarResultadoRivalCampeonato(data).then(data => {
+                            Respuesta = data;
+                        })
+                        console.log(Respuesta);
+                        if (Respuesta.info.isWinner == this.victoria) {
+                            swal("Tu encuentro se ha ido a Disputa")
+                           this.Disputa = true;
+
+                        } else {
+                            this.api.guardarGanadorfase(dataganador).then((data)=>{
+                                console.log(dataganador)
+                            })
+                            swal("Felicidade ","avanza a la siguiente ronda", {icon: 'success'})
+                            this.router.navigateByUrl('/campeonato/'+this.dataCampeonato.idCampeonato)
+                            
+                        }
                         break;
                     case "Disputa":
                         swal("¡Tu encuentro se ha ido a disputa!", "Es necesario cargar pruebas ", {
@@ -217,6 +252,9 @@ export class EncuentroCampeonatoComponent implements OnInit {
                         break;
                     case "Ganador":
  
+                        this.api.guardarGanadorfase(dataganador).then((data)=>{
+                            console.log(dataganador)
+                        })
                         swal("Felicidade ","avanza a la siguiente ronda", {icon: 'success'})
                         this.router.navigateByUrl('/campeonato/'+this.dataCampeonato.idCampeonato)
                         break;

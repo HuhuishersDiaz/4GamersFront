@@ -134,11 +134,11 @@ img {
 }
 
 .sent_msg p {
-    background-color: #05728f;
+    background-color: rgb(1, 249, 251);
     border-radius: 3px;
     font-size: 14px;
     margin: 0;
-    color: #fff;
+    color: #000;
     padding: 5px;
     width: 100%;
 }
@@ -163,19 +163,7 @@ img {
     border-top: 1px solid #c4c4c4;
     position: relative;
 }
-.msg_send_btn {
-    background-color: #05728f;
-    border: medium none;
-    border-radius: 50%;
-    color: #fff;
-    cursor: pointer;
-    font-size: 17px;
-    height: 33px;
-    position: absolute;
-    right: 0;
-    top: 11px;
-    width: 33px;
-}
+
 .messaging {
     padding: 0 0 50px;
 }
@@ -206,8 +194,9 @@ img {
     position: static;
 }
 
-.btn-primary:not([disabled]):not(.disabled):active,
-.btn-primary:not([disabled]):not(.disabled).active,
-.show > .btn-primary.dropdown-toggle {
-    background-color: turquoise !important;
+.btn-outline-white:not([disabled]):not(.disabled):active,
+.btn-outline-white:not([disabled]):not(.disabled).active,
+.show > .btn-outline-white.dropdown-toggle {
+    background-color:  rgb(1, 249, 251) !important;
+    color : #000 !important;
 }

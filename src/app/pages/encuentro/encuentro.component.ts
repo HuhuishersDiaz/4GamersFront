@@ -27,16 +27,16 @@ export class EncuentroComponent implements OnInit {
 
     @ViewChild('historiamMensajes')private historiamMensajes : ElementRef;
     @Output() navOut = new EventEmitter();
-
+    baseUrl : string = "http://4gamers.xplainerservicios.com/content/";
     order : any;
     public mensajes : any[] = [];
-    idpersona;
-    idversus;
+    idpersona : any;
+    idversus : string;
     message : any;
-    idjuego;
-    mensaje;
-    victoria;
-    username;
+    idjuego : string; 
+    mensaje : string;
+    victoria:  boolean;
+    username : string;
     infoAnfitrion : infouser = {
         idpersona: 0,
         idplataforma: '',
@@ -47,28 +47,29 @@ export class EncuentroComponent implements OnInit {
         idpersona: 0,
         idplataforma: '',
         username: '',
-        nombre: ''
+        nombre: '',
     };
-    terminos;
-    apuesta;
+    terminos : boolean;
+    apuesta : string;
     Disputa: boolean;
     TenemosResultado : boolean = false;
     habilitarReporte : boolean = false;
     constructor(private router : Router, private route : ActivatedRoute, private _socket : SocketsService, private global : GlobalService, private api : GamersService, private UI : UIGamersService) {
 
-        this.idpersona = localStorage.getItem("idPersona") || null;
-        this.username = localStorage.getItem("Username") || null;
+        this.idpersona = localStorage.getItem("idPersona") ;
+        this.username = localStorage.getItem("Username") ;
 
     }
 
 
     async ngOnInit() {
         this.idversus = this.route.snapshot.paramMap.get("id");
-        this.username = localStorage.getItem("Username") || null;
+        this.username = localStorage.getItem("Username");
 
         await this.ValidarVersus(this.idversus);
+         this.loadchat(this.idversus);
+
         await this.ResVersus()
-        await this.loadchat(this.idversus);
 
         this._socket.onNewMessageVersus().subscribe(data => {
             this.mensajes.push(data);
@@ -198,6 +199,10 @@ export class EncuentroComponent implements OnInit {
 
         if (this.terminos) { // vamos a ver si existe alguna respuesta nuestra anteriormente
 
+            if(typeof this.victoria === 'undefined'){
+                swal("Marca el resultado nuevamente por favor! ")
+                return false; 
+            }
             let RespuestaRival = await this.ValidarResultado(infoEncuentro, idRival).then(data => data).catch(err => err)
 
             switch (RespuestaRival) {
@@ -211,6 +216,7 @@ export class EncuentroComponent implements OnInit {
                     infoEncuentro.mensaje = "Perdedor Versus"
                     this.api.EstadodeCuenta(infoEncuentro).then(data => { // //console.log(data);
                     })
+                    this.Actualizar();
 
                     this._socket.enviarresultadoversus(infoEncuentro).then((data) => data).catch(err => err);
 

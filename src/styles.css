@@ -564,4 +564,11 @@
   
 
 
-  
+.swiper-button-next{
+  color: transparent !important;
+}
+
+.swiper-button-prev{
+  color: transparent !important;
+
+}
