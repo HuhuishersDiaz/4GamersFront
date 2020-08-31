@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-recuperar',
@@ -11,5 +12,8 @@ export class RecuperarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  sendEmail(data : NgForm) {
+    console.log(data.valid);
+    console.log(data.value);
+  }
 }

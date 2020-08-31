@@ -24,7 +24,9 @@ export class CampeonatoComponent implements OnInit {
   idpersona: string;
   username: string;
   idCampeonato : string ;
-  podemosjugar : boolean = true;
+  podemosjugar : boolean = false;
+  podemosbuscar : boolean = true;
+  
   encuentro : any ;
   infoCampeonato : any ={
     cosEntrada: 0,
@@ -90,6 +92,21 @@ export class CampeonatoComponent implements OnInit {
 
     await this.api.EncuentroActivo(this.idpersona).then((data:any)=>{
       this.encuentro = data.info;
+      // fecha: "2020-08-30T22:14:55.000Z"
+      // fkAnfitrion: 649251766
+      // fkCampeonato: 6584924
+      // fkFase: 3
+      // fkRival: 649251689
+      // idEncuentro: 91474
+      // numEncuentro: null
+      // status: 1
+      if(data.info)
+        if(this.encuentro.fkAnfitrion!= null && this.encuentro.fkRival != null){
+          swal("Tienes un encuentro activo")
+          this.jugar();
+        }
+      // data.info
+      console.log(data.info)
     });
 
     await this.api.getInscripcionesCampeonato(this.infoCampeonato.idCampeonato).then((data:any)=>{
@@ -177,9 +194,11 @@ export class CampeonatoComponent implements OnInit {
         this.loading = false;
         this.puedojugar = true;
         this.encuentro = respuesta['info']
-
+        this.podemosbuscar = false;
         swal("Rival encontrado")
+        this.podemosjugar = true;
     }else{
+      
       swal("Rival no Disponible")
 
     }
@@ -193,7 +212,7 @@ export class CampeonatoComponent implements OnInit {
   }
 
   async jugar(){
-    alert("Tienes un encuentro pendiente ")  
+    // alert("Tienes un encuentro pendiente ")  
     console.log(this.encuentro)
     this.router.navigateByUrl(`/campeonato/${this.idCampeonato}/encuentro/${this.encuentro.idEncuentro}`)
   }

@@ -25,6 +25,7 @@ export class EncuentroCampeonatoComponent implements OnInit {
 
     @ViewChild('historiamMensajes')private historiamMensajes : ElementRef;
     @Output()navOut = new EventEmitter();
+    baseUrl : string = "http://4gamers.xplainerservicios.com/content/";
 
     public mensajes : any[] = [];
     idpersona : string | number;
@@ -36,13 +37,17 @@ export class EncuentroCampeonatoComponent implements OnInit {
         idpersona: 0,
         idplataforma: '',
         username: '',
-        nombre: ''
+        nombre: '',
+        copas : 0,
+        rango : ''
     };
     infoRival : infouser = {
         idpersona: 0,
         idplataforma: '',
         username: '',
-        nombre: ''
+        nombre: '',
+        copas : 0,
+        rango : ''
     };
     terminos;
     Disputa : boolean;
@@ -111,6 +116,8 @@ export class EncuentroCampeonatoComponent implements OnInit {
             this.api.idJuegopersona(this.dataEncuentro.fkAnfitrion, this.dataCampeonato.fkJuego).then(data => { // console.log(data.info.recordset[0]);
                 if (data.ok) {
                     this.infoAnfitrion = data.info.recordset[0];
+                    console.log(data);
+                    
                 }
             });
 

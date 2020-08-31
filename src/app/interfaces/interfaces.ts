@@ -56,6 +56,8 @@ export interface infouser {
     plataforma ?: string,
     username ?: string,
     imguser ? : string
+    copas ? : number,
+    rango ? : string
 }
 
 export interface inscripcion {

@@ -1,1 +1,30 @@
-<p>recuperar works!</p>
+<div class="main text-white container">
+    <p>RESTABLECER CONTRASEÑA</p>
+    <div class="width:100%" class="text-center">
+     
+    </div>
+    <br><br><br><br><br><br>
+    <form #f="ngForm" (ngSubmit)="sendEmail(f)" >
+      <div class="field">
+        <input type="email" name="email"  ngModel required  #email="ngModel" email/>
+        <label for="email">Correo eléctronico</label>
+        <div *ngIf="!email.valid && (email.dirty || email.touched)">
+          <small class="text-danger">**Formato de correo no permitido</small>
+      </div>
+      </div>
+
+      <div class="login row">
+        <button type="submit" class="btn btn-danger col-12 px-2" *ngIf="f.valid" >
+          Enviar
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="text-center text-white">
+    <br />
+    <br />
+    <br />
+    <p><a routerLink="/registro">Regresar</a></p>
+    <br />
+  </div>
+  

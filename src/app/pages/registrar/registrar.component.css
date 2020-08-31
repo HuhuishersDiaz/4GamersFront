@@ -22,7 +22,8 @@
 }
 form {
     margin: 2em 0;
-    
+    width: 80%;
+    margin: auto;
   }
 .forgot{
     float: right;
@@ -35,7 +36,7 @@ form {
 .field {
     display: flex;
     flex-flow: column-reverse;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
   }
 
   label, input {
@@ -64,6 +65,7 @@ form {
   label {
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    font-size: 10px;
   }
  
   input:placeholder-shown + label {

@@ -55,7 +55,9 @@ export class HomeComponent implements OnInit {
 
 
     cobrar() {
-        this.router.navigateByUrl('boveda/retirar')
+        if(this.idpersona){
+            this.router.navigateByUrl('boveda/retirar')
+        }
 
     }
 
@@ -130,8 +132,11 @@ export class HomeComponent implements OnInit {
     }
 
     async Comprar(paquete : any) {
-        console.log(paquete)
+        if(this.idpersona){
+            console.log(paquete)
         this.router.navigateByUrl('/tienda/checkout/' + paquete.idToken)
+        }
+        
     }
 
     abrirVideo() {

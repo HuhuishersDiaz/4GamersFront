@@ -24,11 +24,16 @@ export class TiendaComponent implements OnInit {
         prevEl: '.swiper-button-prev'
     }
 };
+  idpersona: string;
 
   constructor(
     private api :GamersService,
     private router : Router
-  ) { }
+  ) { 
+
+    this.idpersona = localStorage.getItem("idPersona") || null;
+
+  }
 
   async ngOnInit() {
     await this.PaquetesTokens();
@@ -41,12 +46,18 @@ export class TiendaComponent implements OnInit {
   }
 
   async Comprar(paquete : any ){
-    console.log(paquete)
-    this.router.navigateByUrl('/tienda/checkout/'+paquete.idToken)
+    if(this.idpersona){
+      console.log(paquete)
+      this.router.navigateByUrl('/tienda/checkout/'+paquete.idToken)
+    }
+    
   }
 
-  async Solicitar( id ){
-    this.router.navigateByUrl('/tienda/compra/'+id)
+  async Solicitar( id : number ){
+    if(this.idpersona){
+      this.router.navigateByUrl('/tienda/compra/'+id)
+
+    }
   }
 
 

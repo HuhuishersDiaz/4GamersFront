@@ -1,3 +1,13 @@
+
+.page-footer{
+  display: none !important;
+
+}
+
+footer{
+  display: none !important;
+
+}
 .organigrama * {
     margin: 0px;
     padding: 0px;

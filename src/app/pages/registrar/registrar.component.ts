@@ -4,6 +4,7 @@ import { UsuariosService } from '../../provides/usuarios.service';
 import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/services/global.service';
 import { UserInfo } from 'src/app/models/interfaces';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-registrar',
@@ -20,12 +21,16 @@ export class RegistrarComponent implements OnInit {
   
   }
 
-  async saveUser(){
+  async saveUser( data: NgForm ){
+    console.log(data.valid);
+    console.log(data.value);
+    return false;
     // console.log(this.registro);
     if(this.registro.password != this.registro.confirma ){
       alert('Las contraseñas no coinciden ');
       return false;
     }
+    return false;
     var respuesta = await  this.apiUser.register(this.registro).then(data => data).catch(err=> err);
     console.log(respuesta)
     if(respuesta.ok){

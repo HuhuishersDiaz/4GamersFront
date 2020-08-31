@@ -119,6 +119,7 @@ export class PerfilComponent implements OnInit {
     }
 
     onFileSelect(event) {
+        alert("Espera por favor...")
         if (event.target.files.length > 0) {
           const file = event.target.files[0];
           //console.log(file)

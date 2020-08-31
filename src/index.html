@@ -32,10 +32,28 @@
 </head>
 
 <body>
+  <!-- <div id="load-screen"></div> -->
+
   <app-root></app-root>
   <!-- JQuery -->
-  <!-- <img src="./assets/splash_pc.jpg" class="imgload" id="LoadingPage"> -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('.navbar-nav>li>a').on('click', function () {
+        $('.navbar-collapse').collapse('hide');
+      });
+      // $(window).on("load", function () {
+      //   $('#load-screen').delay(1000).fadeOut(function(){$(this).remove()});
+        
+      // });
+
+
+    });
+
+
+  </script>
+  <!-- <img src="./assets/splash_pc.jpg" class="imgload" id="LoadingPage"> -->
   <!-- Bootstrap tooltips -->
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -45,23 +63,7 @@
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 
-  <script>
-    $(document).ready(function () {
-      $('.navbar-nav>li>a').on('click', function () {
-        $('.navbar-collapse').collapse('hide');
-      });
-      $(window).on("load", function () {
-        // $('body').removeClass('loadpage');
 
-        // $("#LoadingPage").hide();
-        // weave your magic here.
-      });
-
-
-    });
-
-
-  </script>
 </body>
 
 </html>

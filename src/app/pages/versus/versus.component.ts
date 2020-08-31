@@ -73,9 +73,10 @@ export class VersusComponent implements OnInit {
             await this.global.cargarTokens(this.idpersona).then(data=>{
                 this.tokens = data;
             })
+        await  this.getVersus();
+
 
         }
-        await  this.getVersus();
 
         this._socket.onNewVersus().subscribe(data => {
             this.getVersus();

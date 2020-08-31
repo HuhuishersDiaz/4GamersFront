@@ -10,7 +10,7 @@
                 <strong *ngIf="infoCampeonato.iniciaen > 0" > 00:<countdown #cd [config]="{leftTime : infoCampeonato.iniciaen}" (event)="inicio($event)" ></countdown></strong>
                 <strong *ngIf="infoCampeonato.iniciaen < 0" > 00:<countdown #cd [config]="{leftTime : infoCampeonato.finaliza}"  (event)="final($event)"></countdown></strong>
                 <br>
-                <button class="btn btn-danger btn-sm" (click)="BuscarRival()">Buscar Rival</button>
+                <button *ngIf="podemosbuscar" class="btn btn-danger btn-sm" (click)="BuscarRival()">Buscar Rival</button>
             </div>
            
          </div>
