@@ -24,9 +24,9 @@
   <div class="collapse navbar-collapse justify-content-between" id="navbarToggle">
 
     <ul class="navbar-nav">
-      <li class="nav-item movildesign" style="width: 80px; ">
+      <li class="nav-item movildesign" style="width: 90px; ">
         <img src="assets/perfil_icono.svg" alt="" style="position: fixed; width: 33px; top: 16px;">
-        <a class="nav-link " routerLink="/perfil"></a>
+        <a class="nav-link " routerLink="/perfil" style="color:rgb(195 ,168, 82); white-space: pre; text-overflow: ellipsis; overflow: inherit;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>{{ username || "" }}</strong></a>
       </li>
 
     </ul>
@@ -57,7 +57,7 @@
 
     <ul class="navbar-nav">
       <li class="nav-item movildesign " style="width: 100px;" *ngIf="isLoggin">
-        <img src="../../../assets/contador_tokens.svg" style="position: fixed;right: 19px; width: 147px;">
+        <img src="../../../assets/contador_tokens.svg" style="position: fixed;right: 19px; width: 147px; z-index: -10000;">
         <a class="nav-link " routerLink="/tienda" style="font-weight: bold;top: 3px;">{{tokens}}</a>
       </li>
       <li class="nav-item homedesig " *ngIf="!isLoggin">

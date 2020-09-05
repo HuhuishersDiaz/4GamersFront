@@ -22,7 +22,8 @@
     opacity: 0.7;
     z-index: 1;
   } */
-  
+ 
+
   .imgload{
     width:100%;
     
@@ -571,6 +572,8 @@
   height: auto;
 }
 
+
+
   
 
 
@@ -582,3 +585,27 @@
   color: transparent !important;
 
 }
+
+.swal-modal {
+  background-color: rgb(55, 55, 55);
+  /* border: 3px solid white; */
+}
+.swal-text{
+  color: white;
+}
+.swal-title{
+  color: white;
+}
+.swal-icon--success:after, .swal-icon--success:before{
+  background-color: transparent !important;
+}
+.swal-icon--success__hide-corners{
+  background-color: transparent !important;
+
+}
+/* .swal-icon--custom{
+  
+  background-image: url(https://gamers-7a22c.web.app/assets/Logo_gif_loader.gif);
+  background-size: contain;
+
+} */

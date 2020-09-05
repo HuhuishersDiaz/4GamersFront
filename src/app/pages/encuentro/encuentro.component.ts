@@ -116,6 +116,7 @@ export class EncuentroComponent implements OnInit {
                 }
 
                 this.api.idJuegopersona(idAnfitrion, this.idjuego).then(data => { // console.log(data.info.recordset[0]);
+                    console.log(data)
                     if (data.ok) {
                         this.infoAnfitrion = data.info.recordset[0];
                     }
@@ -209,7 +210,7 @@ export class EncuentroComponent implements OnInit {
                 case true:
 
                     // alertify.alert(`Gracias por participar`);
-                    swal("Gracias por participar ");
+                    swal("Gracias por participar" ,{ buttons : {} , timer : 2000});
 
                     this.api.marcarresultado(infoEncuentro).then(data => { // //console.log(data);
                     })
@@ -225,7 +226,7 @@ export class EncuentroComponent implements OnInit {
                     break;
                 case false:
                     swal("Esperando la respuesta del rival", {
-                        icon: 'info',
+                        icon: "/assets/loading.gif",
                         timer: 2000
                     })
                     this.api.marcarresultado(infoEncuentro).then(data => { // //console.log(data);
@@ -233,7 +234,7 @@ export class EncuentroComponent implements OnInit {
 
                     this._socket.esperarrespuestaversus().subscribe(data => { // {fkversus: "948516830", fkpersona: "649251689", iswinner: true, monto: 50, img: "img.jpg"}
                         if (data.iswinner == this.victoria) {
-                            swal("¡Tu encuentro se ha ido a disputa!", "Es necesario cargar pruebas ", {
+                            swal("¡Tu encuentro se ha ido a disputa!", "Es necesario comprobar el resultado", {
                                 icon: 'info',
                                 timer: 2000
                             })
@@ -245,7 +246,7 @@ export class EncuentroComponent implements OnInit {
                             this.Disputa = true;
                             this.Actualizar();
                         } else {
-                            swal("Felicidade has ganado " + this.apuesta + " tokens en un versus", {icon: 'success'})
+                            swal("Felicidades has ganado " + this.apuesta + " tokens en un versus", {icon: 'success' ,timer : 2000,buttons: {}})
                             infoEncuentro.mensaje = "Ganador Versus";
                             this.api.EstadodeCuenta(infoEncuentro).then(data => {})
                             this.Actualizar();
@@ -255,7 +256,7 @@ export class EncuentroComponent implements OnInit {
                     });
                     break;
                 case "Disputa":
-                    swal("¡Tu encuentro se ha ido a disputa!", "Es necesario cargar pruebas ", {
+                    swal("¡Tu encuentro se ha ido a disputa!", "Es necesario comprobar el resultado", {
                         icon: 'info',
                         timer: 2000
                     })
@@ -276,7 +277,7 @@ export class EncuentroComponent implements OnInit {
                     this.api.marcarresultado(infoEncuentro).then(data => { // //console.log(data);
                     })
 
-                    swal("Felicidade has ganado " + this.apuesta + " tokens en un versus", {icon: 'success'})
+                    swal("Felicidades has ganado " + this.apuesta + " tokens en un versus", {icon: 'success' ,timer : 2000,buttons: {}})
                     infoEncuentro.mensaje = "Ganador Versus"
                     this.api.EstadodeCuenta(infoEncuentro).then(data => { // //console.log(data);
                     })

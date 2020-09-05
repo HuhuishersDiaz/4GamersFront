@@ -12,8 +12,10 @@ export class HeaderComponent implements OnInit {
     tokens : number = 0;
     user : UserInfo;
     isLoggin : Boolean = false;
+    footer : Boolean = false;
+    username : String = "";
     constructor(private global : GlobalService, private router : Router,private api : GamersService) {
-        
+        this.user
         this.api.isUserLoggedIn.subscribe((userLoggedIn: boolean) => {
            
             let user = this.global.isUser();
@@ -30,13 +32,14 @@ export class HeaderComponent implements OnInit {
 
         });
 
-        this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(data => {
+        this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe((data:any) => {
             
             let user = this.global.isUser();
             if (user) {
                 this.user = this.global.User();
                 this.cargarTokens();
                 this.isLoggin = true;
+                
             }else{
                 this.isLoggin = false;
 
@@ -57,6 +60,7 @@ export class HeaderComponent implements OnInit {
             err
         });
 
+        this.username = this.user.username || "";
 
     }
 

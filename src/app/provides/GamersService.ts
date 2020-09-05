@@ -140,6 +140,16 @@ export class GamersService {
     async respuestarival(idversu, idpersona) {
         return await this.http.get(`${this.url}versus/consultaresultado/${idversu}/${idpersona}`).toPromise()
     }
+
+    async EditarUsuario(data) {
+        let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
+
+        let options = {
+            headers: httpHeaders
+        };
+
+        return await this.http.post(`${this.url}users/editarusuario`, data, options).toPromise()
+    }
     async EstadodeCuenta(data) {
         let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
 
@@ -148,6 +158,16 @@ export class GamersService {
         };
 
         return await this.http.post(`${this.url}users/Cuenta`, data, options).toPromise()
+    }
+
+    async Reembolsos(data) {
+        let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
+
+        let options = {
+            headers: httpHeaders
+        };
+
+        return await this.http.post(`${this.url}users/Reembolso`, data, options).toPromise()
     }
 
 

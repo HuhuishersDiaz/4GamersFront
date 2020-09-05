@@ -52,10 +52,9 @@
 <div class="line-divider">
   <p>ENCUENTRA TU RIVAL</p>
 </div>
-<div class="container">
-  <div class="row" style="height: 350px; overflow: scroll;">
+<div class="container" style="height: 350px; overflow: scroll;">
 
-    <div class="col-12" *ngFor="let item of allversus">
+    <div  *ngFor="let item of allversus">
       <div class="alert alert-light alert-dismissible fade show " role="alert">
         <strong>{{item.juego}} </strong>  Apuesta : {{ item.apuesta}}
          <button  *ngIf="item.apuesta <= (50 - acumulados)" type="button" class="btn btn-sm btn-danger float-right" style="position: absolute; top: 0; right: 0;"
@@ -64,43 +63,28 @@
          </button>
       </div>
     </div>
-<!-- 
-    <div  class="col-12 col-md-12">
-      <div class="row">
-                <div *ngFor="let item of allversus" class="col-6 col-sm-6 col-md-3 col-lg-3" >
-          <div class="card">
-            <div class="card-img" style="background: rgba(0, 0, 0, 0.8);">
-              <img [src]="'http://4gamers.xplainerservicios.com/content/juegos/' +  item.imglogo " style="width: 100%;" />
-            </div>
-            <div class="card-body">
-              <p class="card-text">
-                {{ item.username }}
-              </p>
-              <p class="card-text">Apuesta: {{ item.apuesta }}</p>
-            </div>
-            <div class="card-footer" *ngIf="item.apuesta <= (50 - acumulados)"> 
-              <button  class="btn btn-danger btn-sm" (click)="AceptarVersus(item)" >
-                Entrar
-              </button>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </div> -->
-  </div>
 </div>
-
-
-<!--  
-
+  
 <button type="button" class="btn btn-primary" (click)="openModal(template)">Create template modal</button>
-
 <ng-template #template >
-  <div class="modal-body">
-    This is a modal.
+  <div class="modal-body text-center">
+    <h3>Buscando Rival...</h3>
+    <img src="/assets/Logo_gif_loader.gif" alt="" style="width: 100px;">
     <div class="text-center">
-      <button type="button" class="btn btn-danger" (click)="closeModal(template)" data-dismiss="modal">Cancelar</button>
+      <button type="button" class="btn btn-danger btn-sm" (click)="closeModal(template)" data-dismiss="modal">Cancelar</button>
     </div>
   </div>
-</ng-template> -->
+</ng-template> 
+
+<button type="button" class="btn btn-primary" (click)="openModal(ganador)">Create template modal</button>
+
+<ng-template #ganador >
+  <div class="modal-body text-center">
+    <h3>Felicidades</h3>
+    <img src="../../../assets/copas.png" alt="" style="width: 100px;">
+    <h3>Eres el numero 1°</h3>
+    <div class="text-center">
+      <button type="button" class="btn btn-danger btn-sm" (click)="closeModal(ganador)" data-dismiss="modal">Cerrar</button>
+    </div>
+  </div>
+</ng-template> 

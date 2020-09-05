@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="page-footer font-small dark ">
+<footer *ngIf="footer" class="page-footer font-small dark ">
 
     <!-- Footer Links -->
     <div class="container-fluid" style="width: 100% !important ;">
@@ -35,7 +35,7 @@
   
           <ul class="list-unstyled">
             <li>
-              <a href="#!">PREGUNTAS FRECUENTES</a>
+              <a routerLink="/preguntas-frecuentes" >PREGUNTAS FRECUENTES</a>
             </li>
             <li>
               <a href="#!">Equipo de soporte</a>
@@ -57,10 +57,10 @@
             <ul class="list-unstyled">
              
               <li>
-                <a href="#!">Terminos y condiciones</a>
+                <a routerLink="/terminos-y-condiciones" >Terminos y condiciones</a>
               </li>
               <li>
-                <a href="#!">Politica de privacidad</a>
+                <a routerLink="/aviso-de-privacidad" >Politica de privacidad</a>
               </li>
               
             </ul>

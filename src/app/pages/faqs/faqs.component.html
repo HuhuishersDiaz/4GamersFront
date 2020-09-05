@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="line-divider">
+        <p>PREGUNTAS FRECUENTES</p>
+     </div>    
+     <div class="generalinfo text-white">
+        <div class="panel panel-info " id="accordion">
+            <div *ngFor="let item of faqs;let indexOfelement=index;">
+            <div class="panel-heading collapsed " style="width: 100%;" data-toggle="collapse" aria-expanded="true"  [attr.data-target]="'#tab-'+indexOfelement">
+                    {{item.pregunta}}
+              <i class="fa fa-fw fa-chevron-right" style="float: right;"></i>
+           </div>
+           <div class="panel-body" style="background-color:  rgb(153,153,153)">
+              <!-- The inside div eliminates the 'jumping' animation. -->
+              <div class="collapse" [id]="'tab-'+indexOfelement"  data-parent="#accordion">
+                 {{ item.respuesta }}
+              </div>
+           </div>
+            </div>
+        </div>
+     </div>
+</div>

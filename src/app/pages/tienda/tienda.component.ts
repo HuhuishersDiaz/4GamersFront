@@ -39,6 +39,7 @@ export class TiendaComponent implements OnInit {
     await this.PaquetesTokens();
   }
   async PaquetesTokens(){
+    
     this.api.paquetesTokensTienda().then((paquetes:any)=>{
       console.log(paquetes.info.recordset);
       this.TokensTienda =  paquetes.info.recordset;
@@ -46,8 +47,8 @@ export class TiendaComponent implements OnInit {
   }
 
   async Comprar(paquete : any ){
+
     if(this.idpersona){
-      console.log(paquete)
       this.router.navigateByUrl('/tienda/checkout/'+paquete.idToken)
     }
     

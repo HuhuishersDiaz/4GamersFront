@@ -14,15 +14,17 @@
         />
         <div class="card-img-overlay row" style="padding: 0 !important;">
           <div class="col-4 text-center">
-            <img
-            [src]="'http://4gamers.xplainerservicios.com/Content/torneos/Logo/'+item.imgLogo"
-            alt=""
-              style="width: 76%; margin: auto; display: block;"
-            />
-            <label>
-              <img src="/assets/tokens.svg" class="logo" width="30" />
-              <STRONG>{{ item.monPremio }}</STRONG>
-            </label>
+            <div style="width: 115%; margin-top: -20px;margin: auto;" >
+              <img [src]="'http://4gamers.xplainerservicios.com/Content/torneos/Logo/'+item.imgLogo"  style="width: 90%; display: block; margin: auto;    margin-top: 10px;" />
+              <p style="padding-top: 10px;font-size: 13px; ">
+                Gana hasta
+             </p>            
+             <label>
+                <img src="/assets/tokens.svg" class="logo" width="20" />
+                <STRONG>{{ item.monPremio }}</STRONG>
+              </label>
+            </div>
+            
           </div>
           <div class="col-8" style="padding: 10px;">
             <div style="border: 4px solid;height: 95%;">
@@ -54,7 +56,7 @@
               </div>
               <div class="contDes">
                 <div>
-                  <button class="btn btn-sm reglas">REGLAS DEL TORNEO</button>
+                  <button class="btn btn-sm reglas" (click)="verReglas(item,modalReglas)">REGLAS DEL TORNEO</button>
                 </div>
                 <div>
                   <p class="lugares">LUGARES <br> DISPONIBLES</p>
@@ -71,22 +73,20 @@
 
     <div class="col-md-6 pt-4" *ngFor="let item of listTorneos">
       <div class="card text-white" style="width: 100%; height: auto;">
-        <img
-          class="card-img"
-          [src]="'http://4gamers.xplainerservicios.com/Content/torneos/Presentacion/'+item.imgPrecentacion"
-          alt="Card image" style="width: 103%;"
-        />
+        <img class="card-img" [src]="'http://4gamers.xplainerservicios.com/Content/torneos/Presentacion/'+item.imgPrecentacion" style="width: 103%;"/>
         <div class="card-img-overlay row" style="padding: 0 !important;">
           <div class="col-4 text-center">
-            <img
-            [src]="'http://4gamers.xplainerservicios.com/Content/torneos/Logo/'+item.img"
-            alt=""
-              style="width: 76%; margin: auto; display: block;"
-            />
-            <label>
-              <img src="/assets/tokens.svg" class="logo" width="30" />
-              <STRONG>{{ item.monPremio }}</STRONG>
-            </label>
+            <div style="width: 115%; margin-top: -20px; " >
+              <img [src]="'http://4gamers.xplainerservicios.com/Content/torneos/Logo/'+item.img" alt="" style="width: 90%; display: block; margin: auto;     margin-top: 10px;" />
+              <p style="padding-top: 10px;font-size: 13px; ">
+                Gana hasta
+             </p>            
+             <label>
+                <img src="/assets/tokens.svg" class="logo" width="20" />
+                <STRONG>{{ item.monPremio }}</STRONG>
+              </label>
+            </div>
+           
           </div>
           <div class="col-8" style="padding: 10px;">
             <div style="border: 4px solid;height: 95%;">
@@ -118,7 +118,7 @@
               </div>
               <div class="contDes">
                 <div>
-                  <button class="btn btn-sm reglas">REGLAS DEL TORNEO</button>
+                  <button class="btn btn-sm reglas" (click)="verReglas(item,modalReglas)">REGLAS DEL TORNEO</button>
                 </div>
                 <div>
                   <p class="lugares">LUGARES <br> DISPONIBLES</p>
@@ -186,3 +186,49 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+
+
+<ng-template #modalReglas >
+  <div class="modal-header" style="background-color: rgb(39,49,61);">
+    <h4 class="modal-title text-white" >Reglas</h4>
+    <button type="button" class="close" aria-label="Close" style="color: white;" (click)="closeModal(modalReglas)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-white " style="background-color: rgb(39,49,61);">
+    <!-- <img src="/assets/Logo_gif_loader.gif" alt=""> -->
+  <p [innerHTML]="reglas">
+  </p>  
+</div>
+</ng-template> 
+
+<ng-template #modEntrar >
+  <div class="modal-body text-white  " style="background-color: rgb(39,49,61);">
+    <button type="button" class="close" aria-label="Close" style="color: white;" (click)="closeModal(modEntrar)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <br>
+    <p  class="text-center">La cuota de entrada para este torneos es de: </p>
+    <div class="text-center">
+      <p>
+        <img src="/assets/tokens.svg" class="logo" style="width: 20px; display: inline;" />
+        <span class="cosEntrada">200</span>
+      </p><br>
+    </div>
+    <!-- <img src="/assets/Logo_gif_loader.gif" alt=""> -->
+    
+  </div>
+  <div class="modal-footer" style="background-color: rgb(39,49,61);">
+       
+        <button type="button" class="btn btn-ligth btn-sm btn-outline-white" (click)="verReglas(modEntrar)" data-dismiss="modal" style="padding: 1px;font-size: 14px; float: left; width: 45%;">VER REGLAS</button>
+        <button type="button" class="btn btn-danger btn-sm " (click)="ConfirmaInscripcion(modEntrar)" data-dismiss="modal" style="padding: 1px;font-size: 14px; float: right;  width: 45%;"  >ENTRAR</button>
+  </div>
+   
+</ng-template> 
+
+
+
+
+
+
+<!-- 394961 -->

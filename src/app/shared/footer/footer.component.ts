@@ -1,40 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {GlobalService} from 'src/app/services/global.service';
+import {Router, NavigationStart} from '@angular/router';
+import {GamersService} from 'src/app/provides/GamersService';
+import {filter} from 'rxjs/operators';
 
-@Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
-})
-export class FooterComponent implements OnInit {
+@Component({selector: 'app-footer', templateUrl: './footer.component.html', styleUrls: ['./footer.component.css']})
+export class FooterComponent {
+    footer : boolean;
 
-  constructor() { }
-  menus = [
-    {
-      path : '',
-      imgActive : 'assets/home_dorado.png',
-      img : '../../../assets/icono_home.svg',
-      active : true
-    },
-    {
-      path : 'versus',
-      imgActive : 'assets/versus_dorado.png',
-      img : '../../../assets/icono_versus.svg',
-      active : false
-    },
-    {
-      path : 'torneos',
-      imgActive : 'assets/torneo_dorado.png',
-      img : '../../../assets/icono_torneo.svg',
-      active : false
-    },
-    {
-      path : 'tienda',
-      imgActive : 'assets/tienda_dorado.png',
-      img : '../../../assets/icono_tienda.svg',
-      active : false
-    },
-  ]
+    constructor(private global : GlobalService, private router : Router, private api : GamersService) {
+        this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe((data : any) => {
 
-  ngOnInit(): void {
-  }
+            console.log(data.url);
+            if (data.url == "/home" || data.url == "/versus" || data.url == "/tienda" || data.url == "/torneos") {
+                this.footer = true;
+                console.log(this.footer)
+            } else {
+                this.footer = false;
+                console.log(this.footer)
+            }
+        });
+    }
 }

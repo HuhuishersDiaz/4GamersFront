@@ -27,6 +27,7 @@
                 background-position: center;
                 background-size: contain;
                 background-repeat: no-repeat;
+                border-radius: 15px;
               "
               [ngStyle]="{
                 'background-image':
@@ -43,26 +44,22 @@
             <p class="">{{ infoAnfitrion.idplataforma || "" }}</p>
           </div>
           <div class="contadores text-center">
-            <img src="/assets/Grupo 579.png" alt="" width="200" />
-            <p class="centrado font-weight-bold">0</p>
+            <img src="/assets/Grupo 579.png" alt="" width="150" />
+            <p class="centrado font-weight-bold">{{ infoAnfitrion.copas }}</p>
           </div>
+          <br>
           <div class="contadores text-center">
-            <img src="/assets/contador_nivel.png" alt="" width="200" />
-            <p class="centrado font-weight-bold">Espartano</p>
+            <img src="/assets/contador_nivel.png" alt="" width="150" />
+            <p class="centrado font-weight-bold">{{ infoAnfitrion.rango }}</p>
           </div>
         </div>
         <div style="width: 10%; height: 500px;" class="imagevs">
-          <img
-            src="assets/vs.svg"
-            alt=""
-            style="
-              display: block;
-              margin: auto;
-              position: absolute;
-              width: 300px;
-            "
-          />
-        </div>
+          <img src="assets/vs.svg" alt="" style="
+          display: block;
+          margin: auto;
+          position: absolute;
+          width: 300px;margin-left: 1.8vw;">
+      </div>
         <div class="text-center text-white" style="width: 45%;">
           <div>
             <br />
@@ -75,6 +72,8 @@
                 background-position: center;
                 background-size: contain;
                 background-repeat: no-repeat;
+                border-radius: 15px;
+
               "
               [ngStyle]="{
                 'background-image':
@@ -89,13 +88,14 @@
             <p class="">{{ infoRival.idplataforma || "" }}</p>
           </div>
           <div class="contadores text-center">
-            <img src="/assets/Grupo 579.png" alt="" width="200" />
-            <p class="centrado font-weight-bold">0</p>
-          </div>
-          <div class="contadores text-center">
-            <img src="/assets/contador_nivel.png" alt="" width="200" />
-            <p class="centrado font-weight-bold">Espartano</p>
-          </div>
+            <img src="/assets/Grupo 579.png" alt="" width="150">
+            <p class="centrado font-weight-bold">{{ infoAnfitrion.copas }}</p>
+        </div><br>
+        <div class="contadores text-center">
+            <img src="/assets/contador_nivel.png" alt="" width="150">
+            <p class="centrado font-weight-bold"> {{infoAnfitrion.rango}}</p>
+
+        </div>
         </div>
       </div>
     </div>
@@ -160,37 +160,16 @@
     ></strong>
 
     <div class="col-12 text-white" *ngIf="!Disputa">
-      <div
-        *ngIf="!TenemosResultado"
-        class="btn-group btn-group-toggle"
-        data-toggle="buttons"
-        style="width: 100%;"
-      >
-        <label class="btn btn-outline-white">
-          <input
-            type="radio"
-            name="options"
-            id="option1"
-            value="true"
-            autocomplete="off"
-            (click)="Reportar(true)"
-            [(ngModel)]="victoria"
-          />
-          Victoria
+      <div *ngIf="!TenemosResultado" class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
+        <label class="btn btn-outline-white" style="margin-right: 6vw;">
+            <input type="radio" name="options" id="option1" value="true" autocomplete="off"
+                (click)="Reportar(true)" [(ngModel)]="victoria"> Victoria
         </label>
         <label class="btn btn-outline-white">
-          <input
-            type="radio"
-            name="options"
-            id="option2"
-            value="false"
-            autocomplete="off"
-            (click)="Reportar(false)"
-            [(ngModel)]="victoria"
-          />
-          Derrota
+            <input type="radio" name="options" id="option2" value="false" autocomplete="off"
+                (click)="Reportar(false)" [(ngModel)]="victoria"> Derrota
         </label>
-      </div>
+    </div>
       <div *ngIf="!TenemosResultado" class="form-check">
         <input
           type="checkbox"

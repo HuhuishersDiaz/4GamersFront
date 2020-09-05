@@ -1,11 +1,13 @@
 <div class="main  text-white container">
+    <br><br>
     <p>CREAR UNA CUENTA</p><br><br>
     <form  #data="ngForm" (ngSubmit)="saveUser(data)"  >
-        <p class="text-center">¿ Ya tienes cuenta ? <a routerLink="/login">Iniciar sésion</a></p>
+        <p class="text-center text-gris">¿ Ya tienes cuenta ? <a routerLink="/login">Iniciar sésion</a></p>
         <!-- <div class="field">
             <input type="text" name="nombre" id="nombre" placeholder=" " [(ngModel)]="registro.nombre" required>
             <label for="nombre">Nombre</label>
         </div> -->
+        <br>
         <div class="field">
             <input type="email" name="email" ngModel required email #email="ngModel">
             <label for="email">Correo eléctronico</label>
@@ -14,7 +16,7 @@
             </div>
         </div>
         <div class="field">
-            <input type="text" name="username" ngModel required>
+            <input type="text" name="username" ngModel required  maxlength="8" >
             <label for="username">Nombre de usuario</label>
         </div>
         <div class="field">
@@ -32,7 +34,7 @@
             </div>
         </div>
         <div class="field">
-            <input type="text" name="dni" ngModel ngModel>
+            <input type="text" name="dni" ngModel ngModel minlength="8" maxlength="8" required>
             <label for="dni">DNI</label>
         </div>
         <br>
@@ -43,6 +45,6 @@
 
     </form>
     <br>
-    <p>Al crear una cuenta aceptas nuestros <a routerLink="/registro">Terminos y Condiciones</a> y las <a
-        routerLink="/registro">Politicas de privacidad</a> </p>
+    <p class="text-gris">Al crear una cuenta aceptas nuestros <a routerLink="/terminos-y-condiciones" target="_blank">Terminos y Condiciones</a> y las <a
+        routerLink="/aviso-de-privacidad" target="_blank">Politicas de privacidad</a> </p>
 </div>

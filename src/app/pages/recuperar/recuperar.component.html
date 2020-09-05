@@ -1,9 +1,10 @@
 <div class="main text-white container">
-    <p>RESTABLECER CONTRASEÑA</p>
+  <br><br>
+    <strong>RESTABLECER CONTRASEÑA</strong>
     <div class="width:100%" class="text-center">
      
     </div>
-    <br><br><br><br><br><br>
+    <br><br><br><br>
     <form #f="ngForm" (ngSubmit)="sendEmail(f)" >
       <div class="field">
         <input type="email" name="email"  ngModel required  #email="ngModel" email/>
@@ -24,7 +25,6 @@
     <br />
     <br />
     <br />
-    <p><a routerLink="/registro">Regresar</a></p>
     <br />
   </div>
   

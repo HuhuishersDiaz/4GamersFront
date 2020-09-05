@@ -58,17 +58,18 @@ export class FasestorneoComponent implements OnInit {
                 icon: "success",
                 dangerMode: true,
               });
-               
+
               if (willDelete) {
                 this.router.navigateByUrl("/home")
                 this.api.cancelarTorneo({ idtorneo : this.idTorneo});
               }
         }
-    }   
+    }
 
     async infoTorneo() {
         this.api.getTorneo(this.idTorneo).then((data : any) => { // console.log(data[0])
             this.dataTorneo = data[0]
+            console.log(data[0]);
         })
     }
     async loadfases() {
@@ -76,13 +77,13 @@ export class FasestorneoComponent implements OnInit {
             console.log(data)
             this.fasesTorneo = data['info'].recordset;
 
-            await this.validarFase(0, this.fasesTorneo[0].idFase)
-            await this.validarFase(1, this.fasesTorneo[1].idFase)
-            await this.validarFase(2, this.fasesTorneo[2].idFase)
-            // await this.validarFase(3, this.fasesTorneo[3].idFase)
-
         })
 
+    }
+    async cargarResultados(){
+        await this.validarFase(0, this.fasesTorneo[0].idFase)
+        await this.validarFase(1, this.fasesTorneo[1].idFase)
+        await this.validarFase(2, this.fasesTorneo[2].idFase)
     }
 
 
@@ -147,7 +148,7 @@ export class FasestorneoComponent implements OnInit {
 
                 });
 
-            } 
+            }
         })
 
     }
@@ -202,17 +203,23 @@ export class FasestorneoComponent implements OnInit {
 
 
     async inicio($event) {
-        // console.log($event)
+        console.log($event)
         await this.api.LugarTorneo(this.idTorneo).then((data : any) => {
             this.numInscripciones = data.info.recordset;
+            console.log(data)
         })
         let info = $event.action;
+        console.log(this.numInscripciones.length)
+        console.log(this.dataTorneo.numJugadores);
+
         if (info == 'done') {
             this.dataTorneo.inicio = -1;
-
-            if (this.dataTorneo.numjugadores > this.numInscripciones.length) {
+            this.cargarResultados();
+            if (this.dataTorneo.numJugadores > this.numInscripciones.length) {
                 swal("Torneo cancelado!", "se hara la devolucion de la inscripcion ");
                 // this.api.cancelarCampeonato({idCampeonato : this.idCampeonato})
+                this.api.cancelarTorneo({idtorneo : this.dataTorneo.idTorneo})
+                this.api.Reembolsos({tipo : "Inscripcion Torneo",referencia : this.idTorneo})
                 this.router.navigateByUrl("/home")
                 // Aqui falta el proceso para regresar el dinero de los inscritos
 

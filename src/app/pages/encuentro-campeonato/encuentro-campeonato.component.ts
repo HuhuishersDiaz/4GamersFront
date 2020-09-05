@@ -187,7 +187,6 @@ export class EncuentroCampeonatoComponent implements OnInit {
 
         console.log(this.encuentros)
         let numerodeencuentro = this.encuentros.findIndex(c=> c.idEncuentro == this.idEncuentro)
-        alert(numerodeencuentro);
         let dataganador = {
             idcampeonato : this.idCampeonato,
             idfase : this.dataEncuentro.fkFase,

@@ -15,7 +15,7 @@ export class UsuariosService {
   
 
 
-  async register(user : User){
+  async register(user ){
     let httpHeaders = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Cache-Control': 'no-cache'
@@ -45,7 +45,7 @@ export class UsuariosService {
 
       return {
         ok: false,
-        message : 'Intente mas tarde'
+        message : respuesta.message
       };
     }
 

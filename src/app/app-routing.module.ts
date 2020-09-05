@@ -17,6 +17,9 @@ import { CompraComponent } from './pages/compra/compra.component';
 import { RetiroComponent } from './pages/retiro/retiro.component';
 import { ValidarretiroComponent } from './pages/validarretiro/validarretiro.component';
 import { EncuentroCampeonatoComponent } from './pages/encuentro-campeonato/encuentro-campeonato.component';
+import { TycComponent } from './pages/tyc/tyc.component';
+import { AvisodeprivacidadComponent } from './pages/avisodeprivacidad/avisodeprivacidad.component';
+import { FaqsComponent } from './pages/faqs/faqs.component';
 
 const routes: Routes = [
   {
@@ -63,6 +66,15 @@ const routes: Routes = [
   },
   {
     path : 'tienda/compra/:id', component : CompraComponent
+  },
+  {
+    path : 'terminos-y-condiciones', component : TycComponent
+  },
+  {
+    path : 'preguntas-frecuentes', component : FaqsComponent
+  },
+  {
+    path : 'aviso-de-privacidad', component : AvisodeprivacidadComponent
   },
   {
     path : 'boveda/retirar', component : RetiroComponent

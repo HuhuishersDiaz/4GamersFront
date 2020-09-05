@@ -13,6 +13,9 @@
     display: none !important;
 }
 
+.text-gris{
+  color: #707070 !important; 
+  }
 
 @media (max-width: 600px) {
     .main {
@@ -63,7 +66,6 @@ form {
   }
   
   label {
-    text-transform: uppercase;
     letter-spacing: 0.05em;
     font-size: 10px;
   }
@@ -92,4 +94,7 @@ form {
   input:focus + label {
     transform: translate(0, 0) scale(1);
     cursor: pointer;
+  }
+  a{
+    color:  rgb(1, 249, 251);
   }

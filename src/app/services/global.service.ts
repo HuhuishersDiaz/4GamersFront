@@ -8,6 +8,7 @@ import { GamersService } from '../provides/GamersService';
 @Injectable()
 
 export class GlobalService {
+
   tokens : number = 0;
   constructor( private _socket : SocketsService,private gamers : GamersService) { 
       var idpersona =  localStorage.getItem("idPersona") ;
@@ -61,4 +62,16 @@ export class GlobalService {
       }).catch(err => err);
 
     }
+    
+    Rango(ptsRanngo: number): string {
+      if(ptsRanngo >= 0 && ptsRanngo < 100 ){
+        return "MILICIA"
+    }else  if(ptsRanngo > 101 && ptsRanngo < 400 ){
+      return "LEGIONARIO";
+    } else if(ptsRanngo > 401 && ptsRanngo < 900 ){
+      return "CENTURIÓN";
+    }else if(ptsRanngo > 900){
+      return "ESPARTANO";
+    }    
+  }
 }

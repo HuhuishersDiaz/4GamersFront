@@ -50,7 +50,7 @@
                         display: block;
                         margin: auto;
                         position: absolute;
-                        width: 300px;margin-left: 1vw;">
+                        width: 300px;margin-left: 1.8vw;">
                     </div>
                     <div class="text-center text-white" style="width: 45%; ">
                         <div>
@@ -134,30 +134,34 @@
             <div class="col-12 text-white">
                
                 <div *ngIf="!TenemosResultado" class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
-                    <label class="btn btn-outline-white" style="padding: 0px;font-size: 28px; margin-right: 70px;">
+                    <label class="btn btn-outline-white" style="margin-right: 6vw;">
                         <input type="radio" name="options" id="option1" value="true" autocomplete="off"
                             (click)="Reportar(true)" [(ngModel)]="victoria"> Victoria
                     </label>
-                    <label class="btn btn-outline-white" style="padding: 0px;font-size: 28px; margin-right: 70px;">
+                    <label class="btn btn-outline-white">
                         <input type="radio" name="options" id="option2" value="false" autocomplete="off"
                             (click)="Reportar(false)" [(ngModel)]="victoria"> Derrota
                     </label>
                 </div>
+                <br>
                 <div  *ngIf="!TenemosResultado" class="form-check col-md-6">
+                    <br>
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="terminos">
-                    <label class="form-check-label" for="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1" style="font-size: 10px ;">
                         Confirmo que el resultado marcado es el correcto. En
                         caso de disputa entre usuarios, habra que subir pruebas.Los usuarios que envien reportes falsos
                         seran baneados, tal y como se establece en los <a href=""> Términos de uso </a>y en las
                         <a href=""> Reglas de juego </a>
                     </label>
                 </div>
+                <br>
                 <button *ngIf="!TenemosResultado"  type="submit" class="btn btn-danger" (click)="Finalizar()"> Enviar resultado </button>
             
                 <div  *ngIf="Disputa">
     
                     <div class="form-group">
                         <label for="">Subir Foto</label>
+                        <br>
                         <input type="file">
                     </div>
                 <div class="form-group">

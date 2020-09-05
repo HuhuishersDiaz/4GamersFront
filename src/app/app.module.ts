@@ -40,6 +40,9 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { CountdownModule } from 'ngx-countdown';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TycComponent } from './pages/tyc/tyc.component';
+import { AvisodeprivacidadComponent } from './pages/avisodeprivacidad/avisodeprivacidad.component';
+import { FaqsComponent } from './pages/faqs/faqs.component';
 
 
 @NgModule({
@@ -64,7 +67,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CompraComponent,
     RetiroComponent,
     ValidarretiroComponent,
-    EncuentroCampeonatoComponent
+    EncuentroCampeonatoComponent,
+    TycComponent,
+    AvisodeprivacidadComponent,
+    FaqsComponent
   ],
   imports: [
     BrowserModule,

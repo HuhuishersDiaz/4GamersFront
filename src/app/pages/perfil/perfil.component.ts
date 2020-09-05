@@ -6,6 +6,7 @@ import {GlobalService} from 'src/app/services/global.service';
 import {UserInfo} from 'src/app/models/interfaces';
 import {GamersService} from 'src/app/provides/GamersService';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import swal from 'sweetalert';
 
 
 @Component({selector: 'app-perfil', templateUrl: './perfil.component.html', styleUrls: ['./perfil.component.css']})
@@ -38,6 +39,12 @@ export class PerfilComponent implements OnInit {
             fkPlataforma: 202032,
             userid: ""
         },
+        {
+            idPersona: 1,
+            nombre : 'Steam',
+            fkPlataforma: 202033,
+            userid: ""
+        },
 
     ]
     tokens : number = 0;
@@ -47,10 +54,6 @@ export class PerfilComponent implements OnInit {
     estadisticas : any ={
         ganadas : 0,perdidas : 0,jugadas : 0 ,copas : 0 ,ptsRanngo : 0 ,
     }
-
-    // router.post('/insertIdsPlataforma', async (req, res, next) => {
-
-    // const {idPersona, fkPlataforma, userid} = req.body;
 
     constructor(
         private router : Router, 
@@ -66,37 +69,22 @@ export class PerfilComponent implements OnInit {
 
     }
     
+    async ngOnInit() {
 
-    // async EsperarVersus(){
-    // await  this._sockets.pruebaEsperarRival().then(data => {
-    //     //console.log(data);
-    //    })
-    // }
-    async ngOnInit() { // this.EsperarVersus();
-        //console.log(this.global.isUser());
-        //console.log("Este resultado llega a perfil ");
         if (!this.global.isUser()) {
             this.router.navigateByUrl('/login')
             return false;
         }
+
         await  this.cargarids();
         await this.InfoUsuario()
         await this.cargarTokens();
         await this.Estadisticar();
-        this.ptsRanngo = this.estadisticas.ptsRanngo[0].ptsRango || 0;
-        if(this.ptsRanngo >= 0 && this.ptsRanngo < 100 ){
-            this.rango = "MILICIA"
-        }else  if(this.ptsRanngo > 101 && this.ptsRanngo < 400 ){
-            this.rango = "LEGIONARIO";
-        } else if(this.ptsRanngo > 401 && this.ptsRanngo < 900 ){
-            this.rango = "CENTURIÓN";
-        }else if(this.ptsRanngo > 900){
-            this.rango = "ESPARTANO";
-        }
-        console.log(this.ptsRanngo)
 
-        // if(this.estadisticas.pts)
-        // console.log(this.user);
+        this.ptsRanngo = this.estadisticas.ptsRanngo[0].ptsRango || 0;
+
+        this.rango = this.global.Rango(this.ptsRanngo);
+
         
         if(this.user.img != null){
             // alert("Existe la imagen es esta "+this.user.img)
@@ -119,7 +107,7 @@ export class PerfilComponent implements OnInit {
     }
 
     onFileSelect(event) {
-        alert("Espera por favor...")
+        swal("Espera por favor...",{ closeOnEsc : false,closeOnClickOutside : false,buttons : {}  })
         if (event.target.files.length > 0) {
           const file = event.target.files[0];
           //console.log(file)
@@ -128,7 +116,6 @@ export class PerfilComponent implements OnInit {
           // File Preview
             const reader = new FileReader();
             reader.onload = () => {
-            this.imageURL = reader.result as string;
             //console.log(this,this.imageURL);
             }
             reader.readAsDataURL(file)
@@ -144,14 +131,19 @@ export class PerfilComponent implements OnInit {
                     //console.log(info)
                     this.api.imagenperil(info).then((res : any)=>{
                         if(res.info.rowsAffected[0]==1){
-                            alert("Imagen guardada con exito ")
+                            this.imageURL = reader.result as string;
+                            swal("Imagen guardada con exito ",{
+                                icon : "success",
+                                timer : 1000
+
+                            })
                         }
                     }).catch(err=>{
-                        alert("Imagen no pemitida")
+                        swal("Imagen no pemitida",{
+                            icon : "error"
+                        } )
                     })
                 }
-            }).catch(err=>{
-                console.log(err)
             })
         }
       }
@@ -178,7 +170,7 @@ export class PerfilComponent implements OnInit {
 
     }
 
-    guardarids() {
+   async  guardarids() {
         this.ids.forEach(async element => {
             element.idPersona = this.idpersona;
             await this.api.cargaridsPlataforma(element).then(data=>{
@@ -187,7 +179,16 @@ export class PerfilComponent implements OnInit {
             //console.log(element);
 
         });
-        alert("Operacion Exitosa")
+        // console.log(this.user);
+        // let data = {
+        //     idPersona : this.idpersona,username : this.user.username
+        // }
+        // console.log(data);
+        // await this.api.EditarUsuario(data).then((data:any)=>{
+        //     console.log(data)
+        // })
+        swal("Operacion exitosa",{ icon:"success" ,buttons : {} ,timer : 1000});
+
     }
     cerrarsesion(){
         localStorage.removeItem("idPersona");

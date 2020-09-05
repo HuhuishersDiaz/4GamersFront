@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GamersService } from 'src/app/provides/GamersService';
 import { paquete } from 'src/app/interfaces/interfaces';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-checkout',
@@ -14,9 +15,13 @@ export class CheckoutComponent implements OnInit {
   paquete : paquete ={
     numTokens : 0
   };
-  constructor(private route : ActivatedRoute,private api : GamersService) { }
+  idpersona: string;
+  constructor(private route : ActivatedRoute,private api : GamersService ,private router : Router ) { }
 
-  ngAfterViewInit(): void{
+  ngAfterViewInit(){
+    
+    this.idpersona = localStorage.getItem("idPersona") ;
+
     this.idpaquete = this.route.snapshot.paramMap.get("id");
      this.laodinfo();
   }
@@ -35,9 +40,22 @@ export class CheckoutComponent implements OnInit {
   }
 
   async Confirmar(){
-    var data = await confirm("Valida")
+    var data = confirm("Valida")
     if(data){
-      alert("Gracias por tu compra");
+      var infoEncuentro = {
+        fkpersona: this.idpersona,
+        iswinner: true,
+        monto: this.paquete.numTokens,
+        mensaje: "Compra Tienda"
+
+      }
+        this.api.EstadodeCuenta(infoEncuentro).then((data:any) => { 
+          console.log(data);
+          if(data.ok){
+            swal("Operación exitosa","Gracias por su compra",{icon : 'success',timer : 1000 , buttons : {}});
+            this.router.navigateByUrl("/home")
+          }
+      })
     }else{
       alert("Operacion Cancelada")
     }

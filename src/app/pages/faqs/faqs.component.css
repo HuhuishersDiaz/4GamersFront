@@ -1,0 +1,7 @@
+[data-toggle="collapse"] i:before{
+    content: "\f077";
+}
+
+[data-toggle="collapse"].collapsed i:before{
+    content: "\f078";
+}

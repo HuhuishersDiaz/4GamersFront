@@ -10,15 +10,14 @@ import {GamersService} from '../provides/GamersService';
 import {global} from '@angular/compiler/src/util';
 import {GlobalService} from './global.service';
 import * as alertify from 'alertifyjs';
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
 
 @Injectable()
-export class SocketsService { 
-     //private url = 'http://localhost:3000';
+export class SocketsService { // private url = 'http://localhost:3000';
     private url = environment.socketURL;
     private socket;
     public ListVersus = [];
-    idPersona: string;
+    idPersona : string;
     constructor(private UI : UIGamersService, private route : Router, private api : GamersService) {
         this.idPersona = localStorage.getItem("idPersona");
 
@@ -26,24 +25,47 @@ export class SocketsService {
 
         this.socket.on('Confirmajugarversus', (infoRival) => { // console.log(infoRival);
 
-            alertify.confirm('Aceptaron tu versus Quieres Jugarlo ', () => {
-                alertify.success('Ok')
-
-                this.respuestaconfirmacionversus(infoRival, true);
-                this.api.CancelarTodosVersus({idpersona : this.idPersona}).then(data=>{
-                    console.log(data);
-                        
-                })
-                this.api.AgregarRival(infoRival).then(data => {
-                    if (data['info'].rowsAffected[0] == 1) {
-                        this.route.navigateByUrl('/versus/encuentro/' + infoRival.idversus)
+            swal({
+                title: "Versus Aceptado",
+                text: "¿ Quieres jugarlo ?",
+                icon: "info",
+                closeOnClickOutside : false,
+                closeOnEsc : false,
+                buttons: {
+                    aceptar: {
+                        text: "Aceptar",
+                        value: true,
+                        visible : true,
+                        className: "btn-danger",
+                        closeModal: true
+                    },
+                    cancelar: {
+                        text: "Cancelar",
+                        value: false,
+                        visible: true,
+                        className: "",
+                        closeModal: true
                     }
-                })
+                },
+            }).then((willDelete) => {
+                if (willDelete) {
 
-            }, () => {
-                alertify.error('Cancel')
-                this.respuestaconfirmacionversus(infoRival, false);
+                    this.respuestaconfirmacionversus(infoRival, true);
+                    this.api.CancelarTodosVersus({idpersona: this.idPersona}).then(data => {
+                        console.log(data);
+
+                    })
+                    this.api.AgregarRival(infoRival).then(data => {
+                        if (data['info'].rowsAffected[0] == 1) {
+                            this.route.navigateByUrl('/versus/encuentro/' + infoRival.idversus)
+                        }
+                    })
+
+                } else {
+                    this.respuestaconfirmacionversus(infoRival, false);
+                }
             });
+
         });
 
     }
@@ -144,9 +166,8 @@ export class SocketsService {
     }
 
     async EsperarRivalTorneo(data) { // console.log(data);
-        return new Promise(async (resolve)=>{
-             this.socket.emit('buscarRivalTorneo',data, (_respuesta : any) => {
-                // console.log(_respuesta);
+        return new Promise(async (resolve) => {
+            this.socket.emit('buscarRivalTorneo', data, (_respuesta : any) => { // console.log(_respuesta);
                 resolve(_respuesta);
             });
         })
@@ -159,7 +180,7 @@ export class SocketsService {
     // k" aria-hidden="true"></i>
 
     async chatTorneos(data) { // console.log(data);
-            await this.socket.emit('chatTorneo', data);
+        await this.socket.emit('chatTorneo', data);
     }
     onNewMessageTorneo() {
         return Observable.create(observer => {
@@ -174,9 +195,8 @@ export class SocketsService {
     }
 
     async EsperarResultadoRival(data) { // console.log(data);
-        return new Promise(async (resolve)=>{
-             this.socket.emit('EsperarResultadoVerus',data, (_respuesta : any) => {
-                // console.log(_respuesta);
+        return new Promise(async (resolve) => {
+            this.socket.emit('EsperarResultadoVerus', data, (_respuesta : any) => { // console.log(_respuesta);
                 resolve(_respuesta);
             });
         })
@@ -187,7 +207,7 @@ export class SocketsService {
     // Apartado de campeonatos
     // ada
     // ada
-    
+
     onNewMessageCampeonato() {
         return Observable.create(observer => {
             this.socket.on('MessageCampeonato', data => {
@@ -203,17 +223,15 @@ export class SocketsService {
         await this.socket.emit('chatCampeonato', data);
     }
     async EsperarRivalCampeonato(data) { // console.log(data);
-        return new Promise(async (resolve)=>{
-            this.socket.emit('buscarRivalCampeonato',data, (_respuesta : any) => {
-                // console.log(_respuesta);
+        return new Promise(async (resolve) => {
+            this.socket.emit('buscarRivalCampeonato', data, (_respuesta : any) => { // console.log(_respuesta);
                 resolve(_respuesta);
             });
         })
     }
-    async EsperarResultadoRivalCampeonato  (data) { // console.log(data);
-        return new Promise(async (resolve)=>{
-             this.socket.emit('EsperarResultadoCampeonato',data, (_respuesta : any) => {
-                // console.log(_respuesta);
+    async EsperarResultadoRivalCampeonato(data) { // console.log(data);
+        return new Promise(async (resolve) => {
+            this.socket.emit('EsperarResultadoCampeonato', data, (_respuesta : any) => { // console.log(_respuesta);
                 resolve(_respuesta);
             });
         })
