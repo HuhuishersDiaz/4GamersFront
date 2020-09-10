@@ -140,7 +140,9 @@ export class FasestorneoComponent implements OnInit {
                         resolve(false)
                         this.bloqueamolasiguiente = true;
                         this.infoEncuentro = data.encuentro
-                        if(this.infoEncuentro.fkInscripcionRival != null || this.infoEncuentro.fkInscripcionAnfitrion != null){
+                        // alert(this.infoEncuentro.fkInscripcionRival );
+                        // alert(this.infoEncuentro.fkInscripcionAnfitrion );
+                        if(this.infoEncuentro.fkInscripcionRival != null && this.infoEncuentro.fkInscripcionAnfitrion != null){
                             this.jugar();
 
                         }
@@ -163,17 +165,14 @@ export class FasestorneoComponent implements OnInit {
 
     async BuscarRival(fase : any) {
 
-
-
-
         if (fase.status == "Disputa") {
             swal("Espera la resolucion de tu disputa")
         } else {
-            // this.loading = true;
+            swal("Buscando Rival" , {icon: "/assets/loading.gif" ,buttons : {}}  );
             fase.idpersona = this.idPersona;
             fase.idinscripcion = this.infoInscripcion.idInscripcion;
             let respuesta = await this._socket.EsperarRivalTorneo(fase).then(data => data).catch(err => err)
-            // console.log(respuesta)
+            console.log(respuesta)
             if (respuesta['ok']) {
                 // this.loading = false;
                 this.puedojugar = true;
@@ -230,17 +229,24 @@ export class FasestorneoComponent implements OnInit {
         }
     }
 
-    final($event) {
+    async final($event) {
+
         // console.log($event)
         let info = $event.action;
         // this.loadfases();
         if ($event.left < 0) {
+            await this.loadfases();
+            this.cargarResultados();
             swal("Campeonato Finalizado ", "Gracias por participar");
             // this.router.navigateByUrl(`/home`)
 
         } else if (info == 'done') {
             swal("Campeonato Finalizado ", "Gracias por participar");
             // this.router.navigateByUrl(`/home`)
+
+        }else{
+            await this.loadfases();
+            this.cargarResultados();
 
         }
     }

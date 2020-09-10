@@ -173,3 +173,14 @@ label {
   width: 0px;
   background: transparent; /* make scrollbar transparent */
 }
+
+.modal-content{
+  background-color: black !important;
+}
+
+.friends-list{
+  min-height: 200px;
+  /* max-height: 210px; */
+  overflow: scroll;
+  /* overflow: hidden; */
+}

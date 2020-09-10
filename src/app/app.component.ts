@@ -12,8 +12,18 @@ export class AppComponent {
     constructor(private global : GlobalService, private router : Router, private gamers : GamersService,private _socket: SocketsService ) {
 
         global.InfoUser();
-
   
+    }
+
+    ngOnInit(): void {
+        this.global.InfoUser();
+
+    }
+
+    ngOnDestroy(): void {
+
+        alert("Salio del chat")
+
     }
 
 

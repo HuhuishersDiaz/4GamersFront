@@ -1,0 +1,33 @@
+
+.inputBuscar{
+    min-width: 150px;
+    margin: auto;
+    max-width: 200px;
+    color: white !important;
+    border: transparent !important;
+    background-color: transparent !important;
+    border-bottom: 1px solid !important;
+}
+table{
+    border : 1px solid #fff
+
+}
+td {
+    vertical-align: inherit;
+  }
+  
+  ::-webkit-input-placeholder { /* Edge */
+    color: #fff;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: rgb(2, 2, 2);
+  }
+  
+  ::placeholder {
+    color: #fff;
+  }
+
+.swal-icon--custom > img{
+  width: 150px;
+}

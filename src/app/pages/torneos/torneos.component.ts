@@ -66,6 +66,39 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
 
         let token = this.global.tokens;
 
+        console.log(item.fkJuego);
+        // item.fkJuego;
+        // return false;
+
+        let continuamos = await this.api.idJuegopersona(this.idpersona,  item.fkJuego).then(data => data).catch(err => err)
+        console.log(continuamos)
+
+        if (! continuamos.ok) {
+            // swal("Para continuar es necesario cargar los IDs ", {icon: "/assets/Logo_gif_loader.gif"});
+            swal("Para continuar es necesario cargar los IDs ",{icon : "info" ,buttons : {
+                cancelar : {
+                    text : "Cancelar",
+                    className : "btn-danger",
+                    value : false,
+                    closeModal : true
+                    
+                },
+                ir : {
+                    text : "ir a perfil",
+                    className : "btn-danger",
+                    value : true,
+                    
+                }
+            }
+            }).then(data=>{
+                if(data){
+                    this.router.navigateByUrl("/perfil")
+
+                }
+            });
+            return false;
+        }
+
         let Inscripciones: any[] = await this.api.LugarTorneo(item.idTorneo).then((data : any[]) => data['info'].recordset).catch(err => err)
 
         let miInscripcion = Inscripciones.find(c => c.fkPersona == this.idpersona);
@@ -74,11 +107,13 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
             this.router.navigateByUrl("/torneos/torneo/" + miInscripcion.fkTorneo + "/fases")
             return false;
         }
+        // alert(Inscripciones.length)
+        // alert(item.numJugadores)
         if (token < item.CosEntrada) {
             alertify.error("Tokens insuficientes ");
             return false;
 
-        } else if (Inscripciones.length > item.numJugadores) {
+        } else if (Inscripciones.length >= item.numJugadores) {
 
             alertify.error("Lugares no disponibles");
             return false;
@@ -94,8 +129,6 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
     async entrarCampeonato(item : any) {
 
         this.modalRef = this.modalService.show(this.ModalEntrar, {});
-
-        return false;
 
         let tokens = await this.global.tokens;
 

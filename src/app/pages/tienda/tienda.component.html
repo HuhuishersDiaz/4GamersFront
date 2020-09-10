@@ -36,7 +36,7 @@
       <swiper   class="swiper-container" [config]="config">
         <div class="swiper-wrapper ">
             <div class="swiper-slide"  style="width: 200px !important;" *ngFor="let paquete of TokensTienda" >
-              <div >
+              <div (click)="Comprar(paquete)" >
                 <img class="img-thumbnaill" [src]="'http://4gamers.xplainerservicios.com/content/Tienda/' + paquete.imgPrecentacion" />
               </div>
           </div>
@@ -107,7 +107,7 @@
             </div>
           </div>
            <div class="col-12 col-sm-3 text-center ">
-            <button class="btn btn-sm bg4gamers btn-cobrar" >Cobrar</button>
+            <button class="btn btn-sm bg4gamers btn-cobrar" (click)="cobrar()" >Cobrar</button>
           </div>
         </div>
         

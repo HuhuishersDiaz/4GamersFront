@@ -36,7 +36,7 @@ export class GamersService {
     async getVersus() {
         // console.log(this.idPersona)
         if(this.idPersona == 'null'){
-            return this.http.get<respuesta>(this.url + "versus/allversus/" + this.idPersona)
+            return this.http.get<respuesta>(this.url + "versus/allversus/0")
 
         }
         return this.http.get<respuesta>(this.url + "versus/allversus/" + this.idPersona)
@@ -98,6 +98,19 @@ export class GamersService {
         }versus/misversus/${idpersona}`).toPromise()
     }
 
+    async listAmigos(idpersona) {
+        return await this.http.get(`${
+            this.url
+        }users/amigos/${idpersona}`).toPromise()
+    }
+
+    async buscaramigo(username : string) {
+        console.log(username);
+        return await this.http.get(`${
+            this.url
+        }users/buscaramigo/${username}`).toPromise()
+    }
+
     async acumuladoVersus(idpersona) {
         return await this.http.get(`${
             this.url
@@ -117,7 +130,16 @@ export class GamersService {
     }
 
 
+    async agregarAmigo(data) {
+        let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
 
+        let options = {
+            headers: httpHeaders
+        };
+
+        return await this.http.post(`${this.url}users/agregarAmigo`, data, options).toPromise()
+
+    }
 
 
     async getidsPlataformas(idPersona) {
@@ -277,12 +299,12 @@ export class GamersService {
         return await this.http.post(this.url + "users/profileimg", data, options).toPromise()
 
     }
-    async infoPersona() {
-        return await this.http.get(`${this.url}users/consultapersona/${this.idPersona}`).toPromise()
+    async infoPersona(idPersona) {
+        return await this.http.get(`${this.url}users/consultapersona/${idPersona}`).toPromise()
     }
 
-    async Estadisticas() {
-        return await this.http.get(`${this.url}users/estadisticas/${this.idPersona}`).toPromise()
+    async Estadisticas(idPersona) {
+        return await this.http.get(`${this.url}users/estadisticas/${idPersona}`).toPromise()
     }
 
     async CancelarVersus(data){

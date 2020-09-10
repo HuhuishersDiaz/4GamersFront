@@ -4,7 +4,7 @@ import {GamersService} from 'src/app/provides/GamersService';
 import {GlobalService} from 'src/app/services/global.service';
 import * as alertify from 'alertifyjs';
 import {SwiperOptions} from 'swiper';
-
+import swal from 'sweetalert'
 @Component({selector: 'app-home', templateUrl: './home.component.html', styleUrls: ['./home.component.css']})
 export class HomeComponent implements OnInit {
 
@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
     async Entrar(item : any) {
         console.log(item)
         if (!this.idpersona) {
-            alert("Es necesario iniciar session ")
+            swal("Es necesario iniciar session ")
             return false;
         }
         let respuesta = await this.api.inscripcion(this.idpersona, item.idTorneo).then(data => data).catch(err => err);
@@ -89,9 +89,33 @@ export class HomeComponent implements OnInit {
             }
 
             if (token < item.CosEntrada) {
-                alertify.error("Tokens insuficientes ");
-
-            } else if (inscripcion.Lugar > item.numJugadores) {
+                swal("Necesitas tokens para ingresar",{
+                    icon : "info",
+                    closeOnClickOutside : false,
+                    closeOnEsc : false,
+                    buttons : {
+                        cancel: {
+                            text: "Cancelar",
+                            value: null,
+                            visible: true,
+                            className: "",
+                            closeModal: true,
+                          },
+                          confirm: {
+                            text: "Ir a Tienda",
+                            value: true,
+                            visible: true,
+                            className: "btn-danger",
+                            closeModal: true
+                          }
+                    }
+                }).then(data=>{
+                    if(data){
+                        this.router.navigateByUrl("/tienda")
+                    }
+                })
+                return false;
+            } else if (inscripcion.Lugar+1  >= item.numJugadores) {
 
                 alertify.error("Lugares no disponibles");
 

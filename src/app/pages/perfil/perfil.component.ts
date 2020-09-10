@@ -62,7 +62,8 @@ export class PerfilComponent implements OnInit {
         private api : GamersService,
         private formBuilder: FormBuilder,
         ) {
-            this.idpersona = localStorage.getItem("idPersona") ;
+            this.idpersona =   localStorage.getItem("idPersona") ;
+            console.log(this.idpersona)
             this.uploadForm = this.formBuilder.group({
                 profile: ['']
               });
@@ -70,16 +71,18 @@ export class PerfilComponent implements OnInit {
     }
     
     async ngOnInit() {
+        this.idpersona =   localStorage.getItem("idPersona") ;
+        console.log(this.idpersona)
 
         if (!this.global.isUser()) {
             this.router.navigateByUrl('/login')
             return false;
         }
-
+        console.log(this.idpersona);
         await  this.cargarids();
-        await this.InfoUsuario()
+        await this.InfoUsuario( this.idpersona)
         await this.cargarTokens();
-        await this.Estadisticar();
+        await this.Estadisticar( this.idpersona);
 
         this.ptsRanngo = this.estadisticas.ptsRanngo[0].ptsRango || 0;
 
@@ -93,21 +96,22 @@ export class PerfilComponent implements OnInit {
 
     }
 
-    async Estadisticar(){
-        await this.api.Estadisticas().then((data:any)=>{
+    async Estadisticar(idpersona){
+        await this.api.Estadisticas(idpersona).then((data:any)=>{
             console.log(data)
             this.estadisticas = data;
         })
     }
-    async InfoUsuario(){
-        await this.api.infoPersona().then((data:any)=>{
+    async InfoUsuario(idpersona){
+        
+        await this.api.infoPersona(idpersona).then((data:any)=>{
             this.user = data.info;
             console.log(data)
         })
     }
 
     onFileSelect(event) {
-        swal("Espera por favor...",{ closeOnEsc : false,closeOnClickOutside : false,buttons : {}  })
+        swal("Espera por favor...",{ closeOnEsc : false,closeOnClickOutside : false,buttons : {} ,icon : "/assets/loading.gif" })
         if (event.target.files.length > 0) {
           const file = event.target.files[0];
           //console.log(file)
@@ -173,9 +177,10 @@ export class PerfilComponent implements OnInit {
    async  guardarids() {
         this.ids.forEach(async element => {
             element.idPersona = this.idpersona;
-            await this.api.cargaridsPlataforma(element).then(data=>{
-                 //console.log(data);
-             })
+            if(element.userid != "")
+                await this.api.cargaridsPlataforma(element).then(data=>{
+                    //console.log(data);
+                })
             //console.log(element);
 
         });

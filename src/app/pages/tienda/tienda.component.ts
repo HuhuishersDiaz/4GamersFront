@@ -60,6 +60,12 @@ export class TiendaComponent implements OnInit {
 
     }
   }
+  
+  cobrar() {
+    if(this.idpersona){
+        this.router.navigateByUrl('boveda/retirar')
+    }
+  }
 
 
 }

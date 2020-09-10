@@ -43,6 +43,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { TycComponent } from './pages/tyc/tyc.component';
 import { AvisodeprivacidadComponent } from './pages/avisodeprivacidad/avisodeprivacidad.component';
 import { FaqsComponent } from './pages/faqs/faqs.component';
+import { PruebasComponent } from './pages/pruebas/pruebas.component';
+import { AmigosComponent } from './pages/amigos/amigos.component';
 
 
 @NgModule({
@@ -70,7 +72,9 @@ import { FaqsComponent } from './pages/faqs/faqs.component';
     EncuentroCampeonatoComponent,
     TycComponent,
     AvisodeprivacidadComponent,
-    FaqsComponent
+    FaqsComponent,
+    PruebasComponent,
+    AmigosComponent
   ],
   imports: [
     BrowserModule,

@@ -68,6 +68,54 @@ export class SocketsService { // private url = 'http://localhost:3000';
 
         });
 
+        this.socket.on('preguntaamigoversus', (infoVersus:any) => { // console.log(infoRival);
+            swal({
+                title: "Te Invitan a jugar",
+                text: "¿ Quieres aceptar el versus ?",
+                icon: "info",
+                closeOnClickOutside : false,
+                closeOnEsc : false,
+                buttons: {
+                    aceptar: {
+                        text: "Aceptar",
+                        value: true,
+                        visible : true,
+                        className: "btn-danger",
+                        closeModal: true
+                    },
+                    cancelar: {
+                        text: "Cancelar",
+                        value: false,
+                        visible: true,
+                        className: "",
+                        closeModal: true
+                    }
+                },
+            }).then((willDelete) => {
+                if (willDelete) {
+
+                    this.api.AgregarRival({idversus:infoVersus.versus.idversus, idPersona : this.idPersona}).then(data => {
+                        if (data['info'].rowsAffected[0] == 1) {
+                            infoVersus.respuesta = true;
+                            this.socket.emit('confirmajugaramigo', infoVersus);
+
+                            this.route.navigateByUrl('/versus/encuentro/' + infoVersus.versus.idversus)
+                        }else{
+                            infoVersus.respuesta = false;
+                            this.socket.emit('confirmajugaramigo', infoVersus);
+
+                        }
+                    })
+                } else {
+                    infoVersus.respuesta = false;
+                    this.socket.emit('confirmajugaramigo', infoVersus);
+
+                }
+
+
+            });
+
+        });
     }
 
     public respuestaconfirmacionversus(data, respuesta) {
@@ -93,10 +141,11 @@ export class SocketsService { // private url = 'http://localhost:3000';
     // Este es el proceso para crear un versus debemos de revisar que se ha creado satisfactoriamente
     async createVersus(data : any) {
 
-        var RespuestaVersusus = await this.socket.emit('newVersus', data, (res) => { // console.log(res)
-            return res;
-        });
-
+        return new Promise(async (resolve) => {
+            this.socket.emit('newVersus', data, callback =>{
+                resolve(callback);
+            });
+        })
     }
 
     // Escuchamos en todo momento cuando hay un nuevo versus
@@ -111,6 +160,15 @@ export class SocketsService { // private url = 'http://localhost:3000';
             });
         });
     }
+
+    respuestaconfirmaciondeamigo() {
+        return Observable.create(observer => {
+            this.socket.on('respuestaamigoversus', data => {
+                observer.next(data);
+            });
+        });
+    }
+    
     // Escuchamos la respuesta del anfitrion
     confirmacionversus() {
         return Observable.create(observer => {
@@ -201,7 +259,12 @@ export class SocketsService { // private url = 'http://localhost:3000';
             });
         })
     }
-
+    async EsperarconfirmacionAmigo(data) { // console.log(data);
+        return new Promise(async (resolve) => {
+            this.socket.emit('preguntaramigo', data );
+            resolve(true);
+        })
+    }
     // ada
     // ada
     // Apartado de campeonatos

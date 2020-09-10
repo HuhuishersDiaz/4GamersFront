@@ -111,16 +111,14 @@
                       00:<countdown #cd [config]="{leftTime : item.fin}" (event)="handleEvent($event)"></countdown>
                     </strong>
                   </p>
-                  
-                  
-                  
+                                    
                 </div>
               </div>
               <div class="contDes">
                 <div>
                   <button class="btn btn-sm reglas" (click)="verReglas(item,modalReglas)">REGLAS DEL TORNEO</button>
                 </div>
-                <div>
+                <div  *ngIf="item.inicio > 0">
                   <p class="lugares">LUGARES <br> DISPONIBLES</p>
                   <button class="btn btn-danger ir" style="font-weight: bold;" (click)="Entrar(item)" >
                   IR AL TORNEO
@@ -211,8 +209,8 @@
     <p  class="text-center">La cuota de entrada para este torneos es de: </p>
     <div class="text-center">
       <p>
-        <img src="/assets/tokens.svg" class="logo" style="width: 20px; display: inline;" />
-        <span class="cosEntrada">200</span>
+        <img src="/assets/tokens.svg" class="logo" width="20" style=" display: inline;" />
+        <span class="cosEntrada">{{ TorneoActivo['cosEntrada']}}</span>
       </p><br>
     </div>
     <!-- <img src="/assets/Logo_gif_loader.gif" alt=""> -->

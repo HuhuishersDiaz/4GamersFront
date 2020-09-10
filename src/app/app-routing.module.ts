@@ -20,6 +20,8 @@ import { EncuentroCampeonatoComponent } from './pages/encuentro-campeonato/encue
 import { TycComponent } from './pages/tyc/tyc.component';
 import { AvisodeprivacidadComponent } from './pages/avisodeprivacidad/avisodeprivacidad.component';
 import { FaqsComponent } from './pages/faqs/faqs.component';
+import { PruebasComponent } from './pages/pruebas/pruebas.component';
+import { AmigosComponent } from './pages/amigos/amigos.component';
 
 const routes: Routes = [
   {
@@ -81,6 +83,12 @@ const routes: Routes = [
   },
   {
     path : 'boveda/retiro/validar', component : ValidarretiroComponent
+  },
+  {
+    path : 'pruebas', component : PruebasComponent
+  },
+  {
+    path : 'amigos', component : AmigosComponent
   },
   {
     path : '**', pathMatch : 'full' ,redirectTo : 'home'

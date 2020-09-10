@@ -6,6 +6,7 @@ import { GlobalService } from 'src/app/services/global.service';
 import { UserInfo } from 'src/app/models/interfaces';
 import { GamersService } from 'src/app/provides/GamersService';
 import {NgForm} from '@angular/forms';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
       this.Actualizar();
     }
    else{
-      alert('ocurrio un error intente mas tarde');
+      swal('Correo o usuario no encuentrado','Por favor registrate');
    }
   }
 

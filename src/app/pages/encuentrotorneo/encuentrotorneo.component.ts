@@ -101,7 +101,8 @@ export class EncuentrotorneoComponent implements OnInit {
                 let idRival = info.fkInscripcionRival
                 this.idjuego = info.fkJuego;
                 this.apuesta = info.numTokens;
-
+                console.log(info);
+                
                 await this.api.idJuegopersonaTorneo(idAnfitrion, this.idjuego).then((data : any) => { // console.log(data.info.recordset[0]);
                     console.log(data);
                     if (data.ok) {
@@ -132,7 +133,7 @@ export class EncuentrotorneoComponent implements OnInit {
                     this.enviarMensaje("Se ha conectado")
                 } else {
                     this.router.navigateByUrl('/torneos')
-                    alert('No perteneces a esta partida Evita perder tu cuenta  ');
+                    swal('No perteneces a esta partida Evita perder tu cuenta  ');
                 }
             }
         }).catch(err => {
@@ -203,7 +204,7 @@ export class EncuentrotorneoComponent implements OnInit {
 
             switch (RespuestaRival['info']) {
                 case "Disputa":
-                    swal("Tu encuentro se fue a disputa")
+                    swal("Tu encuentro se fue a disputa",{icon : "info"})
                     this.disputa =  true;
 
                     break;
@@ -238,7 +239,8 @@ export class EncuentrotorneoComponent implements OnInit {
                         this.router.navigateByUrl('/torneos')
 
                     } else {
-                        swal("Esperando la respuesta de tu rival ");
+                        swal("Esperando la respuesta de tu rival ", {icon: "/assets/loading.gif" ,buttons : {}}  );
+
                         let data = {
                             idencuentro: this.idencuentro,
                             idinscripcion: this.idinscripcionRival
@@ -249,7 +251,7 @@ export class EncuentrotorneoComponent implements OnInit {
                         })
                         console.log(Respuesta);
                         if (Respuesta.info.isWinner == this.victoria) {
-                            swal("Tu encuentro se ha ido a Disputa")
+                            swal("Tu encuentro se ha ido a Disputa",{icon : "info"})
                            this.disputa = true;
 
                         } else {
@@ -261,7 +263,7 @@ export class EncuentrotorneoComponent implements OnInit {
                                     }/fases`)
 
                                 } else {
-                                    alert("Intenta nuevamente ");
+                                    swal("Intenta nuevamente ");
                                 }
                             })
                         }
@@ -273,7 +275,7 @@ export class EncuentrotorneoComponent implements OnInit {
             }
 
         } else {
-            swal("Confirma los terminos y condiciones");
+            swal("Confirma los terminos y condiciones",{icon : "info"});
 
         }
     }

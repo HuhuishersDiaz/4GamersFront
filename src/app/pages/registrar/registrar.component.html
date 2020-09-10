@@ -16,8 +16,12 @@
             </div>
         </div>
         <div class="field">
-            <input type="text" name="username" ngModel required  maxlength="8" >
-            <label for="username">Nombre de usuario</label>
+            <input type="text" name="nombre" ngModel required  value=" " >
+            <label for="username">Nombre de completo</label>
+        </div>
+        <div class="field">
+            <input type="text" name="username" ngModel required  maxlength="10" >
+            <label for="username">alias</label>
         </div>
         <div class="field">
             <input type="password" name="password" ngModel #password="ngModel" minlength="8" required >

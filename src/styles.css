@@ -603,6 +603,13 @@
   background-color: transparent !important;
 
 }
+.swal-icon--custom{
+  width: 150px;
+
+}
+.swal-footer{
+  text-align: center;
+}
 /* .swal-icon--custom{
   
   background-image: url(https://gamers-7a22c.web.app/assets/Logo_gif_loader.gif);

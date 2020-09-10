@@ -23,27 +23,22 @@ export class RegistrarComponent implements OnInit {
   }
 
   async saveUser( data: NgForm ){
-    console.log(data.valid);
-    console.log(data.value);
-    // console.log(this.registro);
+
     if(this.registro.password != this.registro.confirma ){
       swal('Las contraseñas no coinciden ');
       return false;
     }
-      console.log(data.value)
+
     var respuesta = await  this.apiUser.register(data.value).then(data => data).catch(err=> err);
-    console.log(respuesta)
     if(respuesta.ok){
+
       this.global.saveData(new UserInfo(respuesta.user.idPersona.toString()|| null,respuesta.user.Nombre.toString()|| null,respuesta.user.username.toString()|| null,respuesta.user.Correo.toString()|| null,0))
       this.global.InfoUser();
-      swal("Bienvenido ","",{
+      swal("Bienvenido ",respuesta.user.username.toString(),{
         icon : "success",
         buttons : {},
         timer : 2000
       });
-      // localStorage.setItem("idPersona","1255616")
-      // localStorage.setItem("Nombre",this.registro.nombre.toString() )
-      // localStorage.setItem("username",this.registro.username.toString())
       this.router.navigateByUrl('/home');
     }else{
       swal(respuesta.message,{icon : "error"});

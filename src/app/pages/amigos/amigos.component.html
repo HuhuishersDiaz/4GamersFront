@@ -1,0 +1,31 @@
+<!-- <div class="container"> -->
+    <div class="line-divider">
+        <p>AMIGOS</p>
+     </div>    
+     <div class="friends-list text-white text-center container ">
+      
+        <table class="table table-hover text-white" >
+            <tr *ngFor="let amigo of amigos">
+                <td>
+                   {{ amigo.nombre }}
+                </td>
+                <td>
+                    {{ amigo.username }}
+
+                </td>
+                <td>
+                    <button class="btn-sm btn btn-danger" >Enviar Invitación</button>
+                </td>
+            </tr>
+        </table>
+
+     </div>
+     <div class="line-divider">
+      <p>AGREGAR UN AMIGO</p>
+   </div> 
+<div class="text-center"><br>
+     <input type="text" value="" class=" inputBuscar"  placeholder="ID 4Gamers" [(ngModel)]="usernameAmigo"><br><br>
+   <button class="btn btn-danger" (click)="BuscarAmigo()">Buscar </button>  
+</div>
+
+<!-- </div> -->
