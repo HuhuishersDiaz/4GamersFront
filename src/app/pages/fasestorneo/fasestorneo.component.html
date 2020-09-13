@@ -1,137 +1,776 @@
 <div class="container text-white">
-   <p *ngIf="dataTorneo.inicio > 0">LA TORNEO INICIA EN:</p>
-   <p *ngIf="dataTorneo.inicio < 0">LA TORNEO FINALIZA EN:</p>
- 
-  <strong *ngIf="dataTorneo.inicio > 0" > 00:<countdown #cd [config]="{leftTime : dataTorneo.inicio}" (event)="inicio($event)" ></countdown></strong>
-  <strong *ngIf="dataTorneo.inicio < 0" > 00:<countdown #cd [config]="{leftTime : dataTorneo.fin}"  (event)="final($event)"></countdown></strong>
-  
-     <div class="fasestorneo ">
-   <br>
-    <div *ngIf="fasesTorneo.length === 3; then tresfases else cuatrofases" class="row text-center text-white " >
-      
+  <p *ngIf="dataTorneo.inicio > 0">LA TORNEO INICIA EN:</p>
+  <p *ngIf="dataTorneo.inicio < 0">LA TORNEO FINALIZA EN:</p>
+
+  <strong *ngIf="dataTorneo.inicio > 0">
+    00:<countdown
+      #cd
+      [config]="{ leftTime: dataTorneo.inicio }"
+      (event)="inicio($event)"
+    ></countdown
+  ></strong>
+  <strong *ngIf="dataTorneo.inicio < 0">
+    00:<countdown
+      #cd
+      [config]="{ leftTime: dataTorneo.fin }"
+      (event)="final($event)"
+    ></countdown
+  ></strong>
+
+  <div class="fasestorneo">
+    <br />
+    <div
+      *ngIf="fasesTorneo.length === 3; then tresfases; else cuatrofases"
+      class="row text-center text-white"
+    ></div>
+  </div>
+
+  <ng-template #tresfases>
+    <div class="row text-center text-white">
+      <div class="col-4" *ngFor="let item of fasesTorneo">
+        <img
+          [src]="
+            'http://4gamers.xplainerservicios.com/content/torneos/fases/' +
+            item.imgFase
+          "
+          alt=""
+          style="width: 90%"
+        />
+        <div>
+          <div *ngIf="item.activa; then buscar; else bloqueado"></div>
+          <ng-template #buscar>
+            <button
+              (click)="BuscarRival(item)"
+              class="btn btn-sm btn-block btn-danger btnBuscarRival"
+              style="width: 90%; padding: initial; margin: auto"
+            >
+              {{ item.status }}
+            </button>
+          </ng-template>
+          <ng-template #bloqueado>
+            <button
+              class="btn btn-sm btn-block btn-light disabled"
+              style="width: 90%; padding: initial; font-size: 9px; margin: auto"
+            >
+              {{ item.status }}
+            </button>
+          </ng-template>
+        </div>
+      </div>
     </div>
-   </div>
-
-   <ng-template #tresfases>
-      <div  class="row text-center text-white  ">
-         <div class="col-4" *ngFor="let item of fasesTorneo">
-            <img [src]="'http://4gamers.xplainerservicios.com/content/torneos/fases/' + item.imgFase" alt="" style="width: 90%;">
-            <div>
-               <div *ngIf="item.activa; then buscar else bloqueado">
-               </div>
-               <ng-template #buscar>
-                  <button (click)="BuscarRival(item)" class="btn btn-sm btn-block btn-danger btnBuscarRival" style="width: 90%; padding: initial;margin: auto;">{{ item.status }}</button>
-               </ng-template>
-               <ng-template #bloqueado>
-                   <button   class="btn btn-sm btn-block btn-light disabled" style="width: 90%;padding: initial;font-size: 9px;  margin: auto;">{{ item.status }}</button>
-               </ng-template>
-            </div>
-         </div>
+    <div class="row">
+      <div class="col-12">
+        <br />
+        <div class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            [ngStyle]="{ width: process + '%' }"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
       </div>
-      <div class=" row   ">
-         <div class="col-12">
-            <br>
-            <div class="progress">
-               <div class="progress-bar" role="progressbar" [ngStyle]="{'width': process+'%'}"  aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-         </div>
-      </div>
-      <br>
-      <div class="row text-center text-white">
-         <div class="col-4" *ngFor="let item of fasesTorneo">
-            <p class="text-premio">PREMIO</p>
-            <label>
-            <img src="/assets/tokens.svg" class="logo" width="20" />
-            <STRONG class="numtokens">{{item.numTokens}}</STRONG>
-            </label>
-         </div>
-
-      </div>
-   </ng-template>
-   <ng-template #cuatrofases>
-      <div  class="row text-center text-white">
-         <div class="col-3" *ngFor="let item of fasesTorneo">
-            <img [src]="'http://4gamers.xplainerservicios.com/content/torneos/fases/' + item.imgFase" alt="" style="width: 90%;">
-            <!-- <button class="btn btn-sm   btn-block btn-danger" style="width: 90%;">BuscarRival</button> -->
-            <div>
-               <div *ngIf="item.activa; then buscar else bloqueado">
-               </div>
-               <ng-template #buscar>
-                  <button (click)="BuscarRival(item)" class="btn btn-sm btn-block btn-danger btnBuscarRival" style="width: 90%; padding: initial;margin: auto;">{{ item.status }}</button>
-               </ng-template>
-               <ng-template #bloqueado>
-                   <button   class="btn btn-sm btn-block btn-light disabled" style="width: 90%;padding: initial;font-size: 9px;  margin: auto;">{{ item.status }}</button>
-               </ng-template>
-            </div>
-         </div>
-      </div>
-      <div class=" row text-center text-white  ">
-         <div class="col-12">
-            <br>
-            <div class="progress">
-               <div class="progress-bar" role="progressbar" [ngStyle]="{'width': process+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-         </div>
-      </div>
-      <div class="row text-center text-white">
-         <div class="col-3" *ngFor="let item of fasesTorneo">
-            <p class="text-premio">PREMIO</p>
-            <label>
-            <img src="/assets/tokens.svg" class="logo"  />
-            <STRONG class="numtokens">{{item.numTokens}}</STRONG>
-            </label>
-         </div>
-      </div>
-   </ng-template>
-   
-   
-    <br>
-    <div class="generalinfo text-white">
-       <div class="panel panel-info">
-          <div class="panel-heading collapsed " data-toggle="collapse" data-target="#bar">
-             REGLAS DE LA COMPETENCIA
-             <i class="fa fa-fw fa-chevron-right"></i>
-          </div>
-          <div class="panel-body" style="background-color:  rgb(153,153,153)">
-             <!-- The inside div eliminates the 'jumping' animation. -->
-             <div class="collapse" id="bar" >
-                Reglas de la competencia
-                Reglas de la competencia
-                Reglas de la competencia
-                Reglas de la competencia
-                Reglas de la competencia
-             </div>
-          </div>
-          <div class="panel-heading collapsed" data-toggle="collapse" data-target="#pruebas">
-             REPORTAR RESULTADOS Y SUBIR PRUEBAS
-             <i class="fa fa-fw fa-chevron-down"></i>
-          </div>
-          <div class="panel-body" style="background-color: rgb(153,153,153);">
-            <!-- The inside div eliminates the 'jumping' animation. -->
-             <div class="collapse" id="pruebas">
-                como reportar resultados 
-                como reportar resultados 
-                como reportar resultados 
-                como reportar resultados 
-             </div>
-          </div>
-       </div>
     </div>
-    <div class="row text-center">
-       <div class="col-12" >
-          <button class="btn btn-danger "  (click)="jugar()" style="margin: auto;position: relative;;" *ngIf="puedojugar">  JUGAR </button>
-       </div>
+    <br />
+    <div class="row text-center text-white">
+      <div class="col-4" *ngFor="let item of fasesTorneo">
+        <p class="text-premio">PREMIO</p>
+        <label>
+          <img src="/assets/tokens.svg" class="logo" width="20" />
+          <STRONG class="numtokens">{{ item.numTokens }}</STRONG>
+        </label>
+      </div>
     </div>
+  </ng-template>
+  <ng-template #cuatrofases>
+    <div class="row text-center text-white">
+      <div class="col-3" *ngFor="let item of fasesTorneo">
+        <img
+          [src]="
+            'http://4gamers.xplainerservicios.com/content/torneos/fases/' +
+            item.imgFase
+          "
+          alt=""
+          style="width: 90%"
+        />
+        <!-- <button class="btn btn-sm   btn-block btn-danger" style="width: 90%;">BuscarRival</button> -->
+        <div>
+          <div *ngIf="item.activa; then buscar; else bloqueado"></div>
+          <ng-template #buscar>
+            <button
+              (click)="BuscarRival(item)"
+              class="btn btn-sm btn-block btn-danger btnBuscarRival"
+              style="width: 90%; padding: initial; margin: auto"
+            >
+              {{ item.status }}
+            </button>
+          </ng-template>
+          <ng-template #bloqueado>
+            <button
+              class="btn btn-sm btn-block btn-light disabled"
+              style="width: 90%; padding: initial; font-size: 9px; margin: auto"
+            >
+              {{ item.status }}
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="row text-center text-white">
+      <div class="col-12">
+        <br />
+        <div class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            [ngStyle]="{ width: process + '%' }"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <div class="row text-center text-white">
+      <div class="col-3" *ngFor="let item of fasesTorneo">
+        <p class="text-premio">PREMIO</p>
+        <label>
+          <img src="/assets/tokens.svg" class="logo" />
+          <STRONG class="numtokens">{{ item.numTokens }}</STRONG>
+        </label>
+      </div>
+    </div>
+  </ng-template>
+
+  <br />
+  <div class="generalinfo text-white">
+    <div class="panel panel-info">
+      <div
+        class="panel-heading collapsed"
+        data-toggle="collapse"
+        data-target="#bar"
+      >
+        REGLAS DE LA COMPETENCIA
+        <i class="fa fa-fw fa-chevron-right"></i>
+      </div>
+      <div
+        class="panel-body"
+        style="
+          background-color: rgb(153, 153, 153);
+          font-size: 10px !important;
+          padding: 10px;
+          font-weight: 600;
+        "
+      >
+        <!-- The inside div eliminates the 'jumping' animation. -->
+        <div
+          class="collapse"
+          id="bar"
+          [innerHTML]="dataTorneo.reglas"
+          style="color: black !important"
+        ></div>
+      </div>
+      <div
+        class="panel-heading collapsed"
+        data-toggle="collapse"
+        data-target="#pruebas"
+      >
+        REPORTAR RESULTADOS Y SUBIR PRUEBAS
+        <i class="fa fa-fw fa-chevron-down"></i>
+      </div>
+      <div class="panel-body" style="background-color: rgb(153, 153, 153)">
+        <!-- The inside div eliminates the 'jumping' animation. -->
+        <div class="collapse" id="pruebas">
+          como reportar resultados como reportar resultados como reportar
+          resultados como reportar resultados
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-12">
+      <button
+        class="btn btn-danger"
+        (click)="jugar()"
+        style="margin: auto; position: relative ;"
+        *ngIf="puedojugar"
+      >
+        JUGAR
+      </button>
+    </div>
+  </div>
+
+  <!-- <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" ></ngx-loading> -->
+</div>
 
 
-  
-      <!-- <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" ></ngx-loading> -->
-      
-
-
- </div>
-
-
-
-
-  
+<ol style="margin-top: 0; margin-bottom: 0">
+  <ol style="margin-top: 0; margin-bottom: 0">
+    <li
+      dir="ltr"
+      style="
+        list-style-type: decimal;
+        font-size: 11pt;
+        font-family: Calibri, sans-serif;
+        color: #000000;
+        background-color: transparent;
+        font-weight: 400;
+        font-style: normal;
+        font-variant: normal;
+        text-decoration: none;
+        vertical-align: baseline;
+        white-space: pre;
+        margin-left: -18.550000000000004pt;
+        padding-left: 10.350000000000001pt;
+      "
+    >
+      <p
+        dir="ltr"
+        style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+        role="presentation"
+      >
+        <span
+          style="
+            font-size: 11pt;
+            font-family: Calibri, sans-serif;
+            color: #000000;
+            background-color: transparent;
+            font-weight: 400;
+            font-style: normal;
+            font-variant: normal;
+            text-decoration: none;
+            vertical-align: baseline;
+            white-space: pre;
+            white-space: pre-wrap;
+          "
+          >AGREGAR A TU RIVAL EN LA PLATAFORMA DEL TORNEO (PS4)</span
+        >
+      </p>
+    </li>
+    <li
+      dir="ltr"
+      style="
+        list-style-type: decimal;
+        font-size: 11pt;
+        font-family: Calibri, sans-serif;
+        color: #000000;
+        background-color: transparent;
+        font-weight: 400;
+        font-style: normal;
+        font-variant: normal;
+        text-decoration: none;
+        vertical-align: baseline;
+        white-space: pre;
+        margin-left: -18.550000000000004pt;
+        padding-left: 10.350000000000001pt;
+      "
+    >
+      <p
+        dir="ltr"
+        style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+        role="presentation"
+      >
+        <span
+          style="
+            font-size: 11pt;
+            font-family: Calibri, sans-serif;
+            color: #000000;
+            background-color: transparent;
+            font-weight: 400;
+            font-style: normal;
+            font-variant: normal;
+            text-decoration: none;
+            vertical-align: baseline;
+            white-space: pre;
+            white-space: pre-wrap;
+          "
+          >DURACIÓN CADA TIEMPO: 10 MINUTOS</span
+        >
+      </p>
+    </li>
+    <li
+      dir="ltr"
+      style="
+        list-style-type: decimal;
+        font-size: 11pt;
+        font-family: Calibri, sans-serif;
+        color: #000000;
+        background-color: transparent;
+        font-weight: 400;
+        font-style: normal;
+        font-variant: normal;
+        text-decoration: none;
+        vertical-align: baseline;
+        white-space: pre;
+        margin-left: -18.550000000000004pt;
+        padding-left: 10.350000000000001pt;
+      "
+    >
+      <p
+        dir="ltr"
+        style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+        role="presentation"
+      >
+        <span
+          style="
+            font-size: 11pt;
+            font-family: Calibri, sans-serif;
+            color: #000000;
+            background-color: transparent;
+            font-weight: 400;
+            font-style: normal;
+            font-variant: normal;
+            text-decoration: none;
+            vertical-align: baseline;
+            white-space: pre;
+            white-space: pre-wrap;
+          "
+          >LESIONES: SI</span
+        >
+      </p>
+    </li>
+    <li
+      dir="ltr"
+      style="
+        list-style-type: decimal;
+        font-size: 11pt;
+        font-family: Calibri, sans-serif;
+        color: #000000;
+        background-color: transparent;
+        font-weight: 400;
+        font-style: normal;
+        font-variant: normal;
+        text-decoration: none;
+        vertical-align: baseline;
+        white-space: pre;
+        margin-left: -18.550000000000004pt;
+        padding-left: 10.350000000000001pt;
+      "
+    >
+      <p
+        dir="ltr"
+        style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+        role="presentation"
+      >
+        <span
+          style="
+            font-size: 11pt;
+            font-family: Calibri, sans-serif;
+            color: #000000;
+            background-color: transparent;
+            font-weight: 400;
+            font-style: normal;
+            font-variant: normal;
+            text-decoration: none;
+            vertical-align: baseline;
+            white-space: pre;
+            white-space: pre-wrap;
+          "
+          >TIPO DE BALÓN: ALEATORIO</span
+        >
+      </p>
+    </li>
+    <li
+      dir="ltr"
+      style="
+        list-style-type: decimal;
+        font-size: 11pt;
+        font-family: Calibri, sans-serif;
+        color: #000000;
+        background-color: transparent;
+        font-weight: 400;
+        font-style: normal;
+        font-variant: normal;
+        text-decoration: none;
+        vertical-align: baseline;
+        white-space: pre;
+        margin-left: -18.550000000000004pt;
+        padding-left: 10.350000000000001pt;
+      "
+    >
+      <p
+        dir="ltr"
+        style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+        role="presentation"
+      >
+        <span
+          style="
+            font-size: 11pt;
+            font-family: Calibri, sans-serif;
+            color: #000000;
+            background-color: transparent;
+            font-weight: 400;
+            font-style: normal;
+            font-variant: normal;
+            text-decoration: none;
+            vertical-align: baseline;
+            white-space: pre;
+            white-space: pre-wrap;
+          "
+          >TIEMPO LIMITE: NORMAL</span
+        >
+      </p>
+    </li>
+    <li
+      dir="ltr"
+      style="
+        list-style-type: decimal;
+        font-size: 11pt;
+        font-family: Calibri, sans-serif;
+        color: #000000;
+        background-color: transparent;
+        font-weight: 400;
+        font-style: normal;
+        font-variant: normal;
+        text-decoration: none;
+        vertical-align: baseline;
+        white-space: pre;
+        margin-left: -18.550000000000004pt;
+        padding-left: 10.350000000000001pt;
+      "
+    >
+      <p
+        dir="ltr"
+        style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+        role="presentation"
+      >
+        <span
+          style="
+            font-size: 11pt;
+            font-family: Calibri, sans-serif;
+            color: #000000;
+            background-color: transparent;
+            font-weight: 400;
+            font-style: normal;
+            font-variant: normal;
+            text-decoration: none;
+            vertical-align: baseline;
+            white-space: pre;
+            white-space: pre-wrap;
+          "
+          >TIEMPO DE REPOSICIÓN: SI</span
+        >
+      </p>
+    </li>
+    <li
+      dir="ltr"
+      style="
+        list-style-type: decimal;
+        font-size: 11pt;
+        font-family: Calibri, sans-serif;
+        color: #000000;
+        background-color: transparent;
+        font-weight: 400;
+        font-style: normal;
+        font-variant: normal;
+        text-decoration: none;
+        vertical-align: baseline;
+        white-space: pre;
+        margin-left: -18.550000000000004pt;
+        padding-left: 10.350000000000001pt;
+      "
+    >
+      <p
+        dir="ltr"
+        style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+        role="presentation"
+      >
+        <span
+          style="
+            font-size: 11pt;
+            font-family: Calibri, sans-serif;
+            color: #000000;
+            background-color: transparent;
+            font-weight: 400;
+            font-style: normal;
+            font-variant: normal;
+            text-decoration: none;
+            vertical-align: baseline;
+            white-space: pre;
+            white-space: pre-wrap;
+          "
+          >PENANES: SI</span
+        >
+      </p>
+    </li>
+    <li
+      dir="ltr"
+      style="
+        list-style-type: decimal;
+        font-size: 11pt;
+        font-family: Calibri, sans-serif;
+        color: #000000;
+        background-color: transparent;
+        font-weight: 400;
+        font-style: normal;
+        font-variant: normal;
+        text-decoration: none;
+        vertical-align: baseline;
+        white-space: pre;
+        margin-left: -18.550000000000004pt;
+        padding-left: 10.350000000000001pt;
+      "
+    >
+      <p
+        dir="ltr"
+        style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+        role="presentation"
+      >
+        <span
+          style="
+            font-size: 11pt;
+            font-family: Calibri, sans-serif;
+            color: #000000;
+            background-color: transparent;
+            font-weight: 400;
+            font-style: normal;
+            font-variant: normal;
+            text-decoration: none;
+            vertical-align: baseline;
+            white-space: pre;
+            white-space: pre-wrap;
+          "
+          >N° CAMBIOS PERMITIDOS: 3 (+1 REPOSICIÓN)</span
+        >
+      </p>
+    </li>
+  </ol>
+</ol>
+<ol style="margin-top: 0; margin-bottom: 0" start="9">
+  <li
+    dir="ltr"
+    style="
+      list-style-type: decimal;
+      font-size: 11pt;
+      font-family: Calibri, sans-serif;
+      color: #000000;
+      background-color: transparent;
+      font-weight: 400;
+      font-style: normal;
+      font-variant: normal;
+      text-decoration: none;
+      vertical-align: baseline;
+      white-space: pre;
+      margin-left: 17.449999999999996pt;
+      padding-left: 10.350000000000001pt;
+    "
+  >
+    <p
+      dir="ltr"
+      style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+      role="presentation"
+    >
+      <span
+        style="
+          font-size: 11pt;
+          font-family: Calibri, sans-serif;
+          color: #000000;
+          background-color: transparent;
+          font-weight: 400;
+          font-style: normal;
+          font-variant: normal;
+          text-decoration: none;
+          vertical-align: baseline;
+          white-space: pre;
+          white-space: pre-wrap;
+        "
+        >ELECCIÓN DE EQUIPO: LIBRE</span
+      >
+    </p>
+  </li>
+</ol>
+<ol style="margin-top: 0; margin-bottom: 0" start="10">
+  <li
+    dir="ltr"
+    style="
+      list-style-type: decimal;
+      font-size: 11pt;
+      font-family: Calibri, sans-serif;
+      color: #000000;
+      background-color: transparent;
+      font-weight: 400;
+      font-style: normal;
+      font-variant: normal;
+      text-decoration: none;
+      vertical-align: baseline;
+      white-space: pre;
+      margin-left: 17.449999999999996pt;
+      padding-left: 10.350000000000001pt;
+    "
+  >
+    <p
+      dir="ltr"
+      style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+      role="presentation"
+    >
+      <span
+        style="
+          font-size: 11pt;
+          font-family: Calibri, sans-serif;
+          color: #000000;
+          background-color: transparent;
+          font-weight: 400;
+          font-style: normal;
+          font-variant: normal;
+          text-decoration: none;
+          vertical-align: baseline;
+          white-space: pre;
+          white-space: pre-wrap;
+        "
+        >EN CASO DE TENER DISPUTA EN EL ENCUENTRO SE DEBE CARGAR UNA FOTO DE
+        EVIDENCIA.</span
+      >
+    </p>
+  </li>
+  <li
+    dir="ltr"
+    style="
+      list-style-type: decimal;
+      font-size: 11pt;
+      font-family: Calibri, sans-serif;
+      color: #000000;
+      background-color: transparent;
+      font-weight: 400;
+      font-style: normal;
+      font-variant: normal;
+      text-decoration: none;
+      vertical-align: baseline;
+      white-space: pre;
+      margin-left: 17.449999999999996pt;
+      padding-left: 10.350000000000001pt;
+    "
+  >
+    <p
+      dir="ltr"
+      style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+      role="presentation"
+    >
+      <span
+        style="
+          font-size: 11pt;
+          font-family: Calibri, sans-serif;
+          color: #000000;
+          background-color: transparent;
+          font-weight: 400;
+          font-style: normal;
+          font-variant: normal;
+          text-decoration: none;
+          vertical-align: baseline;
+          white-space: pre;
+          white-space: pre-wrap;
+        "
+        >DECLARAR UN RESULTADO FALSO IMPLICA UNA SANCIÓN AL JUGADOR SEGÚN LOS
+        TÉRMINOS Y CONDICIONES.</span
+      >
+    </p>
+  </li>
+</ol>
+<p
+  dir="ltr"
+  style="
+    line-height: 1.295;
+    margin-left: 36pt;
+    margin-top: 0pt;
+    margin-bottom: 0pt;
+  "
+>
+  <span
+    style="
+      font-size: 11pt;
+      font-family: Calibri, sans-serif;
+      color: #000000;
+      background-color: transparent;
+      font-weight: 400;
+      font-style: normal;
+      font-variant: normal;
+      text-decoration: none;
+      vertical-align: baseline;
+      white-space: pre;
+      white-space: pre-wrap;
+    "
+    >REQUISITOS Y RECOMENDACIONES:</span
+  >
+</p>
+<ol style="margin-top: 0; margin-bottom: 0">
+  <li
+    dir="ltr"
+    style="
+      list-style-type: decimal;
+      font-size: 11pt;
+      font-family: Calibri, sans-serif;
+      color: #000000;
+      background-color: transparent;
+      font-weight: 400;
+      font-style: normal;
+      font-variant: normal;
+      text-decoration: none;
+      vertical-align: baseline;
+      white-space: pre;
+      margin-left: 18pt;
+    "
+  >
+    <p
+      dir="ltr"
+      style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+      role="presentation"
+    >
+      <span
+        style="
+          font-size: 11pt;
+          font-family: Calibri, sans-serif;
+          color: #000000;
+          background-color: transparent;
+          font-weight: 400;
+          font-style: normal;
+          font-variant: normal;
+          text-decoration: none;
+          vertical-align: baseline;
+          white-space: pre;
+          white-space: pre-wrap;
+        "
+        >TIPO DE CONEXIÓN: NAT 2 (INDISPENSABLE)</span
+      >
+    </p>
+  </li>
+  <li
+    dir="ltr"
+    style="
+      list-style-type: decimal;
+      font-size: 11pt;
+      font-family: Calibri, sans-serif;
+      color: #000000;
+      background-color: transparent;
+      font-weight: 400;
+      font-style: normal;
+      font-variant: normal;
+      text-decoration: none;
+      vertical-align: baseline;
+      white-space: pre;
+      margin-left: 18pt;
+    "
+  >
+    <p
+      dir="ltr"
+      style="line-height: 1.295; margin-top: 0pt; margin-bottom: 0pt"
+      role="presentation"
+    >
+      <span
+        style="
+          font-size: 11pt;
+          font-family: Calibri, sans-serif;
+          color: #000000;
+          background-color: transparent;
+          font-weight: 400;
+          font-style: normal;
+          font-variant: normal;
+          text-decoration: none;
+          vertical-align: baseline;
+          white-space: pre;
+          white-space: pre-wrap;
+        "
+        >CONEXIÓN DE LA CONSOLA VIA CABLE DE RED (IDEAL) O WIFI</span
+      >
+    </p>
+  </li>
+</ol>

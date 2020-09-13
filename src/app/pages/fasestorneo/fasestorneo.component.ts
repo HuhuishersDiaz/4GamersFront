@@ -51,6 +51,12 @@ export class FasestorneoComponent implements OnInit {
         await this.infoinscripcion();
         await this.infoTorneo();
         await this.loadfases();
+        
+        await this.api.reglasjuego(this.dataTorneo.fkJuego)
+        .then((data : any) =>{
+            this.dataTorneo.reglas = data.info.recordset[0].descripcion
+        })
+
         if(this.process >= 99 ){
             const willDelete = await swal({
                 title: "¡Felicidades!",
@@ -63,7 +69,12 @@ export class FasestorneoComponent implements OnInit {
                 this.router.navigateByUrl("/home")
                 this.api.cancelarTorneo({ idtorneo : this.idTorneo});
               }
-        }
+        
+            
+            };
+            
+            
+            
     }
 
     async infoTorneo() {
@@ -215,7 +226,7 @@ export class FasestorneoComponent implements OnInit {
             this.dataTorneo.inicio = -1;
             this.cargarResultados();
             if (this.dataTorneo.numJugadores > this.numInscripciones.length) {
-                swal("Torneo cancelado!", "se hara la devolucion de la inscripcion ");
+                swal("Torneo cancelado!", "Se hara la devolución de la inscripción ");
                 // this.api.cancelarCampeonato({idCampeonato : this.idCampeonato})
                 this.api.cancelarTorneo({idtorneo : this.dataTorneo.idTorneo})
                 this.api.Reembolsos({tipo : "Inscripcion Torneo",referencia : this.idTorneo})

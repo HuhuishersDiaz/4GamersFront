@@ -14,7 +14,6 @@ export class EncuentrotorneoComponent implements OnInit {
     order : any;
     public mensajes : any[] = [];
     idpersona;
-    idversus;
     message : any;
     idjuego;
     mensaje;
@@ -22,16 +21,16 @@ export class EncuentrotorneoComponent implements OnInit {
     username;
     infoAnfitrion : infouser = {
         idpersona: 0,
-        idplataforma: 'prueba',
-        username: 'prueba',
-        nombre: 'prueba',
+        idplataforma: ' ',
+        username: ' ',
+        nombre: ' ',
         imguser: ''
     };
     infoRival : infouser = {
         idpersona: 0,
-        idplataforma: 'prueba1',
-        username: 'prueba1',
-        nombre: 'prueba1',
+        idplataforma: ' ',
+        username: ' ',
+        nombre: ' ',
         imguser: ''
     };
     terminos : boolean = false;
@@ -47,7 +46,9 @@ export class EncuentrotorneoComponent implements OnInit {
 
     disputa : boolean = false;
 
-
+    dataEncuentro   : any = {
+        finaliza : 20
+    };
     constructor(private router : Router, private route : ActivatedRoute, private _socket : SocketsService, private global : GlobalService, private api : GamersService, private UI : UIGamersService) {
 
         this.idpersona = localStorage.getItem("idPersona");
@@ -81,7 +82,7 @@ export class EncuentrotorneoComponent implements OnInit {
     }
 
     // Listo
-    async loadchat(idencuentro) {
+    async loadchat(idencuentro : string) {
         await this.api.chatEncuentro(idencuentro).then((data) => {
             this.mensajes = data['info'];
         })
@@ -89,14 +90,14 @@ export class EncuentrotorneoComponent implements OnInit {
     }
 
     // Listo
-    async validarEncuento(idencuentro) {
+    async validarEncuento(idencuentro : string ) {
         this.idpersona = localStorage.getItem("idPersona");
 
         this.api.validarEncuentro(idencuentro).then(async (data : any) => {
             console.log(data);
             if (data.ok) {
                 let info = data.info;
-
+                this.dataEncuentro = data.info
                 let idAnfitrion = info.fkInscripcionAnfitrion
                 let idRival = info.fkInscripcionRival
                 this.idjuego = info.fkJuego;
@@ -128,12 +129,23 @@ export class EncuentrotorneoComponent implements OnInit {
                     }
                 });
 
+                await this.api.reglasjuego(this.idjuego)
+                .then((data : any) =>{
+                    this.dataEncuentro.reglas = data.info.recordset[0].descripcion || "";
+                    console.log(data);
+                })
+
+                
+                
                 if (this.infoRival.idpersona == this.idpersona || this.infoAnfitrion.idpersona == this.idpersona) {
                     swal("Bienvenido", {timer: 1000});
                     this.enviarMensaje("Se ha conectado")
                 } else {
                     this.router.navigateByUrl('/torneos')
                     swal('No perteneces a esta partida Evita perder tu cuenta  ');
+                }
+                if(this.dataEncuentro.finaliza < 0 ){
+                    this.habilitarReporte = true;
                 }
             }
         }).catch(err => {
@@ -178,7 +190,8 @@ export class EncuentrotorneoComponent implements OnInit {
         var infoEncuentro = {
             idencuentro: this.idencuentro,
             idinscripcion: this.idinscripcion,
-            iswinner: this.victoria
+            iswinner: this.victoria,
+            idfase: this.idfase
         }
 
         if (this.terminos ) {
@@ -188,18 +201,30 @@ export class EncuentrotorneoComponent implements OnInit {
                 return false; 
             }
 
-            let RespuestaRival = await this.ValidarResultado(infoEncuentro).then(data => data).catch(err => err)
-            console.log(RespuestaRival)
             this.api.GuardarResultadoTorneo(infoEncuentro).then((data : any) => {
                 console.log(data)
             })
 
+            if (this.victoria == false) {
+                swal("Gracias por participar ")
+                await this.api.FinalizarInscripcion(infoEncuentro).then(data => data).catch(err => err);
+                this.router.navigateByUrl('/torneos')
+                return false;
+            }
+
+            
+         
+
+            let RespuestaRival = await this.ValidarResultado(infoEncuentro).then(data => data).catch(err => err)
+            console.log(RespuestaRival)
+            
             let infoCuenta = {
 
                 fkpersona: this.idpersona,
                 monto: this.apuesta,
                 iswinner: this.victoria,
-                mensaje: "Ganador FaseTorneo"
+                mensaje: "Ganador FaseTorneo",
+                referencia : this.idencuentro
             }
 
             switch (RespuestaRival['info']) {
@@ -210,14 +235,18 @@ export class EncuentrotorneoComponent implements OnInit {
                     break;
                 case "Continua":
                     if (this.victoria == true) {
-
-
                         this.api.EstadodeCuenta(infoCuenta).then((data : any) => {
                             if (data.info.rowsAffected[0] == 1) {
-                                swal("Felicidades has Ganado " + this.apuesta + " Tokens");
-                                this.router.navigateByUrl(`/torneos/torneo/${
-                                    this.idtorneo
-                                }/fases`)
+                                
+                                this.api.ganadorFaseTorneo(infoEncuentro).then((data:any)=>{
+                                    console.log(data);
+                                    if(data.message.rowsAffected[0]){
+                                            swal("Felicidades has Ganado " + this.apuesta + " Tokens","Avanza a la siguente ronda ");
+                                            this.router.navigateByUrl(`/torneos/torneo/${
+                                                this.idtorneo
+                                            }/fases`);
+                                    }
+                                })
 
                             } else {
                                 swal("Intenta nuevamente ");
@@ -233,12 +262,7 @@ export class EncuentrotorneoComponent implements OnInit {
                     break;
 
                 case "Espera":
-                    if (this.victoria == false) {
-                        swal("Gracias por participar ")
-                        await this.api.FinalizarInscripcion(infoEncuentro).then(data => data).catch(err => err);
-                        this.router.navigateByUrl('/torneos')
-
-                    } else {
+                     
                         swal("Esperando la respuesta de tu rival ", {icon: "/assets/loading.gif" ,buttons : {}}  );
 
                         let data = {
@@ -267,7 +291,7 @@ export class EncuentrotorneoComponent implements OnInit {
                                 }
                             })
                         }
-                    }
+            
                     break;
                 default:
                     alert(RespuestaRival['info'])
@@ -305,12 +329,12 @@ export class EncuentrotorneoComponent implements OnInit {
         })
     }
 
-
     reportaen($event) {
+       
+        console.log($event)
         if ($event.action == 'done') {
             this.habilitarReporte = true;
         }
-
 
     }
     reportarDisputa() {

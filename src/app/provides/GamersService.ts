@@ -24,7 +24,12 @@ export class GamersService {
     }
     
     async getGames() {
-        return this.http.get(this.url + "juegos/tjuegos");
+        return this.http.get(this.url + "juegos/tjuegos").toPromise();
+    }
+
+    async reglasjuego(idjuego) {
+    
+        return this.http.get(this.url + `juegos/reglas/${idjuego}`).toPromise();
     }
 
     async getTokens(idPersona) {
@@ -265,7 +270,16 @@ export class GamersService {
         return await this.http.post(this.url + "encuentros/marcarresultado", data, options).toPromise()
 
     }
+   async ganadorFaseTorneo(data) {
+        let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
 
+        let options = {
+            headers: httpHeaders
+        };
+
+        return await this.http.post(this.url + "encuentros/ganadorfase", data, options).toPromise()
+
+    }
     async EncuentroFase(idencuentro: string, idinscripcion: string) {
         return await this.http.get(`${this.url}encuentros//hayEncuentro/${idencuentro}/${idinscripcion}`).toPromise()
     }

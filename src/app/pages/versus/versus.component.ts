@@ -6,6 +6,9 @@ import {
     TemplateRef
 } from '@angular/core';
 import swal from 'sweetalert';
+import swal2 from 'sweetalert2';
+
+
 import {SocketsService} from 'src/app/services/sockets.service';
 import {UserInfo} from 'src/app/models/interfaces';
 import {GlobalService} from 'src/app/services/global.service';
@@ -117,9 +120,12 @@ export class VersusComponent implements OnInit {
         }).catch((err) => {})
     }
     async verJuegos() {
-        (await this.api.getGames()).subscribe((data : any[]) => {
+        await this.api.getGames().then((data : any[]) => {
+            console.log(data);
+            
             this.juegos = data;
         });
+
     }
 
     async getVersus() {
@@ -146,9 +152,7 @@ export class VersusComponent implements OnInit {
             this.versus.apuesta = (50 - this.acumulados)
             return false;
         } else if (this.versus.apuesta < 1) {
-            swal("La cantidad minima debe ser mayor o igual a " + (
-                50 - this.acumulados
-            ) + " tokens");
+            swal("La cantidad minima debe ser mayor o igual a 1 tokens");
             this.versus.apuesta = 1
             return false;
         }

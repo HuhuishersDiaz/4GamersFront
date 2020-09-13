@@ -1,97 +1,122 @@
 
-<div class="line-divider">
-  <p>SELECCIONA TU JUEGO</p>
-</div>
-<div style="width: 100%;" class="contenedor">
-  <div *ngFor="let item of juegos" class="center">
-    <div class="gallery-card" style="margin: auto;">
-      <div class="gallery-card-body" [ngClass]="{ CheckActive: item.activa === true }" >
-        <label class="block-check">
-          <img [src]="baseUrl+ item.imgLogo" class="img-responsive" width="100%" />
-          <input type="radio" name="game" (change)="onChange(item)" [value]="item" [(ngModel)]="versus.juego"
-          />
-        </label>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="line-divider">
+        <p>SELECCIONA TU JUEGO</p>
       </div>
-    </div>
-  </div>
-</div>
-<hr/>
-<div class="container text-center text-white">
-  <p style="size: 16px; font-weight: initial;">CANTIDAD A APOSTAR</p>
-  <br />
-  <div class="container_marcador">
-    <img src="assets/barra_contador.png" usemap="#image-map"/>
-    <input style="width: 15%;" type="text" class="text-white" [(ngModel)]="versus.apuesta" class="inputTokens centrado" />
-    <map name="image-map">
-      <area (click)="CantidadApostar(-1)" href="javascript:void(0)" coords="0,1,31,29" shape="rect" />
-      <area (click)="CantidadApostar(1)"  href="javascript:void(0)" coords="195,27,167,0" shape="rect"/>
-    </map>
-  </div>
-  <br/>
-  <br/>
-  <button class="btn btn-danger btn-sm btn-jugar " (click)="CrearVersus()" *ngIf="(50 - acumulados)  > 0" >
-    JUGAR
-  </button>
-</div>
-
-
-<div class="line-divider" *ngIf="idpersona">
-   <p>MIS VERSUS</p>
- </div>
- <div class="container" >
-    <div  *ngFor="let item of misversus ">
-      <div class="alert alert-light alert-dismissible fade show" role="alert">
-         <strong>{{item.Nombre}} </strong>  Apuesta : {{ item .Apuesta}}
-          <button type="button" class="btn btn-sm btn-danger float-right" style="position: absolute; top: 0; right: 0;"
-            (click)="CancelarVersus(item)">
-            Cancelar
-          </button>
-       </div>
-    </div>
-</div>
-<div class="line-divider">
-  <p>ENCUENTRA TU RIVAL</p>
-</div>
-<div class="container" style="height: 350px; overflow: scroll;">
-
-    <div  *ngFor="let item of allversus">
-      <div class="alert alert-light alert-dismissible fade show " role="alert">
-        <strong>{{item.juego}} </strong>  Apuesta : {{ item.apuesta}}
-         <button  *ngIf="item.apuesta <= (50 - acumulados)" type="button" class="btn btn-sm btn-danger float-right" style="position: absolute; top: 0; right: 0;"
-           (click)="AceptarVersus(item)">
-           Entrar
-         </button>
+      <div style="width: 100%;" class="contenedor">
+        <swiper class="swiper-container" [config]="{  slidesPerView: 2.8,      spaceBetween: 10
+        }">
+          <div class="swiper-wrapper ">
+  
+            <div class="swiper-slide" *ngFor="let item of juegos"  >
+              <div class="gallery-card" >
+                <div class="gallery-card-body" [ngClass]="{ CheckActive: item.activa === true }" >
+                  <label class="block-check">
+                    <img [src]="baseUrl+ item.imgLogo" class="img-responsive" width="100%" />
+                    <input type="radio" name="game" (change)="onChange(item)" [value]="item" [(ngModel)]="versus.juego"
+                    />
+                  </label>
+                </div>
+            </div>
+          </div>
+        </div>
+        </swiper>
+        <!-- <div *ngFor="let item of juegos" class="center">
+          <div class="gallery-card" style="margin: auto;">
+            <div class="gallery-card-body" [ngClass]="{ CheckActive: item.activa === true }" >
+              <label class="block-check">
+                <img [src]="baseUrl+ item.imgLogo" class="img-responsive" width="100%" />
+                <input type="radio" name="game" (change)="onChange(item)" [value]="item" [(ngModel)]="versus.juego"
+                />
+              </label>
+            </div>
+          </div>
+        </div> -->
       </div>
-    </div>
-</div>
-<div class="line-divider">
-  <p>AMIGOS</p>
-</div> 
-<div class="friends-list text-white text-center container ">
+      <hr/>
+      <div class="container text-center text-white">
+        <p style="size: 16px; font-weight: initial;">CANTIDAD A APOSTAR</p>
+        <br />
+        <div class="container_marcador">
+          <img src="assets/barra_contador.png" usemap="#image-map"/>
+          <input style="width: 15%;" type="text" class="text-white" [(ngModel)]="versus.apuesta" class="inputTokens centrado" />
+          <map name="image-map">
+            <area (click)="CantidadApostar(-1)" href="javascript:void(0)" coords="0,1,31,29" shape="rect" />
+            <area (click)="CantidadApostar(1)"  href="javascript:void(0)" coords="195,27,167,0" shape="rect"/>
+          </map>
+        </div>
+        <br/>
+        <br/>
+        <button class="btn btn-danger btn-sm btn-jugar " (click)="CrearVersus()" *ngIf="(50 - acumulados)  > 0" >
+          JUGAR
+        </button>
+      </div>
       
-  <table class="table table-hover text-white" >
-      <tr *ngFor="let amigo of amigos">
-          <td>
-             {{ amigo.nombre }}
-          </td>
-          <td>
-              {{ amigo.username }}
-
-          </td>
-          <td>
-              <!-- <button class="btn-sm btn btn-danger" >Enviar Invitación</button> -->
-          </td>
-      </tr>
-  </table>
-
+      
+      <div class="line-divider" *ngIf="idpersona">
+         <p>MIS VERSUS</p>
+       </div>
+       <div class="container" >
+          <div  *ngFor="let item of misversus ">
+            <div class="alert alert-light alert-dismissible fade show" role="alert">
+               <strong>{{item.Nombre}} </strong>  Apuesta : {{ item .Apuesta}}
+                <button type="button" class="btn btn-sm btn-danger float-right" style="position: absolute; top: 0; right: 0;"
+                  (click)="CancelarVersus(item)">
+                  Cancelar
+                </button>
+             </div>
+          </div>
+      </div>
+      <div class="line-divider">
+        <p>ENCUENTRA TU RIVAL</p>
+      </div>
+      <div class="container" style=" min-height: 10px; max-height: 350px; overflow: scroll;">
+      
+          <div  *ngFor="let item of allversus">
+            <div class="alert alert-light alert-dismissible fade show " role="alert">
+              <strong>{{item.juego}} </strong>  Apuesta : {{ item.apuesta}}
+               <button  *ngIf="item.apuesta <= (50 - acumulados)" type="button" class="btn btn-sm btn-danger float-right" style="position: absolute; top: 0; right: 0;"
+                 (click)="AceptarVersus(item)">
+                 Entrar
+               </button>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="line-divider">
+        <p>AMIGOS</p>
+      </div> 
+      <div class="friends-list text-white text-center container ">
+        <table class="table table-hover text-white" >
+            <tr *ngFor="let amigo of amigos">
+                <td>
+                   {{ amigo.nombre }}
+                </td>
+                <td>
+                    {{ amigo.username }}
+      
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+      
+      </div>
+      <div class="line-divider">
+        <p>AGREGAR UN AMIGO</p>
+      </div> 
+      <div class="text-center"><br>
+       <input type="text" value="" class=" inputBuscar"  placeholder="ID 4Gamers" [(ngModel)]="usernameAmigo"><br><br>
+      <button class="btn btn-danger" (click)="BuscarAmigo()">Buscar </button>  
+      </div>
+    </div>
+  </div>
 </div>
-<div class="line-divider">
-  <p>AGREGAR UN AMIGO</p>
-</div> 
-<div class="text-center"><br>
- <input type="text" value="" class=" inputBuscar"  placeholder="ID 4Gamers" [(ngModel)]="usernameAmigo"><br><br>
-<button class="btn btn-danger" (click)="BuscarAmigo()">Buscar </button>  
-</div>
+
+
 <!-- <button type="button" class="btn btn-primary" (click)="openModal(template)">Create template modal</button> -->
 <ng-template #modAmigos >
   <div class="modal-body text-center" style="background-color: black;">
@@ -100,7 +125,6 @@
       <p>AMIGOS</p>
    </div>    
    <div class="friends-list text-white text-center container " style="height: 400px !important;">
-    
       <table class="table table-hover text-white" >
           <tr *ngFor="let amigo of amigos">
               <td>
@@ -108,29 +132,17 @@
               </td>
               <td>
                   {{ amigo.username }}
-
               </td>
               <td>
                   <button class="btn-sm btn btn-danger" (click)="JugarAmigosVerus(amigo)" >Enviar Invitación</button>
               </td>
           </tr>
       </table>
-
    </div>
-
   </div>
 </ng-template> 
 
-<!-- <button type="button" class="btn btn-primary" (click)="openModal(ganador)">Create template modal</button> -->
 
-<!-- <ng-template #ganador >
-  <div class="modal-body text-center">
-    <h3>Felicidades</h3>
-    <img src="../../../assets/copas.png" alt="" style="width: 100px;">
-    <h3>Eres el numero 1°</h3>
-    <div class="text-center">
-      <button type="button" class="btn btn-danger btn-sm" (click)="closeModal(ganador)" data-dismiss="modal">Cerrar</button>
-    </div>
-  </div>
-</ng-template>  -->
+
+
 

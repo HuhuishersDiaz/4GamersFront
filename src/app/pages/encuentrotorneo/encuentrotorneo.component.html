@@ -12,7 +12,7 @@
                 <div class="text-center text-white" style="width: 40%; ">
                     <div>
                         <br>
-                        <div style="background-color:transparent; width: 100px ;height: 100px; margin: auto; background-position: center;background-size: contain;    background-repeat: no-repeat;"
+                        <div style="background-color:transparent; width: 100px ;height: 100px; margin: auto; background-position: center;background-size: contain;    background-repeat: no-repeat;border-radius: 15px;"
                         [ngStyle]="{'background-image': 'url(' + baseUrl + (infoAnfitrion.imguser || 'boton_editarfotos.png') + ')' }">
 
                         </div>
@@ -40,7 +40,7 @@
                 <div class="text-center text-white" style="width: 40%; ">
                     <div>
                         <br>
-                        <div style="background-color:transparent; width: 100px ;height: 100px; margin: auto; background-position: center;background-size: contain;    background-repeat: no-repeat;"
+                        <div style="background-color:transparent; width: 100px ;height: 100px; margin: auto; background-position: center;background-size: contain;    background-repeat: no-repeat;border-radius: 15px;"
                         [ngStyle]="{'background-image': 'url(' + baseUrl + (infoRival.imguser || 'boton_editarfotos.png') + ')' }">
 
                         </div>                        
@@ -99,11 +99,42 @@
                 </div>
             </div>
         </div>
-        <strong style="display: none;" ><countdown #cd [config]="{leftTime : 10}" (event)="reportaen($event)" ></countdown></strong>
-
+        <p class="text-white" *ngIf="dataEncuentro.finaliza > 0 ">Reporta en: <strong  ><countdown #cd [config]="{leftTime : dataEncuentro.finaliza }" (event)="reportaen($event)" ></countdown></strong></p>
+        <hr>
+        <div class="container">
+          <div class="generalinfo text-white" style="font-size: 10; font-weight: 600;">
+            <div class="panel panel-info">
+               <div class="panel-heading collapsed " data-toggle="collapse" data-target="#bar">
+                  REGLAS DE LA COMPETENCIA
+                  <i class="fa fa-fw fa-chevron-right"></i>
+               </div>
+               <div class="panel-body" style="background-color:  rgb(153,153,153)">
+                  <!-- The inside div eliminates the 'jumping' animation. -->
+                  <div class="collapse" id="bar" [innerHTML] = "dataEncuentro.reglas" style="color: black !important;" > 
+                    
+                  </div>
+               </div>
+               <div class="panel-heading collapsed" data-toggle="collapse" data-target="#pruebas" style="white-space: nowrap;">
+                  REPORTAR RESULTADOS Y SUBIR PRUEBAS
+                  <i class="fa fa-fw fa-chevron-down"></i>
+               </div>
+               <div class="panel-body" style="background-color: rgb(153,153,153);">
+                 <!-- The inside div eliminates the 'jumping' animation. -->
+                  <div class="collapse" id="pruebas">
+                     como reportar resultados 
+                     como reportar resultados 
+                     como reportar resultados 
+                     como reportar resultados 
+                  </div>
+               </div>
+            </div>
+         </div>  
+        </div>
+        
+         <hr>
         <div class="col-12 text-white" *ngIf="!disputa">
             <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
-                <label class="btn btn-outline-white">
+                <label class="btn btn-outline-white" style="margin-right: 6vw;">
                     <input type="radio" name="options" id="option1" value="true" autocomplete="off"
                         (click)="Reportar(true)" [(ngModel)]="victoria"> Victoria
                 </label>

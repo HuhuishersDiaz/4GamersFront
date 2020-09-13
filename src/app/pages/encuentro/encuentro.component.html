@@ -151,13 +151,38 @@
       </div>
     </div>
 
-    <strong style="display: none;"
-      ><countdown
-        #cd
-        [config]="{ leftTime: 18 }"
-        (event)="reportaen($event)"
-      ></countdown
-    ></strong>
+   <p class="text-white" *ngIf="versus['finaliza'] > 0">
+     Reporta en 
+     <strong ><countdown #cd [config]="{ leftTime: versus['finaliza'] }" (event)="reportaen($event)" ></countdown ></strong>
+   </p> 
+  <br>
+   <div class="generalinfo text-white">
+    <div class="panel panel-info">
+       <div class="panel-heading collapsed " data-toggle="collapse" data-target="#bar">
+          REGLAS DE LA COMPETENCIA
+          <i class="fa fa-fw fa-chevron-right"></i>
+       </div>
+       <div class="panel-body" style="background-color:  rgb(153,153,153)">
+          <!-- The inside div eliminates the 'jumping' animation. -->
+          <div class="collapse" id="bar" [innerHTML] = "versus.reglas" style="color: black !important;" > 
+            
+          </div>
+       </div>
+       <div class="panel-heading collapsed" data-toggle="collapse" data-target="#pruebas">
+          REPORTAR RESULTADOS Y SUBIR PRUEBAS
+          <i class="fa fa-fw fa-chevron-down"></i>
+       </div>
+       <div class="panel-body" style="background-color: rgb(153,153,153);">
+         <!-- The inside div eliminates the 'jumping' animation. -->
+          <div class="collapse" id="pruebas">
+             como reportar resultados 
+             como reportar resultados 
+             como reportar resultados 
+             como reportar resultados 
+          </div>
+       </div>
+    </div>
+ </div>
 
     <div class="col-12 text-white" *ngIf="!Disputa">
       <div *ngIf="!TenemosResultado" class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
@@ -185,6 +210,7 @@
           <a href=""> Reglas de juego </a>
         </label>
       </div>
+
       <button
         *ngIf="habilitarReporte"
         type="submit"
@@ -194,6 +220,10 @@
       Enviar resultado
       </button>
     </div>
+
+    
+
+
     <div  class="col-12 text-white" *ngIf="Disputa">
         <label for="">Subir Foto</label>
 

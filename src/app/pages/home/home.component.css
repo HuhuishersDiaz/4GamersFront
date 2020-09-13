@@ -253,7 +253,13 @@
   }
 
 
-  
+  .container-videos{
+    background-image: url('/assets/banner_witcher.png');
+    background-size: cover;
+  }
+  .cont-video{
+    background: transparent; cursor: pointer;
+  }
 
   /* .swiper-slide{
     width: 175px !important;

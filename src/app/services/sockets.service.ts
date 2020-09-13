@@ -68,7 +68,12 @@ export class SocketsService { // private url = 'http://localhost:3000';
 
         });
 
-        this.socket.on('preguntaamigoversus', (infoVersus:any) => { // console.log(infoRival);
+        this.socket.on('preguntaamigoversus', async (infoVersus:any) => { 
+
+            let continuamos = await this.api.idJuegopersona(this.idPersona, infoVersus.versus.fkjuego).then(data => data).catch(err => err)
+            console.log(continuamos);
+            return false;
+
             swal({
                 title: "Te Invitan a jugar",
                 text: "¿ Quieres aceptar el versus ?",
@@ -111,7 +116,6 @@ export class SocketsService { // private url = 'http://localhost:3000';
                     this.socket.emit('confirmajugaramigo', infoVersus);
 
                 }
-
 
             });
 

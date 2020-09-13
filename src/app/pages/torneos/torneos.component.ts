@@ -12,12 +12,13 @@ import {GlobalService} from 'src/app/services/global.service';
 import {Router} from '@angular/router';
 import {CountdownComponent, CountdownConfig} from 'ngx-countdown';
 import swal from 'sweetalert';
+import swal2 from 'sweetalert2';
 import {BsModalService, BsModalRef, ModalOptions} from 'ngx-bootstrap/modal';
 
 @Component({selector: 'app-torneos', templateUrl: './torneos.component.html', styleUrls: ['./torneos.component.css']})
 export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: false }) private countdown: CountdownComponent;
 
-    @ViewChild('modalReglas')modal : ElementRef;
+    @ViewChild('modalReglas')modalReglas : ElementRef;
     @ViewChild('modEntrar')ModalEntrar : ElementRef;
     modalRef : BsModalRef;
 
@@ -28,17 +29,14 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
         // class : "modal-dialog-centered"
     }
 
-    reglas = `<p dir="ltr" style="line-height:1.295;margin-left: 36pt;margin-top:0pt;margin-bottom:0pt;">
-    </p><ol style="margin-top:0;margin-bottom:0;"><li dir="ltr" style="list-style-type:decimal;font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 21.25pt;padding-left: 6.549999999999997pt;"><p dir="ltr" style="line-height:1.295;margin-top:0pt;margin-bottom:0pt;" role="presentation"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">AGREGAR A TU RIVAL EN LA PLATAFORMA DEL TORNEO (PS4)</span></p></li><li dir="ltr" style="list-style-type:decimal;font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 21.25pt;padding-left: 6.549999999999997pt;"><p dir="ltr" style="line-height:1.295;margin-top:0pt;margin-bottom:0pt;" role="presentation"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">DURACIÓN CADA TIEMPO: 6 MINUTOS</span></p></li><li dir="ltr" style="list-style-type:decimal;font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 21.25pt;padding-left: 6.549999999999997pt;"><p dir="ltr" style="line-height:1.295;margin-top:0pt;margin-bottom:0pt;" role="presentation"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">CONTROLES: CUALQUIERA</span></p></li><li dir="ltr" style="list-style-type:decimal;font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 21.25pt;padding-left: 6.549999999999997pt;"><p dir="ltr" style="line-height:1.295;margin-top:0pt;margin-bottom:0pt;" role="presentation"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">VELOCIDAD DEL JUEGO: NORMAL</span></p></li><li dir="ltr" style="list-style-type:decimal;font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 21.25pt;padding-left: 6.549999999999997pt;"><p dir="ltr" style="line-height:1.295;margin-top:0pt;margin-bottom:0pt;" role="presentation"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">TIPO DE PLANTILLA: ONLINE</span></p></li><li dir="ltr" style="list-style-type:decimal;font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 21.25pt;padding-left: 6.549999999999997pt;"><p dir="ltr" style="line-height:1.295;margin-top:0pt;margin-bottom:0pt;" role="presentation"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">ELECCIÓN DE EQUIPO: LIBRE</span></p></li><li dir="ltr" style="list-style-type:decimal;font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 21.25pt;padding-left: 6.549999999999997pt;"><p dir="ltr" style="line-height:1.295;margin-top:0pt;margin-bottom:0pt;" role="presentation"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">EN CASO DE EMPATE SE JUGARÁ UN SIGUIENTE PARTIDO CON REGLA GOL DE ORO O LO ACORDADO POR LOS RIVALES POR EL CHAT.</span></p></li><li dir="ltr" style="list-style-type:decimal;font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 21.25pt;padding-left: 6.549999999999997pt;"><p dir="ltr" style="line-height:1.295;margin-top:0pt;margin-bottom:0pt;" role="presentation"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">EN CASO DE TENER DISPUTA EN EL ENCUENTRO SE DEBE CARGAR UNA FOTO DE EVIDENCIA.</span></p></li><li dir="ltr" style="list-style-type:decimal;font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 21.25pt;padding-left: 6.549999999999997pt;"><p dir="ltr" style="line-height:1.295;margin-top:0pt;margin-bottom:0pt;" role="presentation"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">DECLARAR UN RESULTADO FALSO IMPLICA UNA SANCIÓN AL JUGADOR SEGÚN LOS TÉRMINOS Y CONDICIONES.</span></p></li></ol><p><b style="font-weight:normal;" id="docs-internal-guid-4490b954-7fff-96bf-aba6-902e73078f52"><br></b></p><p dir="ltr" style="line-height:1.295;margin-left: 36pt;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">REQUISITOS Y RECOMENDACIONES:</span></p><p></p><ol style="margin-top:0;margin-bottom:0;"><li dir="ltr" style="list-style-type:decimal;font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 24.549999999999997pt;padding-left: 3.25pt;"><p dir="ltr" style="line-height:1.295;margin-top:0pt;margin-bottom:0pt;" role="presentation"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">TIPO DE CONEXIÓN: NAT 2 (INDISPENSABLE)</span></p></li><li dir="ltr" style="list-style-type:decimal;font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;margin-left: 24.549999999999997pt;padding-left: 3.25pt;"><p dir="ltr" style="line-height:1.295;margin-top:0pt;margin-bottom:0pt;" role="presentation"><span style="font-size:11pt;font-family:Calibri,sans-serif;color:#fff;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">CONEXIÓN DE LA CONSOLA VIA CABLE DE RED (IDEAL) O WIFI</span></p></li></ol>
-  `;
+    reglas : string;
 
     listTorneos : any[];
     listCampeonatos : any[];
     idpersona : string;
-    TorneoActivo : {};
+    TorneoActivo : any;
     constructor(private api : GamersService, private global : GlobalService, private router : Router, private modalService : BsModalService) {
         this.idpersona = localStorage.getItem("idPersona") || null;
-
     }
 
     async ngOnInit() {
@@ -61,17 +59,24 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
 
 
     async Entrar(item : any) {
+        this.TorneoActivo = item;
+
         if (!this.idpersona) 
             swal("Registrate", "Disfruta de miles de beneficios", {icon: "info"})
 
         let token = this.global.tokens;
 
-        console.log(item.fkJuego);
+        // console.log(item.fkJuego);
+        await this.api.reglasjuego(item.fkJuego)
+        .then((data : any) =>{
+            this.reglas = data.info.recordset[0].descripcion
+            // console.log(data);
+        })
         // item.fkJuego;
         // return false;
 
         let continuamos = await this.api.idJuegopersona(this.idpersona,  item.fkJuego).then(data => data).catch(err => err)
-        console.log(continuamos)
+        // console.log(continuamos)
 
         if (! continuamos.ok) {
             // swal("Para continuar es necesario cargar los IDs ", {icon: "/assets/Logo_gif_loader.gif"});
@@ -121,16 +126,15 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
         } else {
 
             this.modalRef = this.modalService.show(this.ModalEntrar);
-            this.TorneoActivo = item;
         }
     }
 
 
     async entrarCampeonato(item : any) {
 
-        this.modalRef = this.modalService.show(this.ModalEntrar, {});
+        // this.modalRef = this.modalService.show(this.ModalEntrar, {});
 
-        let tokens = await this.global.tokens;
+        let tokens = this.global.tokens;
 
         let numInscripciones = 0;
         await this.api.getInscripcionesCampeonato(item.idCampeonato).then((data : any) => {
@@ -194,16 +198,28 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
         console.log($event);
     }
 
-    verReglas(item, template : TemplateRef < any >) {
-        this.modalRef.hide();
-        console.log(item);
-        this.modalRef = this.modalService.show(template, this.option);
+    async verReglas( torneo : any  ) {
+        console.log(torneo);
+        // this.modalService.hide(0)
+        let reglas;
+        await this.api.reglasjuego(torneo.fkJuego)
+        .then((data : any) =>{
+            reglas = data.info.recordset[0].descripcion
+            console.log(data);
+        })
+        // this.modalRef = this.modalService.show(this.modalReglas, this.option);
+        swal2.fire({
+            title : "Reglas",
+            html : reglas,
+            confirmButtonColor: "#f91757",   
+
+        }) 
 
     }
+
     closeModal() {
         this.modalRef.hide();
         alertify.error("Cancelado");
-
     }
 
     async ConfirmaInscripcion() {
@@ -212,18 +228,21 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
             fkPersona : this.idpersona, 
             }
             console.log(this.TorneoActivo)
-        let avalible = await this.api.InscripcionTorneo(dataInscripcion).then(data => data).catch(err => err)
-        console.log(avalible)
-        if (avalible.message[0] == 1) {
+        
+            let avalible = await this.api.InscripcionTorneo(dataInscripcion).then(data => data).catch(err => err)
+        
+            console.log(avalible)
+        
+            if (avalible.message[0] == 1) {
 
-            var infoEncuentro = {
-                fkpersona: this.idpersona,
-                iswinner: false,
-                monto: this.TorneoActivo['CosEntrada'],
-                mensaje: "Inscripcion Torneo",
-                referencia : this.TorneoActivo['idTorneo']
-                // fkpersona, monto , iswinner,mensaje
-            }
+        
+                var infoEncuentro = {
+                    fkpersona: this.idpersona,
+                    iswinner: false,
+                    monto: this.TorneoActivo['CosEntrada'],
+                    mensaje: "Inscripcion Torneo",
+                    referencia : this.TorneoActivo['idTorneo']
+                }
             this.api.EstadodeCuenta(infoEncuentro).then(data => {
                 console.log(data)
                 if (data["ok"]) {

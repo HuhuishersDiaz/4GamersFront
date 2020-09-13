@@ -11,19 +11,6 @@ import { SwiperOptions } from 'swiper';
 export class TiendaComponent implements OnInit {
 
   TokensTienda : any[] = [];
-  config : SwiperOptions = {
-    slidesPerView: 3,
-    spaceBetween: 30,
-    freeMode: true,
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-    },
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-    }
-};
   idpersona: string;
 
   constructor(

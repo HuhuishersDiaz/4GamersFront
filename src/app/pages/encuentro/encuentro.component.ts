@@ -49,6 +49,9 @@ export class EncuentroComponent implements OnInit {
         username: '',
         nombre: '',
     };
+    versus : any = {
+        finaliza : 6000
+    };
     terminos : boolean;
     apuesta : string;
     Disputa: boolean;
@@ -67,15 +70,28 @@ export class EncuentroComponent implements OnInit {
         this.username = localStorage.getItem("Username");
 
         await this.ValidarVersus(this.idversus);
-         this.loadchat(this.idversus);
+        
+        await this.api.reglasjuego(this.idjuego)
+        .then((data : any) =>{
+            this.versus.reglas = data.info.recordset[0].descripcion
+            console.log(data);
+        })
+
+        if(this.versus.finaliza < 0 ){
+            this.habilitarReporte = true;
+        }
+        this.loadchat(this.idversus);
 
         await this.ResVersus()
+
+        
 
         this._socket.onNewMessageVersus().subscribe(data => {
             this.mensajes.push(data);
             this.historiamMensajes.nativeElement.scrollTop = this.historiamMensajes.nativeElement.scrollHeight;
         });
 
+       
 
     }
 
@@ -96,14 +112,17 @@ export class EncuentroComponent implements OnInit {
     async ValidarVersus(idversus) {
         await this.api.ValidarVersus(idversus).then((res) => { // console.log(res);
             if (res.ok) {
-
-                let infoUser = res.info.recordset[0];
-                this.idjuego = infoUser['fkJuego'];
-                let idAnfitrion = infoUser['fkAnfitrion'];
-                let idRival = infoUser['fkRival'];
-                this.apuesta = infoUser['Apuesta'];
+                console.log( res.info.recordset[0]);
+                
+                let info = res.info.recordset[0];
+                this.versus = res.info.recordset[0];
+             
+                this.idjuego = info['fkJuego'];
+                let idAnfitrion = info['fkAnfitrion'];
+                let idRival = info['fkRival'];
+                this.apuesta = info['Apuesta'];
                 // alert(res.info.recordset[0]);
-                if (this.idpersona == infoUser['fkAnfitrion'] || this.idpersona == infoUser['fkRival']) {
+                if (this.idpersona == info['fkAnfitrion'] || this.idpersona == info['fkRival']) {
                     swal("Bienvenido "+this.username, {
                         icon: 'info',
                         timer: 1000
@@ -116,7 +135,7 @@ export class EncuentroComponent implements OnInit {
                 }
 
                 this.api.idJuegopersona(idAnfitrion, this.idjuego).then(data => { // console.log(data.info.recordset[0]);
-                    console.log(data)
+                    // console.log(data)
                     if (data.ok) {
                         this.infoAnfitrion = data.info.recordset[0];
                     }
@@ -143,10 +162,8 @@ export class EncuentroComponent implements OnInit {
         this.infoRival.idpersona
         this.infoAnfitrion.idpersona
 
-        let resRival = await this.api.respuestarival(this.idversus,this.infoRival.idpersona).then(data => data).catch(err => err)
-        let resAnfitrion = await this.api.respuestarival(this.idversus,this.infoAnfitrion.idpersona).then(data => data).catch(err => err)
-        console.log(resRival);
-        console.log(resAnfitrion);
+        await this.api.respuestarival(this.idversus,this.infoRival.idpersona).then(data => data).catch(err => err)
+        await this.api.respuestarival(this.idversus,this.infoAnfitrion.idpersona).then(data => data).catch(err => err)
 
     }
     async newMessage() {
@@ -357,6 +374,8 @@ export class EncuentroComponent implements OnInit {
     }
 
     reportaen($event){
+        console.log($event);
+        
         if($event.action == 'done'){
            this.habilitarReporte =  true;
         }

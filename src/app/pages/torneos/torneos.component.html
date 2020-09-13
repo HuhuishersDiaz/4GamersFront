@@ -4,7 +4,7 @@
 
 <div class="container-fluid panels-card">
   <div class="row">
-    <div class="col-md-6 pt-4" *ngFor="let item of listCampeonatos">
+    <!-- <div class="col-md-6 pt-4" *ngFor="let item of listCampeonatos">
  
       <div class="card text-white" style="width: 100%; height: auto;">
         <img
@@ -116,7 +116,7 @@
               </div>
               <div class="contDes">
                 <div>
-                  <button class="btn btn-sm reglas" (click)="verReglas(item,modalReglas)">REGLAS DEL TORNEO</button>
+                  <button class="btn btn-sm reglas" (click)="verReglas(item)">REGLAS DEL TORNEO</button>
                 </div>
                 <div  *ngIf="item.inicio > 0">
                   <p class="lugares">LUGARES <br> DISPONIBLES</p>
@@ -129,40 +129,70 @@
           </div>
         </div>
       </div>
+    </div> -->
+
+    <div class="col-md-6 " style="padding: 5px !important;">
+
+      <div class="row" style=" padding: 10px;width: 100%; height: 31vw; background-image: url(http://4gamers.xplainerservicios.com/Content/torneos/Presentacion/Banner_torneos_fornite.jpg); background-size: cover; background-repeat: no-repeat;">
+
+        <div class="col-4">
+          <div class="4g-logo" style="background-position: center; background-repeat: no-repeat; white-space: pre; width: 100%; height: 18vw; background-image: url(http://4gamers.xplainerservicios.com/Content/torneos/Logo/fortnite_PNG_torneos.png);background-size: contain;" >
+          </div>
+          <div class="4g-ganahasta text-center text-white" style="font-size: 3vw;">
+            <p>GANA HASTA</p>
+            <p><img src="/assets/tokens.svg" style="width: 3vw" alt=""> <strong>1200</strong>  </p>
+          </div>
+        </div>
+        <div class="col-8" style=" height: 98%; border: 3px solid #fff; font-size: 2.5vw; font-weight: 500; color: white;     white-space: pre;">
+          <div class="row">
+            <div class="col-6" style="white-space: pre;">
+              <p> COSTO DE ENTRADA: <p> 
+                <p><img src="/assets/tokens.svg" style="width: 3vw" alt=""> <strong>350</strong>  </p>
+
+            </div>
+            <div class="col-6">
+              <p>TORNEO INICIA EN : <p> 
+                <strong style="font-weight: 600; font-size: 4vw;">    
+                  00:<countdown #cd [config]="{leftTime : 15464}" (event)="handleEvent($event)"></countdown>
+              </strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6" >
+              <button type="button" class="btn btn-sm reglas" style="margin-top: -5px;">REGLAS DEL TORNEO</button>            
+            </div>
+            <div class="col-6" style=" float: right;">
+              <p style="line-height: 2vw;">LUGARES<br>DISPONIBLES<p> 
+            </div>
+            <div class="col-12" style="padding: 0px;">
+              <button type="button"  id="button" class="btn btn-danger btn-sm" style=" margin-top: -10px; padding: 0px;float: right;font-size: 3vw;" >Ir al torneo</button>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
     <!--  -->
   </div>
 </div>
 <br />
-<div id="carouselId" class="carousel slide" data-ride="carousel">
+
+<div id="carouselId" class="carousel slide" data-ride="carousel" style="width: 100%;">
   <ol class="carousel-indicators">
     <li data-target="#carouselId" data-slide-to="0" class="active"></li>
     <li data-target="#carouselId" data-slide-to="1"></li>
     <li data-target="#carouselId" data-slide-to="2"></li>
   </ol>
   <div class="carousel-inner" role="listbox">
-    <div class="carousel-item active">
-      <img
-        src="/assets/banner_publicidad_grande.jpg"
-        alt="First slide"
-        style="width: 100%;"
-      />
+    <div class="carousel-item active" >
+      <img  class="img-responsive" style="width: 100%;" src="/assets/publicidad (1).jpg"   class="pc" />
     </div>
-
-    <div class="carousel-item">
-      <img
-        src="/assets/banner_publicidad_grande.jpg"
-        alt="First slide"
-        style="width: 100%;"
-      />
+    <div class="carousel-item " >
+      <img class="img-responsive"  style="width: 100%;"src="/assets/publicidad (2).jpg" alt="First slide" class="pc" />
     </div>
-
-    <div class="carousel-item">
-      <img
-        src="/assets/banner_publicidad_grande.jpg"
-        alt="First slide"
-        style="width: 100%;"
-      />
+    <div class="carousel-item" >
+      <img  class="img-responsive" style="width: 100%;" src="/assets/publicidad (3).jpg" alt="First slide" class="pc" />
     </div>
   </div>
   <a
@@ -210,7 +240,7 @@
     <div class="text-center">
       <p>
         <img src="/assets/tokens.svg" class="logo" width="20" style=" display: inline;" />
-        <span class="cosEntrada">{{ TorneoActivo['cosEntrada']}}</span>
+        <span class="cosEntrada"> {{ TorneoActivo['CosEntrada'] || 200 }} </span>
       </p><br>
     </div>
     <!-- <img src="/assets/Logo_gif_loader.gif" alt=""> -->
@@ -223,10 +253,3 @@
   </div>
    
 </ng-template> 
-
-
-
-
-
-
-<!-- 394961 -->

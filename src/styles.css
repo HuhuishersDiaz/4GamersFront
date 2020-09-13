@@ -369,11 +369,13 @@
   }
 
 
-  .swiper-slide {
+  /* .swiper-slide {
     text-align: center;
-  }
+  } */
 
-
+/* .swiper-slide{
+  width: 200px !important;
+} */
   footer {
     display: block
   }
@@ -577,18 +579,31 @@
   
 
 
-.swiper-button-next{
+/* .swiper-button-next{
   color: transparent !important;
 }
 
 .swiper-button-prev{
   color: transparent !important;
 
-}
+} */
 
 .swal-modal {
   background-color: rgb(55, 55, 55);
   /* border: 3px solid white; */
+}
+.swal2-modal{
+  background-color: rgb(55, 55, 55) !important;
+  color: white !important;
+
+}
+.swal2-content{
+  text-align: initial !important;
+
+}
+.swal2-html-container{
+  color: #fff;
+  font-size: 12px;
 }
 .swal-text{
   color: white;
@@ -610,9 +625,16 @@
 .swal-footer{
   text-align: center;
 }
+.swal2-title{
+  color: #fff !important;
+}
 /* .swal-icon--custom{
   
   background-image: url(https://gamers-7a22c.web.app/assets/Logo_gif_loader.gif);
   background-size: contain;
 
 } */
+
+.click{
+  cursor: pointer;
+}
