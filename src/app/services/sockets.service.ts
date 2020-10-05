@@ -69,10 +69,16 @@ export class SocketsService { // private url = 'http://localhost:3000';
         });
 
         this.socket.on('preguntaamigoversus', async (infoVersus:any) => { 
-
-            let continuamos = await this.api.idJuegopersona(this.idPersona, infoVersus.versus.fkjuego).then(data => data).catch(err => err)
+            console.log(infoVersus)
+            let continuamos = await this.api.idJuegopersona(this.idPersona, infoVersus.versus.idjuego).then(data => data).catch(err => err)
             console.log(continuamos);
-            return false;
+            console.log(continuamos.info.rowsAffected[0]);
+            
+            if(continuamos.info.rowsAffected[0] == 0){
+                infoVersus.respuesta = false;
+                this.socket.emit('confirmajugaramigo', infoVersus);
+                return false;
+            }
 
             swal({
                 title: "Te Invitan a jugar",

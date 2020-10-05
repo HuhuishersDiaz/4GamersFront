@@ -56,7 +56,27 @@ export class GamersService {
         };
 
         return await this.http.post(this.url + "versus/editarival", data, options).toPromise()
+    }
+    async GanadorVersus(data : any) {
+        let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
 
+        let options = {
+            headers: httpHeaders
+        };
+        return await this.http.post(this.url + "versus/GanadorVersus", data, options).toPromise();
+    }
+         
+    async subirDisputa(data : any) {
+        let httpHeaders = new HttpHeaders({
+            Accept: 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            });
+
+        let options = {
+                headers: httpHeaders
+         };
+         return await this.http.post(this.url + "versus/subirDisputa", data, options).toPromise();
+ 
     }
 
     async marcarresultado(data) {
@@ -283,6 +303,9 @@ export class GamersService {
     async EncuentroFase(idencuentro: string, idinscripcion: string) {
         return await this.http.get(`${this.url}encuentros//hayEncuentro/${idencuentro}/${idinscripcion}`).toPromise()
     }
+    async mistorneos(idpersona: string) {
+        return await this.http.get(`${this.url}torneos//mistorneos/${idpersona}`).toPromise()
+    }
 
     async resultadosEncuentro(idencuentro: string) {
         return await this.http.get(`${this.url}encuentros/resultadosEncuentro/${idencuentro}`).toPromise()
@@ -441,6 +464,19 @@ export class GamersService {
     async faseactivacampeonato(idcampeonato : string , idpersona : any){
         // console.log(idAnfitrion);
         return await this.http.get(`${this.url}campeonato/faseactiva/${idcampeonato}/${idpersona}`).toPromise()
+    }
+
+
+    async agregarCopa(data){
+        // console.log(idAnfitrion);
+        
+        let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
+
+        let options = {
+            headers: httpHeaders
+        };
+
+        return await this.http.post(this.url + "users/agregarcopa", data, options).toPromise()
     }
 
 

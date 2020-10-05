@@ -239,7 +239,7 @@ export class EncuentroCampeonatoComponent implements OnInit {
                             this.api.guardarGanadorfase(dataganador).then((data)=>{
                                 console.log(dataganador)
                             })
-                            swal("Felicidade ","avanza a la siguiente ronda", {icon: 'success'})
+                            swal("Felicidades ","avanza a la siguiente ronda", {icon: 'success'})
                             this.router.navigateByUrl('/campeonato/'+this.dataCampeonato.idCampeonato)
                             
                         }

@@ -5,13 +5,12 @@
       <div class="line-divider">
         <p>SELECCIONA TU JUEGO</p>
       </div>
-      <div style="width: 100%;" class="contenedor">
-        <swiper class="swiper-container" [config]="{  slidesPerView: 2.8,      spaceBetween: 10
-        }">
-          <div class="swiper-wrapper ">
-  
-            <div class="swiper-slide" *ngFor="let item of juegos"  >
-              <div class="gallery-card" >
+      <div style="width: 100%; padding: 0px;" class="contenedor container ">
+        <br>
+        <div class="row d-flex justify-content-center ">
+           <div class=" col-xl-9">
+            <div *ngFor="let item of juegos" class="center row vertical-divider">
+              <div class="gallery-card" style="margin: auto;">
                 <div class="gallery-card-body" [ngClass]="{ CheckActive: item.activa === true }" >
                   <label class="block-check">
                     <img [src]="baseUrl+ item.imgLogo" class="img-responsive" width="100%" />
@@ -19,21 +18,11 @@
                     />
                   </label>
                 </div>
+              </div>
             </div>
-          </div>
+           </div>
         </div>
-        </swiper>
-        <!-- <div *ngFor="let item of juegos" class="center">
-          <div class="gallery-card" style="margin: auto;">
-            <div class="gallery-card-body" [ngClass]="{ CheckActive: item.activa === true }" >
-              <label class="block-check">
-                <img [src]="baseUrl+ item.imgLogo" class="img-responsive" width="100%" />
-                <input type="radio" name="game" (change)="onChange(item)" [value]="item" [(ngModel)]="versus.juego"
-                />
-              </label>
-            </div>
-          </div>
-        </div> -->
+        <br>
       </div>
       <hr/>
       <div class="container text-center text-white">
@@ -53,8 +42,6 @@
           JUGAR
         </button>
       </div>
-      
-      
       <div class="line-divider" *ngIf="idpersona">
          <p>MIS VERSUS</p>
        </div>
@@ -111,6 +98,22 @@
       <div class="text-center"><br>
        <input type="text" value="" class=" inputBuscar"  placeholder="ID 4Gamers" [(ngModel)]="usernameAmigo"><br><br>
       <button class="btn btn-danger" (click)="BuscarAmigo()">Buscar </button>  
+      </div>
+      <div class="col-12">
+        <div class="generalinfo text-white" style="font-size: 10; font-weight: 600;">
+          <div class="panel panel-info">
+             <div class="panel-heading collapsed " data-toggle="collapse" data-target="#bar">
+                REGLAS DE LA COMPETENCIA
+                <i class="fa fa-fw fa-chevron-right"></i>
+             </div>
+             <div class="panel-body" style="background-color:  rgb(153,153,153)">
+                <!-- The inside div eliminates the 'jumping' animation. -->
+                <div class="collapse show" id="bar" [innerHTML] = "reglas" style="color: black !important; font-size: 12px; font-weight: 600;   padding: 20px;" > 
+
+                </div>
+             </div>
+          </div>
+       </div>  
       </div>
     </div>
   </div>

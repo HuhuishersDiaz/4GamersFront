@@ -99,9 +99,12 @@
                 </div>
             </div>
         </div>
-        <p class="text-white" *ngIf="dataEncuentro.finaliza > 0 ">Reporta en: <strong  ><countdown #cd [config]="{leftTime : dataEncuentro.finaliza }" (event)="reportaen($event)" ></countdown></strong></p>
-        <hr>
-        <div class="container">
+        <div class="col-12">
+           <p class="text-white" *ngIf="dataEncuentro.finaliza > 0 ">Reporta en: <strong  ><countdown #cd [config]="{leftTime : dataEncuentro.finaliza }" (event)="reportaen($event)" ></countdown></strong></p>
+        <hr> 
+        </div>
+        
+        <div class="col-12">
           <div class="generalinfo text-white" style="font-size: 10; font-weight: 600;">
             <div class="panel panel-info">
                <div class="panel-heading collapsed " data-toggle="collapse" data-target="#bar">
@@ -110,7 +113,7 @@
                </div>
                <div class="panel-body" style="background-color:  rgb(153,153,153)">
                   <!-- The inside div eliminates the 'jumping' animation. -->
-                  <div class="collapse" id="bar" [innerHTML] = "dataEncuentro.reglas" style="color: black !important;" > 
+                  <div class="collapse" id="bar" [innerHTML] = "dataEncuentro.reglas" style="color: black !important;     padding: 20px;" > 
                     
                   </div>
                </div>

@@ -1,10 +1,75 @@
-<div class="line-divider"><p>SELECCIONA TORNEO
-
-</p></div>
-
-<div class="container-fluid panels-card">
+<div class="line-divider" *ngIf="misTorneos"><p>MIS TORNEOS</p></div>
+<div class="container-fluid">
   <div class="row">
-    <!-- <div class="col-md-6 pt-4" *ngFor="let item of listCampeonatos">
+    <div class="col-md-6 pt-4" *ngFor="let item of misTorneos">
+      <div class="card text-white" style="width: 100%; height: auto;">
+        <img class="card-img" [src]="'http://4gamers.xplainerservicios.com/Content/torneos/Presentacion/'+item.imgPrecentacion" style="width: 103%;"/>
+        <div class="card-img-overlay row" style="padding: 0 !important;">
+          <div class="col-4 text-center">
+            <div style="width: 115%; margin-top: -20px; " >
+              <img [src]="'http://4gamers.xplainerservicios.com/Content/torneos/Logo/'+item.img" alt="" style="width: 90%; display: block; margin: auto;     margin-top: 10px;" />
+              <p style="padding-top: 10px;font-size: 13px; ">
+                Gana hasta
+             </p>            
+             <label>
+                <img src="/assets/tokens.svg" class="logo" width="20" />
+                <STRONG>{{ item.monPremio }}</STRONG>
+              </label>
+            </div>
+           
+          </div>
+          <div class="col-8" style="padding: 10px;">
+            <div style="border: 4px solid;height: 95%;">
+              <div class="contDes">
+                <div>
+                  <p class="titulos">COSTO DE ENTRADA: <br>
+                    <label style="position: absolute;">
+                      <img src="/assets/tokens.svg" class="logo"  />
+                      <strong class="cosEntrada">{{ item.CosEntrada }}</strong>
+                    </label><br>
+                  </p>
+                  
+                </div>
+                <div >
+                  <p *ngIf="item.inicio > 2" class="titulos"> TORNEO INICIA EN : <br> 
+                    <strong>    
+                      00:<countdown #cd [config]="{leftTime : item.inicio}" (event)="handleEvent($event)"></countdown>
+                  </strong>
+                  </p>
+                  <p *ngIf="item.inicio < 2" class="titulos"> TORNEO FINALIZA EN : <br>
+                    <strong *ngIf="item.inicio < 2">
+                      00:<countdown #cd [config]="{leftTime : item.fin}" (event)="handleEvent($event)"></countdown>
+                    </strong>
+                  </p>
+                                    
+                </div>
+              </div>
+              <div class="contDes">
+                <div>
+                  <button class="btn btn-sm reglas" (click)="verReglas(item)">REGLAS DEL TORNEO</button>
+                </div>
+                <div>
+                  <p class="lugares">LUGARES <br> DISPONIBLES</p>
+                  <button class="btn btn-danger ir" style="font-weight: bold;" (click)="Entrar(item)" >
+                  IR AL TORNEO
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+</div>
+
+<div class="line-divider"><p>SELECCIONA TORNEO</p></div>
+
+
+
+<div class="container-fluid panels-card" style="min-height: 500px;">
+  <div class="row">
+    <div class="col-md-6 pt-4" *ngFor="let item of listCampeonatos">
  
       <div class="card text-white" style="width: 100%; height: auto;">
         <img
@@ -56,7 +121,7 @@
               </div>
               <div class="contDes">
                 <div>
-                  <button class="btn btn-sm reglas" (click)="verReglas(item,modalReglas)">REGLAS DEL TORNEO</button>
+                  <button class="btn btn-sm reglas" (click)="verReglas(item)">REGLAS DEL TORNEO</button>
                 </div>
                 <div>
                   <p class="lugares">LUGARES <br> DISPONIBLES</p>
@@ -129,56 +194,105 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div> 
 
-    <div class="col-md-6 " style="padding: 5px !important;">
-
-      <div class="row" style=" padding: 10px;width: 100%; height: 31vw; background-image: url(http://4gamers.xplainerservicios.com/Content/torneos/Presentacion/Banner_torneos_fornite.jpg); background-size: cover; background-repeat: no-repeat;">
-
-        <div class="col-4">
-          <div class="4g-logo" style="background-position: center; background-repeat: no-repeat; white-space: pre; width: 100%; height: 18vw; background-image: url(http://4gamers.xplainerservicios.com/Content/torneos/Logo/fortnite_PNG_torneos.png);background-size: contain;" >
-          </div>
-          <div class="4g-ganahasta text-center text-white" style="font-size: 3vw;">
-            <p>GANA HASTA</p>
-            <p><img src="/assets/tokens.svg" style="width: 3vw" alt=""> <strong>1200</strong>  </p>
-          </div>
-        </div>
-        <div class="col-8" style=" height: 98%; border: 3px solid #fff; font-size: 2.5vw; font-weight: 500; color: white;     white-space: pre;">
-          <div class="row">
-            <div class="col-6" style="white-space: pre;">
-              <p> COSTO DE ENTRADA: <p> 
-                <p><img src="/assets/tokens.svg" style="width: 3vw" alt=""> <strong>350</strong>  </p>
-
-            </div>
-            <div class="col-6">
-              <p>TORNEO INICIA EN : <p> 
-                <strong style="font-weight: 600; font-size: 4vw;">    
-                  00:<countdown #cd [config]="{leftTime : 15464}" (event)="handleEvent($event)"></countdown>
-              </strong>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6" >
-              <button type="button" class="btn btn-sm reglas" style="margin-top: -5px;">REGLAS DEL TORNEO</button>            
-            </div>
-            <div class="col-6" style=" float: right;">
-              <p style="line-height: 2vw;">LUGARES<br>DISPONIBLES<p> 
-            </div>
-            <div class="col-12" style="padding: 0px;">
-              <button type="button"  id="button" class="btn btn-danger btn-sm" style=" margin-top: -10px; padding: 0px;float: right;font-size: 3vw;" >Ir al torneo</button>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
+   
     <!--  -->
   </div>
 </div>
 <br />
+<!-- <div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 pd-5 ">
+      <div>
+          <div class="row cont-torneo">
 
-<div id="carouselId" class="carousel slide" data-ride="carousel" style="width: 100%;">
+          <div class="col-4">
+            <div class="logo-torneo" >
+            </div>
+            <div class="tonreo-ganahasta text-center text-white" >
+              <p>GANA HASTA</p>
+              <p><img src="/assets/tokens.svg" class="img-token" > <strong>1200</strong>  </p>
+            </div>
+          </div>
+          <div class="col-8 info-torneo" >
+            <div class="row">
+              <div class="col-6">
+                <p> COSTO DE ENTRADA: <p> 
+                  <p><img src="/assets/tokens.svg" class="img-token"> <strong>350</strong>  </p>
+
+              </div>
+              <div class="col-6">
+                <p>TORNEO INICIA EN : <p> 
+                  <strong class="torneo-timer">    
+                    00:<countdown #cd [config]="{leftTime : 15464}" (event)="handleEvent($event)"></countdown>
+                </strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6" >
+                <button type="button" class="btn btn-sm reglas" >REGLAS DEL TORNEO</button>            
+              </div>
+              <div class="col-6" >
+                <p class="text-lugares">LUGARES<br>DISPONIBLES<p> 
+              </div>
+              <div class="col-12" style="padding: 0px;">
+                <button type="button"  id="button" class="btn btn-danger btn-sm btn-ir"  >Ir al torneo</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-md-6 pd-5 ">
+      <div>
+          <div class="row cont-torneo">
+
+          <div class="col-4">
+            <div class="logo-torneo" >
+            </div>
+            <div class="tonreo-ganahasta text-center text-white" >
+              <p>GANA HASTA</p>
+              <p><img src="/assets/tokens.svg" class="img-token" > <strong>1200</strong>  </p>
+            </div>
+          </div>
+          <div class="col-8 info-torneo" >
+            <div class="row">
+              <div class="col-6">
+                <p> COSTO DE ENTRADA: <p> 
+                  <p><img src="/assets/tokens.svg" class="img-token"> <strong>350</strong>  </p>
+
+              </div>
+              <div class="col-6">
+                <p>TORNEO INICIA EN : <p> 
+                  <strong class="torneo-timer" >    
+                    00:<countdown #cd [config]="{leftTime : 15464}" (event)="handleEvent($event)"></countdown>
+                </strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6" >
+                <button type="button" class="btn btn-sm reglas" >REGLAS DEL TORNEO</button>            
+              </div>
+              <div class="col-6" >
+                <p class="text-lugares">LUGARES<br>DISPONIBLES<p> 
+              </div>
+              <div class="col-12" style="padding: 0px;">
+                <button type="button"  id="button" class="btn btn-danger btn-sm btn-ir"  >Ir al torneo</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div> -->
+
+<!-- <div id="carouselId" class="carousel slide" data-ride="carousel" style="width: 100%;">
   <ol class="carousel-indicators">
     <li data-target="#carouselId" data-slide-to="0" class="active"></li>
     <li data-target="#carouselId" data-slide-to="1"></li>
@@ -213,9 +327,9 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div>
+</div> -->
 
-
+<br><br><br>
 <ng-template #modalReglas >
   <div class="modal-header" style="background-color: rgb(39,49,61);">
     <h4 class="modal-title text-white" >Reglas</h4>
@@ -240,7 +354,7 @@
     <div class="text-center">
       <p>
         <img src="/assets/tokens.svg" class="logo" width="20" style=" display: inline;" />
-        <span class="cosEntrada"> {{ TorneoActivo['CosEntrada'] || 200 }} </span>
+        <span class="cosEntrada"> {{ TorneoActivo['CosEntrada'] || 0 }} </span>
       </p><br>
     </div>
     <!-- <img src="/assets/Logo_gif_loader.gif" alt=""> -->
@@ -248,7 +362,7 @@
   </div>
   <div class="modal-footer" style="background-color: rgb(39,49,61);">
        
-        <button type="button" class="btn btn-ligth btn-sm btn-outline-white" (click)="verReglas(modEntrar)" data-dismiss="modal" style="padding: 1px;font-size: 14px; float: left; width: 45%;">VER REGLAS</button>
+        <button type="button" class="btn btn-ligth btn-sm btn-outline-white" (click)="verReglas()" data-dismiss="modal" style="padding: 1px;font-size: 14px; float: left; width: 45%;">VER REGLAS</button>
         <button type="button" class="btn btn-danger btn-sm " (click)="ConfirmaInscripcion(modEntrar)" data-dismiss="modal" style="padding: 1px;font-size: 14px; float: right;  width: 45%;"  >ENTRAR</button>
   </div>
    

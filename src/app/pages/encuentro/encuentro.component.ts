@@ -16,7 +16,8 @@ import {GlobalService} from 'src/app/services/global.service';
 import {GamersService} from 'src/app/provides/GamersService';
 import {UIGamersService} from 'src/app/services/ui-gamers.service';
 import {SocketsService} from 'src/app/services/sockets.service';
-import {infouser} from 'src/app/interfaces/interfaces';
+import {infouser, infoVersus} from 'src/app/interfaces/interfaces';
+import {NgForm} from '@angular/forms';
 
 import * as alertify from 'alertifyjs'
 import swal from 'sweetalert';
@@ -31,12 +32,9 @@ export class EncuentroComponent implements OnInit {
     order : any;
     public mensajes : any[] = [];
     idpersona : any;
-    idversus : string;
     message : any;
-    idjuego : string; 
     mensaje : string;
     victoria:  boolean;
-    username : string;
     infoAnfitrion : infouser = {
         idpersona: 0,
         idplataforma: '',
@@ -49,35 +47,42 @@ export class EncuentroComponent implements OnInit {
         username: '',
         nombre: '',
     };
-    versus : any = {
-        finaliza : 6000
-    };
+
     terminos : boolean;
     apuesta : string;
     Disputa: boolean;
     TenemosResultado : boolean = false;
     habilitarReporte : boolean = false;
+
+    infoversus :  infoVersus ={
+    };
+    idversus: string;
+    username: string;
+    DesDisputa: string = '';
+    files: FileList
+    // frmDisputa : any;
     constructor(private router : Router, private route : ActivatedRoute, private _socket : SocketsService, private global : GlobalService, private api : GamersService, private UI : UIGamersService) {
 
         this.idpersona = localStorage.getItem("idPersona") ;
-        this.username = localStorage.getItem("Username") ;
+         this.idversus = this.route.snapshot.paramMap.get("id");
+        this.username = localStorage.getItem("Username");
 
     }
 
 
     async ngOnInit() {
-        this.idversus = this.route.snapshot.paramMap.get("id");
-        this.username = localStorage.getItem("Username");
 
         await this.ValidarVersus(this.idversus);
+       
+        console.log(this.infoversus)
         
-        await this.api.reglasjuego(this.idjuego)
-        .then((data : any) =>{
-            this.versus.reglas = data.info.recordset[0].descripcion
-            console.log(data);
-        })
+        // await this.api.reglasjuego(this.idjuego)
+        // .then((data : any) =>{
+        //     this.versus.reglas = data.info.recordset[0].descripcion
+        //     console.log(data);
+        // })
 
-        if(this.versus.finaliza < 0 ){
+        if(this.infoversus.finaliza < 0 ){
             this.habilitarReporte = true;
         }
         this.loadchat(this.idversus);
@@ -110,51 +115,45 @@ export class EncuentroComponent implements OnInit {
     }
 
     async ValidarVersus(idversus) {
-        await this.api.ValidarVersus(idversus).then((res) => { // console.log(res);
-            if (res.ok) {
-                console.log( res.info.recordset[0]);
-                
-                let info = res.info.recordset[0];
-                this.versus = res.info.recordset[0];
-             
-                this.idjuego = info['fkJuego'];
-                let idAnfitrion = info['fkAnfitrion'];
-                let idRival = info['fkRival'];
-                this.apuesta = info['Apuesta'];
-                // alert(res.info.recordset[0]);
-                if (this.idpersona == info['fkAnfitrion'] || this.idpersona == info['fkRival']) {
-                    swal("Bienvenido "+this.username, {
-                        icon: 'info',
-                        timer: 1000
-                    })
-                    this.enviarMensaje("Se ha conectado")
+        
 
-                } else {
-                    this.router.navigateByUrl('/versus')
-                    swal("No perteneces a esta partida")
-                }
+         await this.api.ValidarVersus(idversus).then((data) => { 
 
-                this.api.idJuegopersona(idAnfitrion, this.idjuego).then(data => { // console.log(data.info.recordset[0]);
-                    // console.log(data)
-                    if (data.ok) {
-                        this.infoAnfitrion = data.info.recordset[0];
-                    }
-                });
-
-                this.api.idJuegopersona(idRival, this.idjuego).then(data => { // console.log(data.info.recordset[0]);
-                    if (data.ok) {
-                        this.infoRival = data.info.recordset[0];
-                    }
-                });
-
-
+            console.log(data)
+            if (data.ok) {
+                console.log(data)
+                this.infoversus = data.info.recordset[0];
+            }else{
+                this.router.navigateByUrl('/versus')
             }
-        }).catch((err) => {
-
-            this.router.navigateByUrl('/versus')
-
         })
+        if(this.infoversus.status == 4 ){
+            this.Disputa = true;
+        }
+                
+        if (this.idpersona ==  this.infoversus.fkAnfitrion || this.idpersona ==  this.infoversus.fkRival) {
+            swal("Bienvenido "+this.username, {
+                icon: 'info',
+                timer: 1000
+            })
+            this.enviarMensaje("Se ha conectado")
+        } else {
+            this.router.navigateByUrl('/versus')
+            swal("No perteneces a esta partida")
+        }
 
+        console.log(this.infoversus);
+        await this.api.idJuegopersona( this.infoversus.fkAnfitrion, this.infoversus.fkJuego).then(data => { // console.log(data.info.recordset[0]);
+            if (data.ok) {
+                this.infoAnfitrion = data.info.recordset[0];
+            }
+        });
+
+        await this.api.idJuegopersona(this.infoversus.fkRival, this.infoversus.fkJuego).then(data => { // console.log(data.info.recordset[0]);
+            if (data.ok) {
+                this.infoRival = data.info.recordset[0];
+            }
+        });
 
     }
 
@@ -166,17 +165,12 @@ export class EncuentroComponent implements OnInit {
         await this.api.respuestarival(this.idversus,this.infoAnfitrion.idpersona).then(data => data).catch(err => err)
 
     }
-    async newMessage() {
-
-        let mensaje = await this.enviarMensaje(this.mensaje)
-
-    }
 
     Reportar(info : boolean) {
         this.victoria = info;
     }
 
-    enviarMensaje(mensaje) {
+    enviarMensaje(mensaje  : string ) {
 
 
         const datamensaje = {
@@ -358,24 +352,53 @@ export class EncuentroComponent implements OnInit {
             })
         })
     }
+    CargarArchivo(event){
+        console.log(event.target.files);
+        this.files = event.target.files;
+    }
 
+    //Metodo para cargar la disputa
+    async subirDisputa(data: NgForm){
+       console.log(data);
+       
+        let dataDisputa = {
+            fkVersus : this.infoversus.idVersus,
+            fkPersona: this.idpersona,
+            Mensaje: data.value.Mensaje,
+            // img: "img.jpg"
+        };
 
-    async subirDisputa(){
-        swal("Tu resultado ha sido enviado exitosamente! ","Espera nuestra respuesta", {icon: 'success'})
-        this.router.navigateByUrl('/versus')
+        // console.log(data.value.img)
+        // console.log(data.value.Mensaje)
+        const formData: FormData = new FormData();
+
+        // for (let i = 0; i < files.length; i++) {
+        formData.append('imgDisputa', this.files[0]);
+        // }
+        formData.append("data", JSON.stringify(dataDisputa));
+
+        this.api.subirDisputa(formData).then((data : any )=>{
+            console.log(data);
+            
+            if(data.ok == 1){
+                alert("Todo Salio Chifo ")
+                swal("Tu resultado ha sido enviado exitosamente! ","Espera nuestra respuesta", {icon: 'success'})
+                this.router.navigateByUrl('/versus')
+            }
+        });
+        
+        
 
     }
 
-    name: string = 'Angular';
 
+    //Metodo par actualizar el contador de los tokens
     Actualizar() {
         this.api.setUserLoggedIn(true);
-
     }
 
+    //metodo para cuando el contador finaliza
     reportaen($event){
-        console.log($event);
-        
         if($event.action == 'done'){
            this.habilitarReporte =  true;
         }

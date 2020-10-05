@@ -16,11 +16,11 @@ export class CampeonatoComponent implements OnInit {
   @ViewChild('cd', { static: false }) private countdown: CountdownComponent;
 
   baseUrl : string = "http://4gamers.xplainerservicios.com/content/";
-  fase1 : encCamp[] = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
-  fase2 : encCamp[] = [{},{},{},{},{},{},{},{}];
+  fase5 : encCamp[] = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
+  fase4 : encCamp[] = [{},{},{},{},{},{},{},{}];
   fase3 : encCamp[] = [{},{},{},{}];
-  fase4 : encCamp[] = [{},{}];
-  fase5 : encCamp[] = [{}];
+  fase2 : encCamp[] = [{},{}];
+  fase1 : encCamp[] = [{}];
   idpersona: string;
   username: string;
   idCampeonato : string ;
@@ -53,7 +53,8 @@ export class CampeonatoComponent implements OnInit {
   loading: boolean;
   puedojugar: boolean;
   infoEncuentro: any;
-  faseActiva: number = 3;
+  faseActiva: number ;
+  // faseActiva: number = 3;
 
   constructor(private api : GamersService,private router : Router, private route : ActivatedRoute,private _sockets : SocketsService) {
     this.idpersona = localStorage.getItem("idPersona");
@@ -63,43 +64,57 @@ export class CampeonatoComponent implements OnInit {
   async ngOnInit() {
     this.idCampeonato = this.route.snapshot.paramMap.get("id");
 
-    await this.api.ganadorcampeonato(this.idCampeonato).then((data : any)=>{
-      console.log(data)
-      this.infoGanador =  data.info[0] || this.infoGanador;
-      if(this.infoGanador.idPersona == this.idpersona){
-        swal("Felicidades","Eres el numero 1 ");
-
-      }
-     
-    })
-    
     await this.api.getCampeonato(this.idCampeonato).then((data:any)=>{
       this.infoCampeonato =  data[0];
      
     })
 
-    // if(this.infoCampeonato.numjugadores == 8){
-    //   this.faseActiva = 3;
-    //   await  this.torneo8participantes()
-      
-    //  }else if(this.infoCampeonato.numjugadores == 16){
-    //   this.faseActiva = 4;
-    //    await this.torneo16participantes()
-    //  }else{
-      await this.torneo32participantes();
-    //   this.faseActiva = 5;
-    //  }
+    if(this.infoCampeonato.numjugadores == 8 ){
+      this.faseActiva = 3;
+    }else  if(this.infoCampeonato.numjugadores == 16 ){
+      this.faseActiva = 4;
+    }else  if(this.infoCampeonato.numjugadores == 32 ){
+      this.faseActiva = 5;
+    }
+
+    
+    await this.torneo32participantes();
+
+    await this.api.ganadorcampeonato(this.idCampeonato).then( async (data : any)=>{
+      console.log(data)
+      this.infoGanador =  data.info[0] || this.infoGanador;
+      if(this.infoGanador.idPersona == this.idpersona){
+     
+          let dataCopa = {
+          idpersona : this.idpersona ,
+          referencia : this.idCampeonato ,
+          descripcion : "Ganador Campeonato",
+          ganadaen : "Campeonato"
+          }
+
+          let addcopa = false;
+          await this.api.agregarCopa(dataCopa).then((data: any )=>{
+              addcopa = data.ok
+          })
+        const willDelete =  await  swal({
+          title: "¡Felicidades!",
+          text: "Eres el ganador del torneo",
+          icon: "/assets/copas.png",
+          dangerMode: true,
+        });
+
+        if (willDelete) {
+          this.router.navigateByUrl("/home")
+          this.api.cancelarCampeonato({idCampeonato : this.idCampeonato})
+          this.router.navigateByUrl("/home")
+        }
+      }
+     
+    })
+    
 
     await this.api.EncuentroActivo(this.idpersona).then((data:any)=>{
       this.encuentro = data.info;
-      // fecha: "2020-08-30T22:14:55.000Z"
-      // fkAnfitrion: 649251766
-      // fkCampeonato: 6584924
-      // fkFase: 3
-      // fkRival: 649251689
-      // idEncuentro: 91474
-      // numEncuentro: null
-      // status: 1
       if(data.info)
         if(this.encuentro.fkAnfitrion!= null && this.encuentro.fkRival != null){
           swal("Tienes un encuentro activo")
@@ -113,8 +128,6 @@ export class CampeonatoComponent implements OnInit {
       this.numInscripciones =  data.recordset;
       console.log(data.recordset)
     })
-
-    console.log(this.fase2)
 
   }
 
@@ -149,7 +162,7 @@ export class CampeonatoComponent implements OnInit {
 
  
   async BuscarRival() {
-    swal("Buscarndo Rival")
+    swal("Buscando Rival")
     let  numEncuentro : number = null;
     let  soy : string = null ;
     let  Buscar : string = null ;
@@ -173,6 +186,10 @@ export class CampeonatoComponent implements OnInit {
         }
       }      
     })
+
+    alert(this.faseActiva)
+    // return false ;
+
     let fase = {
       idFase : this.faseActiva,
       idpersona : this.idpersona ,
@@ -198,9 +215,7 @@ export class CampeonatoComponent implements OnInit {
         swal("Rival encontrado")
         this.podemosjugar = true;
     }else{
-      
       swal("Rival no Disponible")
-
     }
   } 
 

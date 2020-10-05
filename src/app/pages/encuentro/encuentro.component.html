@@ -88,12 +88,12 @@
             <p class="">{{ infoRival.idplataforma || "" }}</p>
           </div>
           <div class="contadores text-center">
-            <img src="/assets/Grupo 579.png" alt="" width="150">
-            <p class="centrado font-weight-bold">{{ infoAnfitrion.copas }}</p>
+            <img src="/assets/Grupo 579.png" alt="" width="150">  
+            <p class="centrado font-weight-bold">{{ infoRival.copas }}</p>
         </div><br>
         <div class="contadores text-center">
             <img src="/assets/contador_nivel.png" alt="" width="150">
-            <p class="centrado font-weight-bold"> {{infoAnfitrion.rango}}</p>
+            <p class="centrado font-weight-bold"> {{infoRival.rango}}</p>
 
         </div>
         </div>
@@ -108,7 +108,7 @@
                 <div class="incoming_msg" *ngIf="item.idPersona != idpersona">
                   <div class="received_msg">
                     <div class="received_withd_msg">
-                      <p>{{ item.username }}:{{ item.message }}</p>
+                      <p><strong>{{ item.username }}: </strong>{{ item.message }}</p>
                       <span class="time_date"> </span>
                     </div>
                   </div>
@@ -151,12 +151,15 @@
       </div>
     </div>
 
-   <p class="text-white" *ngIf="versus['finaliza'] > 0">
+    <div class="col-12" *ngIf="infoversus.finaliza > 0" >
+        <p class="text-white" >
      Reporta en 
-     <strong ><countdown #cd [config]="{ leftTime: versus['finaliza'] }" (event)="reportaen($event)" ></countdown ></strong>
+     <strong ><countdown #cd [config]="{ leftTime: infoversus.finaliza || 66 }" (event)="reportaen($event)" ></countdown ></strong>
    </p> 
-  <br>
-   <div class="generalinfo text-white">
+    </div>
+ 
+
+   <div class="generalinfo text-white col-12">
     <div class="panel panel-info">
        <div class="panel-heading collapsed " data-toggle="collapse" data-target="#bar">
           REGLAS DE LA COMPETENCIA
@@ -164,11 +167,11 @@
        </div>
        <div class="panel-body" style="background-color:  rgb(153,153,153)">
           <!-- The inside div eliminates the 'jumping' animation. -->
-          <div class="collapse" id="bar" [innerHTML] = "versus.reglas" style="color: black !important;" > 
+          <div *ngIf="infoversus.reglas" class="collapse" id="bar" [innerHTML] = "infoversus.reglas || 0" style="color: black !important;  padding: 20px;" > 
             
           </div>
        </div>
-       <div class="panel-heading collapsed" data-toggle="collapse" data-target="#pruebas">
+       <div class="panel-heading collapsed" data-toggle="collapse" data-target="#pruebas"  style="white-space: nowrap;">
           REPORTAR RESULTADOS Y SUBIR PRUEBAS
           <i class="fa fa-fw fa-chevron-down"></i>
        </div>
@@ -225,19 +228,20 @@
 
 
     <div  class="col-12 text-white" *ngIf="Disputa">
+      <form #f="ngForm" (ngSubmit)="subirDisputa(f)">
         <label for="">Subir Foto</label>
+        <div class="form-group">
+          <input type="file"  ngModel   name="img"  (change)="CargarArchivo($event)" />
+        </div>
+        <label for="">Descripcion</label>
 
-      <div class="form-group">
-        <input type="file" />
-      </div>
-      <label for="">Descripcion</label>
-
-      <div class="form-group">
-        <textarea class="form-control" name="" id="" rows="3"></textarea>
-      </div>
-      <button type="submit" class="btn btn-danger" (click)="subirDisputa()">
-        Subir Pruebas
-      </button>
+        <div class="form-group">
+          <textarea class="form-control" ngModel   name="Mensaje"  rows="3" ></textarea>
+        </div>
+        <button type="submit" class="btn btn-danger">
+          Subir Pruebas
+        </button>
+      </form>
     </div>
   </div>
 </div>

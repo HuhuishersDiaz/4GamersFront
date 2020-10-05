@@ -123,3 +123,16 @@ export interface FaseTorneo {
     nombrerival ?: string;
     imgRival ?: string;
 }
+
+
+export interface  infoVersus{
+    Apuesta ?: number
+    Fecha?: string,
+    finaliza?: number,
+    fkAnfitrion?: number,
+    fkJuego?: number,
+    fkRival?: number,
+    idVersus?: number,
+    reglas?: string,
+    status?: number
+}

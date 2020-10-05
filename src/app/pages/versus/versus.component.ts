@@ -60,8 +60,9 @@ export class VersusComponent implements OnInit {
 
     usernameAmigo : string = "";
     amigos : any[];
-
+    reglas  : any;
     versusActivo : any ;
+    infonewVersus : any;
     constructor(private router : Router, private _socket : SocketsService, private global : GlobalService, private api : GamersService, private UI : UIGamersService, private modalService : BsModalService) {}
 
     async ngOnInit() {
@@ -112,7 +113,7 @@ export class VersusComponent implements OnInit {
 
     async acumulado() {
         this.api.acumuladoVersus(this.idpersona).then((data : any) => {
-            console.log(data)
+            //console.log(data)
             this.acumulados = data.info.recordset[0].acumulado || 0
 
             this.versus.apuesta = (50 - data.info.recordset[0].acumulado || 0);
@@ -121,7 +122,7 @@ export class VersusComponent implements OnInit {
     }
     async verJuegos() {
         await this.api.getGames().then((data : any[]) => {
-            console.log(data);
+            //console.log(data);
             
             this.juegos = data;
         });
@@ -130,7 +131,7 @@ export class VersusComponent implements OnInit {
 
     async getVersus() {
         (await this.api.getVersus()).subscribe((data) => {
-            console.log(data)
+            //console.log(data)
             this.allversus = data.info.recordset;
             this.allversus.reverse();
         });
@@ -198,7 +199,7 @@ export class VersusComponent implements OnInit {
         let disponible;
 
         let continuamos = await this.api.idJuegopersona(this.idpersona, versus.idjuego).then(data => data).catch(err => err)
-        console.log(continuamos)
+        //console.log(continuamos)
 
         if (! continuamos.ok) {
             swal("Para continuar es necesario cargar los IDs ", {
@@ -227,11 +228,11 @@ export class VersusComponent implements OnInit {
             return false;
         }
         if (this.tokens<versus.apuesta) {
-            console.log(this.tokens , versus.apuesta)
+            //console.log(this.tokens , versus.apuesta)
             swal("Tokens Insuficientes", {icon: "info"});
             return false;
         }
-        // //console.log(data.info.recordset[0]);
+        // ////console.log(data.info.recordset[0]);
         await this.api.versusDisponible(versus.idversus).then((data) => {
             if (data.ok) {
                 disponible = (data.info.recordset[0] || null)
@@ -349,13 +350,7 @@ export class VersusComponent implements OnInit {
 
         this.versus.user = this.global.User();
 
-        await this._socket.createVersus(this.versus).then((data : any) => {
-            console.log(data);
-            if(data.ok){
-                this.versusActivo = data.info;
-            }
-            
-        })
+        
 
         let amigos = false;
 
@@ -381,14 +376,22 @@ export class VersusComponent implements OnInit {
 
         if (amigos) {
             
-           
+        this.infonewVersus = this.versus
             await this.listAmigos();
             this.modalRef = this.modalService.show(this.modal, this.modalOption)
             
             return false;
         }
 
-        console.log( this.versusActivo);
+        await this._socket.createVersus(this.versus).then((data : any) => {
+            //console.log(data);
+            if(data.ok){
+                this.versusActivo = data.info;
+            }
+            
+        })
+
+        //console.log( this.versusActivo);
 
         swal("Esperando Rival", {
             icon: "/assets/loading.gif",
@@ -407,17 +410,24 @@ export class VersusComponent implements OnInit {
     }
     CancelarVersus(item : any) {
         this.api.CancelarVersus(item).then((data : any) => {
-            console.log(data);
+            //console.log(data);
             if (data.message[0] == 1) {
                 let position = this.misversus.indexOf(item)
-                console.log(position)
+                // //console.log(position)
                 this.misversus.splice(position, 1);
                 swal("Versus cancelado ")
 
             }
         })
     }
-    onChange(item : any) {
+    async onChange(item : any) {
+        // //console.log(item);
+        await this.api.reglasjuego(item.idJuego)
+        .then((data : any) =>{
+            // //console.log(data);
+
+            this.reglas = data.info.recordset[0].descripcion
+        })
         this.juegos.find(c => c.activa = false);
         var posicion = this.juegos.indexOf(item);
         this.juegos[posicion].activa = true;
@@ -430,7 +440,7 @@ export class VersusComponent implements OnInit {
     }
     async listAmigos() {
         this.api.listAmigos(this.idpersona).then((data : any[]) => {
-            console.log(data);
+            //console.log(data);
             this.amigos = data['amigos'];
         })
     }
@@ -439,7 +449,7 @@ export class VersusComponent implements OnInit {
             swal("Ingresa username", {icon: "info"})
         } else {
             this.api.buscaramigo(this.usernameAmigo).then((data : any[]) => {
-                console.log(data['user'].length)
+                //console.log(data['user'].length)
                 if (data['user'].length == 0) {
                     swal("Usuario no encontrado", {icon: "info"})
                 } else {
@@ -466,7 +476,7 @@ export class VersusComponent implements OnInit {
                                 fkamigo: data['user'][0].idPersona
                             }
                             this.api.agregarAmigo(info).then((data) => {
-                                console.log(data)
+                                //console.log(data)
                                 this.listAmigos();
                             })
                         }
@@ -477,8 +487,16 @@ export class VersusComponent implements OnInit {
         }
     }
 
-    JugarAmigosVerus(item : any) {
-        console.log( this.versusActivo);
+    async JugarAmigosVerus(item : any) {
+        //console.log( item);
+        await this._socket.createVersus(this.infonewVersus).then((data : any) => {
+            //console.log(data);
+            if(data.ok){
+                this.versusActivo = data.info;
+            }
+            
+        })
+       
 
         let data = {
             versus : this.versusActivo,
@@ -495,13 +513,14 @@ export class VersusComponent implements OnInit {
             }
         });
 
+        console.log(data)
         this._socket.EsperarconfirmacionAmigo(data).then((data : any) => {
 
         })
         // setTimeout(() => {
          this._socket.respuestaconfirmaciondeamigo().subscribe(data => {
                 
-            console.log(data);
+            //console.log(data);
             
             if(data.respuesta == true){
                 this.modalRef.hide();

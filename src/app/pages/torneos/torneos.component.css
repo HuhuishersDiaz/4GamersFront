@@ -1,3 +1,136 @@
+@media (max-width: 767px) {
+  .reglas {
+    font-size: 2vw;
+    padding: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+    background-color: rgb(50, 76, 109);
+    width: 50%;
+    padding: 0px;
+    font-weight: bold;
+  }
+
+  #button {
+    margin-top: 1px;
+    margin-right: 2px;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .torneo-timer{
+    font-weight: 600; font-size: 4vw;
+  }
+
+  .cont-torneo {
+    padding: 10px;
+    height: 31vw;
+    background-image: url("http://4gamers.xplainerservicios.com/Content/torneos/Presentacion/Banner_torneos_fornite.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .logo-torneo {
+    background-position: center;
+    background-repeat: no-repeat;
+    white-space: pre;
+    width: 100%;
+    height: 18vw;
+    background-image: url(http://4gamers.xplainerservicios.com/Content/torneos/Logo/fortnite_PNG_torneos.png);
+    background-size: contain;
+  }
+
+  .img-token {
+    width: 3vw;
+  }
+  .info-torneo {
+    height: 98%;
+    border: 3px solid #fff;
+    font-size: 2.5vw;
+    font-weight: 500;
+    color: white;
+    white-space: pre !important;
+  }
+  .text-lugares {
+    line-height: 2vw;
+  }
+  .btn-ir {
+    margin-top: -10px;
+    padding: 0px;
+    float: right;
+    font-size: 3vw;
+  }
+  .tonreo-ganahasta{
+    font-size: 3vw;
+  }
+}
+@media (min-width: 768px) {
+  .reglas {
+    font-size: 1vw;
+    padding: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+    background-color: rgb(50, 76, 109);
+    width: 50%;
+    padding: 0px;
+    font-weight: bold;
+  }
+
+  #button {
+    margin-top: 1px;
+    margin-right: 2px;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .torneo-timer{
+    font-weight: 600; font-size: 2vw;
+  }
+
+  .cont-torneo {
+    padding: 10px;
+    height: 18vw;
+    background-image: url("http://4gamers.xplainerservicios.com/Content/torneos/Presentacion/Banner_torneos_fornite.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .logo-torneo {
+    background-position: center;
+    background-repeat: no-repeat;
+    white-space: pre;
+    width: 100%;
+    height: 10vw;
+    background-image: url(http://4gamers.xplainerservicios.com/Content/torneos/Logo/fortnite_PNG_torneos.png);
+    background-size: contain;
+  }
+
+  .img-token {
+    width: 2vw;
+  }
+  .info-torneo {
+    height: 98%;
+    border: 3px solid #fff;
+    font-size: 1.5vw;
+    font-weight: 500;
+    color: white;
+    white-space: pre !important;
+  }
+  .text-lugares {
+    line-height: 2vw;
+  }
+  .btn-ir {
+    margin-top: -10px;
+    padding: 0px;
+    float: right;
+    font-size: 1.5vw;
+  }
+  .tonreo-ganahasta{
+    font-size: 1vw;
+  }
+}
+
+
+
 .contDes > div {
   width: 49%;
   float: left;
@@ -253,21 +386,16 @@
 }
 
 
-.reglas {
-  font-size: 2vw;
-  padding: 0px;
-  margin-top: 0px;
-  margin-left: 0px;
-  background-color: rgb(50, 76, 109);
-  width: 50%;
-  padding: 0px;
-  font-weight: bold;
+.container-videos{
+  background-image: url('/assets/banner_witcher.png');
+  background-size: cover;
+}
+.cont-video{
+  background: transparent; cursor: pointer;
 }
 
-#button {
-  margin-top: 1px;
-  margin-right: 2px;
-  position:absolute;
-  top:0;
-  right:0;
-}
+/* .swiper-slide{
+  width: 175px !important;
+  margin-right: 15px !important;
+} */
+

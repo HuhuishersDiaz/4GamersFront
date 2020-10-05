@@ -57,21 +57,8 @@ export class FasestorneoComponent implements OnInit {
             this.dataTorneo.reglas = data.info.recordset[0].descripcion
         })
 
-        if(this.process >= 99 ){
-            const willDelete = await swal({
-                title: "¡Felicidades!",
-                text: "Eres el ganador del torneo",
-                icon: "success",
-                dangerMode: true,
-              });
 
-              if (willDelete) {
-                this.router.navigateByUrl("/home")
-                this.api.cancelarTorneo({ idtorneo : this.idTorneo});
-              }
         
-            
-            };
             
             
             
@@ -95,7 +82,42 @@ export class FasestorneoComponent implements OnInit {
         await this.validarFase(0, this.fasesTorneo[0].idFase)
         await this.validarFase(1, this.fasesTorneo[1].idFase)
         await this.validarFase(2, this.fasesTorneo[2].idFase)
+        if(this.dataTorneo.numJugadores > 8){
+            await this.validarFase(3, this.fasesTorneo[3].idFase)
+        }
+        // await this.validarFase(2, this.fasesTorneo[3].idFase)
+        if(this.process >= 99 ){
+
+            let dataCopa = {
+                idpersona : this.idPersona ,
+                referencia : this.idTorneo ,
+                descripcion : "Ganador Campeonato",
+                ganadaen : "Torneo"
+
+            }
+
+            let addcopa = false;
+            await this.api.agregarCopa(dataCopa).then((data: any )=>{
+                addcopa = data.ok
+            })
+
+        
+
+            const willDelete = await swal({
+                title: "¡Felicidades!",
+                text: "Eres el ganador del torneo",
+                icon: "/assets/copas.png",
+                dangerMode: true,
+              });
+
+              if (willDelete) {
+                this.router.navigateByUrl("/home")
+                this.api.cancelarTorneo({ idtorneo : this.idTorneo});
+              }
+            };
+
     }
+
 
 
 
@@ -104,21 +126,24 @@ export class FasestorneoComponent implements OnInit {
             if (this.bloqueamolasiguiente == false) {
 
                 await this.api.EncuentroFase(idFase, this.infoInscripcion.idInscripcion).then(async (data : DetalleFase) => {
-
+                    console.log(data);
                     if (!data.encuentro.IdEncuentro) {
                         this.fasesTorneo[posicion].status = "Buscar Rival"
                         this.fasesTorneo[posicion].activa = true;
                         return false;
                     }
+
                     let mio = data.detalle.find((item : Detalle) => item.fkInscripcion == this.infoInscripcion.idInscripcion);
                     let otro = data.detalle.find((item : Detalle) => item.fkInscripcion != this.infoInscripcion.idInscripcion);
 
                     if (mio) {
+
                         if (mio.isWinner == false) {
 
                             await this.api.FinalizarInscripcion({idinscripcion: this.infoInscripcion.idInscripcion}).then(data => data).catch(err => err);
                             this.router.navigateByUrl("/torneos")
                         }
+
                         if (otro) {
                             if (mio.isWinner == otro.isWinner) {
                                 this.fasesTorneo[posicion].status = "Disputa"
@@ -142,12 +167,15 @@ export class FasestorneoComponent implements OnInit {
                             }
 
                         } else {
+
                             resolve(true)
                             this.fasesTorneo[posicion].status = "Esperando"
                             this.bloqueamolasiguiente = true;
+
                         }
 
                     } else {
+
                         resolve(false)
                         this.bloqueamolasiguiente = true;
                         this.infoEncuentro = data.encuentro
@@ -155,7 +183,10 @@ export class FasestorneoComponent implements OnInit {
                         // alert(this.infoEncuentro.fkInscripcionAnfitrion );
                         if(this.infoEncuentro.fkInscripcionRival != null && this.infoEncuentro.fkInscripcionAnfitrion != null){
                             this.jugar();
-
+                        }else{
+                            this.fasesTorneo[posicion].status = "Buscar Rival"
+                            this.fasesTorneo[posicion].activa = true;
+                            return false;
                         }
                     }
 
@@ -175,7 +206,9 @@ export class FasestorneoComponent implements OnInit {
     }
 
     async BuscarRival(fase : any) {
-
+        // alert(fase)
+        console.log(fase);
+        
         if (fase.status == "Disputa") {
             swal("Espera la resolucion de tu disputa")
         } else {

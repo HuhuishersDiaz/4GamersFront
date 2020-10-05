@@ -119,7 +119,7 @@ export class PerfilComponent implements OnInit {
             // File Preview
             const reader = new FileReader();
             reader.onload = () => { // console.log(this,this.imageURL);
-            }; 
+            };
             reader.readAsDataURL(file)
             if (file.size > 1000000) {
                 swal("Tu Imagen debe de pesar menos de 1 MB", {icon: "error"})
@@ -155,7 +155,7 @@ export class PerfilComponent implements OnInit {
         // console.log(data.info.recordset)
         data.info.recordset.forEach(async element => {
             let idsinterno = await this.ids.find(ids => ids.fkPlataforma == element.fkPlataforma);
-            let position = await this.ids.indexOf(idsinterno);
+            let position = this.ids.indexOf(idsinterno);
             this.ids[position].userid = element.userid;
             this.ids[position].idPersona = element.idPersona;
         });
@@ -169,24 +169,29 @@ export class PerfilComponent implements OnInit {
     }
 
     async guardarids() {
-        this.ids.forEach(async element => {
-            element.idPersona = this.idpersona;
-            if (element.userid != "") 
-                await this.api.cargaridsPlataforma(element).then((data : any) => {
-                    console.log(data);
-                    if (data.ok) {
-                        swal("Operacion exitosa", {
-                            icon: "success",
-                            buttons: {},
-                            timer: 1000
-                        });
-                    } else {
-                        swal("Operación cancelada", "ID no disponible '" + element.userid + "'", {icon: "info"})
-                        return;
-                    }
-                })
-            
-        });
+        const errors = [];
+
+        await Promise.all(
+            this.ids.map(async (element) => {
+                element.idPersona = this.idpersona;
+                if (element.userid != "") 
+                    await this.api.cargaridsPlataforma(element).then((data : any) => {
+                        console.log(data);
+
+                        if (!data.ok) 
+                            errors.push("ID no disponible '" + element.userid + "'");
+                    });
+            })
+
+        )
+        if(errors.length > 0){
+            swal(errors[0]),{icon : "info"}
+        }else{
+            swal("Operacion Exitosa",{icon : "success"});
+
+        }
+        console.log(errors);
+
     }
     cerrarsesion() {
         localStorage.removeItem("idPersona");

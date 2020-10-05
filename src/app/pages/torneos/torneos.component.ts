@@ -32,16 +32,29 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
     reglas : string;
 
     listTorneos : any[];
+    
+    misTorneos : any[];
+
     listCampeonatos : any[];
     idpersona : string;
-    TorneoActivo : any;
+    TorneoActivo : any ;
     constructor(private api : GamersService, private global : GlobalService, private router : Router, private modalService : BsModalService) {
         this.idpersona = localStorage.getItem("idPersona") || null;
     }
 
     async ngOnInit() {
+        
         await this.verTorneos();
         await this.verCampeonatos();
+        if (this.idpersona) 
+        {
+            this.api.mistorneos(this.idpersona).then((data : any[] )=>{
+                console.log(data)
+                if(data.length > 0){
+                    this.misTorneos = data;
+                }
+            })
+        }
     }
 
     async verTorneos() {
@@ -62,8 +75,20 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
         this.TorneoActivo = item;
 
         if (!this.idpersona) 
+        {
             swal("Registrate", "Disfruta de miles de beneficios", {icon: "info"})
+            return false;
+        }
 
+        let Inscripciones: any[] = await this.api.LugarTorneo(item.idTorneo).then((data : any[]) => data['info'].recordset).catch(err => err)
+
+        let miInscripcion = Inscripciones.find(c => c.fkPersona == this.idpersona);
+        console.log(miInscripcion);
+        if (miInscripcion) {
+            this.router.navigateByUrl("/torneos/torneo/" + miInscripcion.fkTorneo + "/fases")
+            return false;
+        }
+        
         let token = this.global.tokens;
 
         // console.log(item.fkJuego);
@@ -104,14 +129,7 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
             return false;
         }
 
-        let Inscripciones: any[] = await this.api.LugarTorneo(item.idTorneo).then((data : any[]) => data['info'].recordset).catch(err => err)
-
-        let miInscripcion = Inscripciones.find(c => c.fkPersona == this.idpersona);
-        console.log(miInscripcion);
-        if (miInscripcion) {
-            this.router.navigateByUrl("/torneos/torneo/" + miInscripcion.fkTorneo + "/fases")
-            return false;
-        }
+        
         // alert(Inscripciones.length)
         // alert(item.numJugadores)
         if (token < item.CosEntrada) {
@@ -131,15 +149,44 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
 
 
     async entrarCampeonato(item : any) {
+        let numInscripciones = 0;
 
+        await this.api.getInscripcionesCampeonato(item.idCampeonato).then((data : any) => {
+            numInscripciones = data.rowsAffected[0];
+        })
+        console.log(numInscripciones)
+
+        let Inscripcion;
+
+        await this.api.getInscripcionCampeonatos(this.idpersona, item.idCampeonato).then((data : any) => { // console.log(data)
+            if (data.rowsAffected[0] > 0) {
+                Inscripcion = data.recordset[0];
+            }
+        })
+        
+        console.log(Inscripcion)
+    //    return false;
+        if (Inscripcion) {
+            if (Inscripcion.status == 1) {
+                swal("Estas de vuelta", "Bienvenido")
+                this.router.navigateByUrl(`/campeonato/${
+                    item.idCampeonato
+                }`)
+                return false;
+            } else {
+                swal("El campeonato aun no finaliza")
+                return false;
+            }
+        } 
+
+
+        console.log(item)
+        // return false;
         // this.modalRef = this.modalService.show(this.ModalEntrar, {});
 
         let tokens = this.global.tokens;
 
-        let numInscripciones = 0;
-        await this.api.getInscripcionesCampeonato(item.idCampeonato).then((data : any) => {
-            numInscripciones = data.rowsAffected[0];
-        })
+      
 
 
         let dataInscripcion = {
@@ -153,44 +200,85 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
             monto: item.cosEntrada,
             mensaje: "Inscripcion Campeonato"
         }
-        let Inscripcion;
+        let continuamos = await this.api.idJuegopersona(this.idpersona,  item.fkJuego).then(data => data).catch(err => err)
+        // console.log(continuamos)
 
-        await this.api.getInscripcionCampeonatos(this.idpersona, item.idCampeonato).then((data : any) => { // console.log(data)
-            if (data.rowsAffected[0] > 0) {
-                Inscripcion = data.recordset[0];
-            }
-        })
-        // console.log(Inscripcion)
-        if (Inscripcion) {
-            if (Inscripcion.status == 1) {
-                swal("Estas de vuelta", "Bienvenido")
-                this.router.navigateByUrl(`/campeonato/${
-                    item.idCampeonato
-                }`)
-            } else {
-                swal("El campeonato aun no finaliza")
-            }
-        } else if (tokens < item.cosEntrada) {
-            swal("Tokens insuficiontes")
-        } else {
-            if (numInscripciones == item.numjugadores) {
-                swal("Lugares no disponibles");
-                return false;
-            }
-
-            this.api.EstadodeCuenta(infoOperacion).then((data : any) => {
-                if (data.info.rowsAffected[0] == 1) {
-                    this.api.posInscripcionCampeonato(dataInscripcion).then(async (data : any) => {
-                        if (data.info == true) {
-                            swal("Operacion exitosa", "Bienvenido", {icon: 'success'})
-
-                            this.router.navigateByUrl("/campeonato/" + item.idCampeonato)
-                        }
-                    })
+        if (! continuamos.ok) {
+            // swal("Para continuar es necesario cargar los IDs ", {icon: "/assets/Logo_gif_loader.gif"});
+            swal("Para continuar es necesario cargar los IDs ",{icon : "info" ,buttons : {
+                cancelar : {
+                    text : "Cancelar",
+                    className : "btn-danger",
+                    value : false,
+                    closeModal : true
+                    
+                },
+                ir : {
+                    text : "ir a perfil",
+                    className : "btn-danger",
+                    value : true,
+                    
                 }
+            }
+            }).then(data=>{
+                if(data){
+                    this.router.navigateByUrl("/perfil")
 
-            })
+                }
+            });
+            return false;
         }
+
+
+       if (tokens < item.cosEntrada) {
+            swal("Tokens insuficiontes")
+            return false;
+        } 
+        if (numInscripciones == item.numjugadores) {
+            swal("Lugares no disponibles");
+            return false;
+        }
+        swal("El costo de entrada es "+item.cosEntrada, {
+            icon : "info",
+            buttons: { 
+                reglas : {
+                text: "ver Reglas",
+                value : "reglas",
+                }, 
+                abir : {
+                    text: "Entrar",
+                    value : "inscribirte"
+                }
+            }})
+          .then((value) => {
+            switch (value) {
+           
+              case "reglas":
+              
+                this.verReglas(item)
+
+                break;
+           
+              case "inscribirte":
+                    this.api.EstadodeCuenta(infoOperacion).then((data : any) => {
+                        if (data.info.rowsAffected[0] == 1) {
+                            this.api.posInscripcionCampeonato(dataInscripcion).then(async (data : any) => {
+                                if (data.info == true) {
+                                    swal("Operacion exitosa", "Bienvenido", {icon: 'success'})
+        
+                                    this.router.navigateByUrl("/campeonato/" + item.idCampeonato)
+                                }
+                            })
+                        }
+        
+                    })
+                break;
+           
+           
+            }
+          });
+           
+        
 
     }
 
@@ -198,11 +286,20 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
         console.log($event);
     }
 
-    async verReglas( torneo : any  ) {
-        console.log(torneo);
-        // this.modalService.hide(0)
+    async verReglas( info : any ) {
+        console.log(info)
+        if(!info ){
+            // alert("no tenemos reglas")
+        }else{
+            this.TorneoActivo = info;
+
+        }
+        console.log(this.TorneoActivo);
+        
+        // console.log(torneo);
+        // // this.modalService.hide(0)
         let reglas;
-        await this.api.reglasjuego(torneo.fkJuego)
+        await this.api.reglasjuego(this.TorneoActivo.fkJuego)
         .then((data : any) =>{
             reglas = data.info.recordset[0].descripcion
             console.log(data);
