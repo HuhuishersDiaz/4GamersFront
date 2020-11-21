@@ -96,8 +96,6 @@ export class EncuentroComponent implements OnInit {
             this.historiamMensajes.nativeElement.scrollTop = this.historiamMensajes.nativeElement.scrollHeight;
         });
 
-       
-
     }
 
     ngOnDestroy(): void {
@@ -359,34 +357,39 @@ export class EncuentroComponent implements OnInit {
 
     //Metodo para cargar la disputa
     async subirDisputa(data: NgForm){
-       console.log(data);
+        swal("Espera","Cargando información", {
+            icon: "/assets/loading.gif",
+            buttons : {},
+            closeOnEsc : false,
+            closeOnClickOutside : false,
+        })
        
+        let filename  = "" ; 
+        await this.api.uploadimg(this.files[0]).then((data) => { // console.log(data);
+            if (data.OK) {
+                filename = data.Name;
+            }
+        });
+
         let dataDisputa = {
             fkVersus : this.infoversus.idVersus,
             fkPersona: this.idpersona,
             Mensaje: data.value.Mensaje,
-            // img: "img.jpg"
+            img: filename
         };
 
-        // console.log(data.value.img)
-        // console.log(data.value.Mensaje)
-        const formData: FormData = new FormData();
+        this._socket.NuevaDisputaVersus(dataDisputa).then().catch();
 
-        // for (let i = 0; i < files.length; i++) {
-        formData.append('imgDisputa', this.files[0]);
-        // }
-        formData.append("data", JSON.stringify(dataDisputa));
-
-        this.api.subirDisputa(formData).then((data : any )=>{
+        console.log(dataDisputa);
+        // return false
+        this.api.subirDisputa(dataDisputa).then((data : any )=>{
             console.log(data);
             
-            if(data.ok == 1){
-                alert("Todo Salio Chifo ")
+            if(data.ok){
                 swal("Tu resultado ha sido enviado exitosamente! ","Espera nuestra respuesta", {icon: 'success'})
                 this.router.navigateByUrl('/versus')
             }
         });
-        
         
 
     }

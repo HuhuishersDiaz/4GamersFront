@@ -45,6 +45,7 @@ import { AvisodeprivacidadComponent } from './pages/avisodeprivacidad/avisodepri
 import { FaqsComponent } from './pages/faqs/faqs.component';
 import { PruebasComponent } from './pages/pruebas/pruebas.component';
 import { AmigosComponent } from './pages/amigos/amigos.component';
+import { GamesComponent } from './pages/games/games.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { AmigosComponent } from './pages/amigos/amigos.component';
     AvisodeprivacidadComponent,
     FaqsComponent,
     PruebasComponent,
-    AmigosComponent
+    AmigosComponent,
+    GamesComponent
   ],
   imports: [
     BrowserModule,

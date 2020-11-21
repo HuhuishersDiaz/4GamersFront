@@ -1,150 +1,162 @@
 
 <div class="container">
     <br><br><br>
-    <div class="row">
-       
-        <div class="col-md-6">
-            <div class="line-divider">
-                <p>DATOS DE IDENTIFICACION</p>
-              </div>
+    
+    <form #frmDatos="ngForm" (ngSubmit)="Validar(frmDatos)">
             <div class="row">
-           
-                <div class="col-12 col-sm-6 col-md-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Num. DNI"
-                            aria-label="Nombre" aria-describedby="basic-addon2" [value]="">
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">
-                                <i class="fas fa-check"></i>
-                            </span>
+            <div class="col-md-6">
+                <div class="line-divider">
+                    <p>DATOS DE IDENTIFICACION</p>
+                </div>
+                <div class="row">
+            
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="input-group mb-3 disabled">
+                            <input type="text" class="form-control disabled" placeholder="Num. DNI"
+                                aria-label="Nombre" aria-describedby="basic-addon2" [value]="infoUsuario.DNI" name="DNI" ngModel>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="NOMBRE" name="Nombre" ngModel> 
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="PRIMER APELLIDO"
+                                aria-label="Nombre" aria-describedby="basic-addon2" [value]="" name="pApellido" ngModel>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="SEGUNDO APELLIDO " name="sApellido" ngModel/> 
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 ">
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="dni" name="dni" ngModel required (change)="CargarArchivo($event)" /> 
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="NOMBRE"
-                        
-                        > 
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">
-                                <i class="fas fa-check"></i>
-                            </span>
+            </div>
+            
+            <div class="col-md-6 " >
+                <div class="line-divider">
+                    <p>DATOS DE DIRECCION</p>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="DIRECCION"
+                                aria-label="Nombre" aria-describedby="basic-addon2" [value]="" name="Direccion" ngModel>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="PROVINCIA"  name="provincia" ngModel /> 
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="CIUDAD / ESTADO"  name="Estado"
+                                aria-label="Nombre" aria-describedby="basic-addon2" [value]=""ngModel> 
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="CP "  name="CodPostal" ngModel/> 
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                     
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="TELEFONO" name="telefono" ngModel/> 
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="col-12 col-sm-6 col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="PAIS" name="pais" ngModel/> 
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-12 col-sm-12 col-md-12">
+                        <div class="">
+                            <label for="" class="text-white">
+                                <input type="checkbox"  placeholder="PAIS" required name="valida" ngModel required valida #valida="ngModel"/> 
+                                confirmo que la informacion proporcionada es correcta. Los usarios que envien informacion falsa seran baneados, tal y como se establece en los <a href="">Terminos y condiciones</a>
+                            </label>
+                            <div *ngIf="!valida.valid && (valida.dirty || valida.touched)">
+                                <small class="text-danger">**Es necesario confirmar la informacion </small>
+                            </div>
+                        </div>
+                    </div>   
 
                 </div>
-                <div class="col-12 col-sm-6 col-md-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="PRIMER APELLIDO"
-                            aria-label="Nombre" aria-describedby="basic-addon2" [value]="">
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">
-                                <i class="fas fa-check"></i>
-                            </span>
-                        </div>
-                    </div>
+            
+                <br>
+                <div class="text-center">
+                    <button class="btn btn-danger " type="submit"  style="margin: auto;">VERIFICAR CUENTA</button>
                 </div>
-                <div class="col-12 col-sm-6 col-md-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="SEGUNDO APELLIDO "/> 
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">
-                                <i class="fas fa-check"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-6">
-                    <div class="input-group mb-3">
-                        <input type="file" class="form-control" placeholder="SEGUNDO APELLIDO "/> 
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">
-                                <i class="fas fa-check"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <br>
             </div>
         </div>
-        
-        <div class="col-md-6 " >
-            <div class="line-divider">
-                <p>DATOS DE DIRECCION</p>
-            </div>
-            <div class="row">
-                <div class="col-12 col-sm-6 col-md-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="DIRECCION"
-                            aria-label="Nombre" aria-describedby="basic-addon2" [value]="">
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">
-                                <i class="fas fa-check"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="PROVINCIA"
-                        
-                        > 
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">
-                                <i class="fas fa-check"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-12 col-sm-6 col-md-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="CIUDAD / ESTADO"
-                            aria-label="Nombre" aria-describedby="basic-addon2" [value]="">
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">
-                                <i class="fas fa-check"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="CP "/> 
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">
-                                <i class="fas fa-check"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-6">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="PAIS"/> 
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="basic-addon2">
-                                <i class="fas fa-check"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>   
-                <div class="col-12 col-sm-12 col-md-12">
-                    <div class="">
-                        <label for="" class="text-white">
-                            <input type="checkbox"  placeholder="PAIS"/> 
-                            confirmo que la informacion proporcionada es correcta. Los usarios que envien informacion falsa seran baneados, tal y como se establece en los <a href="">Terminos y condiciones</a>
-                        </label>
-                        
-                    </div>
-                </div>   
-            </div>
-           
-            <br>
-            <div class="text-center">
-                <button class="btn btn-danger " (click)="Validar()"  style="margin: auto;">VERIFICAR CUENTA</button>
-            </div>
-            <br>
-        </div>
-    </div>
+    </form> 
     <br><br><br>
 
-</div>
+</div> 

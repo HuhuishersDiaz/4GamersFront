@@ -50,7 +50,8 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
         {
             this.api.mistorneos(this.idpersona).then((data : any[] )=>{
                 console.log(data)
-                if(data.length > 0){
+
+                if(data){
                     this.misTorneos = data;
                 }
             })

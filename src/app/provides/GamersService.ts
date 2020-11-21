@@ -67,10 +67,7 @@ export class GamersService {
     }
          
     async subirDisputa(data : any) {
-        let httpHeaders = new HttpHeaders({
-            Accept: 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            });
+        let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
 
         let options = {
                 headers: httpHeaders
@@ -478,6 +475,16 @@ export class GamersService {
 
         return await this.http.post(this.url + "users/agregarcopa", data, options).toPromise()
     }
+    async GuardarDireccion(data){
+        // console.log(idAnfitrion);
+        
+        let httpHeaders = new HttpHeaders({'Content-Type': 'application/json', 'Cache-Control': 'no-cache'});
 
+        let options = {
+            headers: httpHeaders
+        };
 
+        return await this.http.post(this.url + "users/direccion", data, options).toPromise()
+    }
+    
 }

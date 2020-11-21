@@ -22,6 +22,7 @@ import { AvisodeprivacidadComponent } from './pages/avisodeprivacidad/avisodepri
 import { FaqsComponent } from './pages/faqs/faqs.component';
 import { PruebasComponent } from './pages/pruebas/pruebas.component';
 import { AmigosComponent } from './pages/amigos/amigos.component';
+import { GamesComponent } from './pages/games/games.component';
 
 const routes: Routes = [
   {
@@ -89,6 +90,9 @@ const routes: Routes = [
   },
   {
     path : 'amigos', component : AmigosComponent
+  },
+  {
+    path : 'games', component : GamesComponent
   },
   {
     path : '**', pathMatch : 'full' ,redirectTo : 'home'

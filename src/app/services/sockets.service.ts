@@ -13,7 +13,8 @@ import * as alertify from 'alertifyjs';
 import {environment} from '../../environments/environment';
 
 @Injectable()
-export class SocketsService { // private url = 'http://localhost:3000';
+export class SocketsService {
+    // private url = 'http://localhost:3000';
     private url = environment.socketURL;
     private socket;
     public ListVersus = [];
@@ -198,6 +199,7 @@ export class SocketsService { // private url = 'http://localhost:3000';
         await this.socket.emit('Quieresjugarconmigo', data, (_respuesta : any) => {});
     }
 
+
     onNewMessageVersus() {
         return Observable.create(observer => {
             this.socket.on('MessageVersus', data => {
@@ -309,5 +311,24 @@ export class SocketsService { // private url = 'http://localhost:3000';
             });
         })
     }
+
+    async validarDireccion(data) {
+        await this.socket.emit('ValidaDireccion', data, (_respuesta : any) => {});
+    }
+
+
+    //global.service.ts
+    //global.service.ts
+    //global.service.ts
+    //global.service.ts
+
+
+    async  NuevaDisputaVersus(dataDisputa : any) {
+        await this.socket.emit('NuevaDisputaVersus', dataDisputa);
+
+    }
+
+
+
 
 }
