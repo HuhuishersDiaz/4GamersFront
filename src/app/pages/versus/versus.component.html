@@ -5,26 +5,44 @@
       <div class="line-divider">
         <p>SELECCIONA TU JUEGO</p>
       </div>
-      <div style="width: 100%; padding: 0px;" class="contenedor container ">
-        <br>
-        <div class="row d-flex justify-content-center ">
-           <div class=" col-xl-9">
-            <div *ngFor="let item of juegos" class="center row vertical-divider">
-              <div class="gallery-card" style="margin: auto;">
-                <div class="gallery-card-body" [ngClass]="{ CheckActive: item.activa === true }" >
-                  <label class="block-check">
-                    <img [src]="baseUrl+ item.imgLogo" class="img-responsive" width="100%" />
-                    <input type="radio" name="game" (change)="onChange(item)" [value]="item" [(ngModel)]="versus.juego"
-                    />
-                  </label>
+
+      <div style="width: 100%; padding: 0px;" class="contenedor  ">
+
+        <swiper class="swiper-container" [config]="{slidesPerView: 'auto',spaceBetween: 5}">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide gamers" *ngFor="let item of juegos">
+                    <div [ngClass]="{ CheckActive: item.activa === true }" (click)="onChange(item)">
+                        <img [src]="baseUrl+ item.imgLogo" class="img-responsive"/>
+                        <button class="btn btn-block btn-sm btn-danger" > <span><i class="fa fa-info-circle" aria-hidden="true"></i></span> Ver Reglas </button>
+                      </div>
                 </div>
-              </div>
             </div>
-           </div>
-        </div>
-        <br>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </swiper>
       </div>
       <hr/>
+      
+      <div class="line-divider">
+        <p>ENCUENTRA TU RIVAL</p>
+      </div>
+      <div class="container" style=" min-height: 10px; max-height: 350px; overflow: scroll;">
+      
+          <div  *ngFor="let item of allversus">
+            <div class="alert alert-light alert-dismissible fade show " role="alert">
+              <strong>{{item.juego}} </strong>  Apuesta : {{ item.apuesta}}
+               <button  *ngIf="item.apuesta <= (50 - acumulados)" type="button" class="btn btn-sm btn-danger float-right" style="position: absolute; top: 0; right: 0;"
+                 (click)="AceptarVersus(item)">
+                 Entrar
+               </button>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="line-divider">
+        <p>CREAR VERSUS</p>
+      </div> 
       <div class="container text-center text-white">
         <p style="size: 16px; font-weight: initial;">CANTIDAD A APOSTAR</p>
         <br />
@@ -46,75 +64,16 @@
          <p>MIS VERSUS</p>
        </div>
        <div class="container" >
-          <div  *ngFor="let item of misversus ">
-            <div class="alert alert-light alert-dismissible fade show" role="alert">
-               <strong>{{item.Nombre}} </strong>  Apuesta : {{ item .Apuesta}}
-                <button type="button" class="btn btn-sm btn-danger float-right" style="position: absolute; top: 0; right: 0;"
-                  (click)="CancelarVersus(item)">
-                  Cancelar
-                </button>
-             </div>
-          </div>
-      </div>
-      <div class="line-divider">
-        <p>ENCUENTRA TU RIVAL</p>
-      </div>
-      <div class="container" style=" min-height: 10px; max-height: 350px; overflow: scroll;">
-      
-          <div  *ngFor="let item of allversus">
-            <div class="alert alert-light alert-dismissible fade show " role="alert">
-              <strong>{{item.juego}} </strong>  Apuesta : {{ item.apuesta}}
-               <button  *ngIf="item.apuesta <= (50 - acumulados)" type="button" class="btn btn-sm btn-danger float-right" style="position: absolute; top: 0; right: 0;"
-                 (click)="AceptarVersus(item)">
-                 Entrar
-               </button>
-            </div>
-          </div>
-      </div>
+        <div  *ngFor="let item of misversus ">
+          <div class="alert alert-light alert-dismissible fade show" role="alert">
+             <strong>{{item.Nombre}} </strong>  Apuesta : {{ item .Apuesta}}
+              <button type="button" class="btn btn-sm btn-danger float-right" style="position: absolute; top: 0; right: 0;"
+                (click)="CancelarVersus(item)">
+                Cancelar
+              </button>
+           </div>
+        </div>
     </div>
-    <div class="col-md-4">
-      <div class="line-divider">
-        <p>AMIGOS</p>
-      </div> 
-      <div class="friends-list text-white text-center container ">
-        <table class="table table-hover text-white" >
-            <tr *ngFor="let amigo of amigos">
-                <td>
-                   {{ amigo.nombre }}
-                </td>
-                <td>
-                    {{ amigo.username }}
-      
-                </td>
-                <td>
-                </td>
-            </tr>
-        </table>
-      
-      </div>
-      <div class="line-divider">
-        <p>AGREGAR UN AMIGO</p>
-      </div> 
-      <div class="text-center"><br>
-       <input type="text" value="" class=" inputBuscar"  placeholder="ID 4Gamers" [(ngModel)]="usernameAmigo"><br><br>
-      <button class="btn btn-danger" (click)="BuscarAmigo()">Buscar </button>  
-      </div>
-      <div class="col-12">
-        <div class="generalinfo text-white" style="font-size: 10; font-weight: 600;">
-          <div class="panel panel-info">
-             <div class="panel-heading collapsed " data-toggle="collapse" data-target="#bar">
-                REGLAS DE LA COMPETENCIA
-                <i class="fa fa-fw fa-chevron-right"></i>
-             </div>
-             <div class="panel-body" style="background-color:  rgb(153,153,153)">
-                <!-- The inside div eliminates the 'jumping' animation. -->
-                <div class="collapse show" id="bar" [innerHTML] = "reglas" style="color: black !important; font-size: 12px; font-weight: 600;   padding: 20px;" > 
-
-                </div>
-             </div>
-          </div>
-       </div>  
-      </div>
     </div>
   </div>
 </div>

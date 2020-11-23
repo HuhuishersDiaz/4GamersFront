@@ -486,5 +486,17 @@ export class GamersService {
 
         return await this.http.post(this.url + "users/direccion", data, options).toPromise()
     }
+
+
+
+    //Aqui comenzamos con las nuevas funcunes de la version 2 del sistema 
+
+    async versusbyjuego( idjuego : any ){
+
+        return await this.http.get(`${this.url}versus/ver/${idjuego}`).toPromise();
+
+    }
+
+
     
 }

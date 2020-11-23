@@ -75,16 +75,11 @@ export class EncuentroComponent implements OnInit {
         await this.ValidarVersus(this.idversus);
        
         console.log(this.infoversus)
-        
-        // await this.api.reglasjuego(this.idjuego)
-        // .then((data : any) =>{
-        //     this.versus.reglas = data.info.recordset[0].descripcion
-        //     console.log(data);
-        // })
 
         if(this.infoversus.finaliza < 0 ){
             this.habilitarReporte = true;
         }
+        
         this.loadchat(this.idversus);
 
         await this.ResVersus()
@@ -190,7 +185,7 @@ export class EncuentroComponent implements OnInit {
 
 
     async Finalizar() {
-        let idRival;
+        let idRival : any;
         if (this.idpersona == this.infoAnfitrion.idpersona) {
             idRival = this.infoRival.idpersona
         } else {
@@ -204,7 +199,6 @@ export class EncuentroComponent implements OnInit {
             monto: this.apuesta,
             img: 'img.jpg',
             mensaje: ""
-
         }
 
         if (this.terminos) { // vamos a ver si existe alguna respuesta nuestra anteriormente
@@ -350,6 +344,7 @@ export class EncuentroComponent implements OnInit {
             })
         })
     }
+    
     CargarArchivo(event){
         console.log(event.target.files);
         this.files = event.target.files;

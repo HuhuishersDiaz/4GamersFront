@@ -80,8 +80,6 @@ export class VersusComponent implements OnInit {
             })
             await this.getVersus();
             await this.listAmigos();
-
-
         }
 
         this._socket.onNewVersus().subscribe(data => {
@@ -421,16 +419,25 @@ export class VersusComponent implements OnInit {
         })
     }
     async onChange(item : any) {
-        // //console.log(item);
-        await this.api.reglasjuego(item.idJuego)
-        .then((data : any) =>{
-            // //console.log(data);
+        console.log(item);
+        // await this.api.reglasjuego(item.idJuego)
+        // .then((data : any) =>{
+        //     // //console.log(data);
 
-            this.reglas = data.info.recordset[0].descripcion
+        //     this.reglas = data.info.recordset[0].descripcion
+        // })
+    
+        //vamos a obtener todos los versus por clasificacion 
+
+        this.api.versusbyjuego(item.idJuego).then((data :any )=>{
+            this.allversus = data.info.recordset;
+            this.allversus.reverse();
         })
+
         this.juegos.find(c => c.activa = false);
         var posicion = this.juegos.indexOf(item);
         this.juegos[posicion].activa = true;
+        this.versus.juego = item
     }
     openModal(template : TemplateRef < any >) {
         this.modalRef = this.modalService.show(template, this.modalOption);
@@ -493,6 +500,7 @@ export class VersusComponent implements OnInit {
             //console.log(data);
             if(data.ok){
                 this.versusActivo = data.info;
+                
             }
             
         })

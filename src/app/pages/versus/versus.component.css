@@ -27,7 +27,16 @@ a:hover {
   height: auto;
   overflow: auto;
 }
+.gamers{
+  background: #333333;
+  width: 150px;
 
+}
+.gamers img{
+
+  width: 6rem;
+
+}
 .mycard-footer {
   height: 25px;
   background: #333333;
@@ -37,21 +46,21 @@ a:hover {
 }
 
 .gallery-card {
-  position: relative;
-  display: -webkit-box;
+  /* position: relative; */
+  /* display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  word-wrap: break-word;
+  word-wrap: break-word; */
   background-color: #3a3a3a;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
-  height: 180px;
-  width: 180px;
+  /* height: 180px; */
+  /* width: 180px; */
   margin-bottom: 14px;
   margin-right: 10px;
 }
@@ -125,7 +134,8 @@ label {
 .contenedor {
   text-align: center;
   background-color: rgb(39,49,61);
-  padding: 19px;
+  padding: 1rem 1rem 1rem 1rem !important;
+  min-height: 150px;
 }
 .center {
   display: inline-block;
@@ -163,7 +173,7 @@ label {
 }
 
 .btn-jugar{
-  /* width: 300px;  */
+  /* width: 3000px;  */
   font-weight: initial; 
   font-size: 19px;
 }
