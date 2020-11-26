@@ -136,3 +136,30 @@ export interface  infoVersus{
     reglas?: string,
     status?: number
 }
+
+
+
+export interface torneoModel {
+    idTorneo: number;
+    CosEntrada: number;
+    imgPrecentacion: string;
+    img: string;
+    monPremio: number;
+    numJugadores: number;
+    descripcion: string;
+    inicio: number;
+    fin: number;
+    inscripciones: number;
+}
+export interface CampeonatoModel {
+    idCampeonato: number;
+    CosEntrada: number;
+    imgPrecentacion: string;
+    imgLogo: string;
+    monPremio: number;
+    numJugadores: number;
+    descripcion: string;
+    inicio: number;
+    fin: number;
+    inscripciones: number;
+}

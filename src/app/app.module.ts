@@ -28,7 +28,7 @@ import { EncuentrotorneoComponent } from './pages/encuentrotorneo/encuentrotorne
 import { FasestorneoComponent } from './pages/fasestorneo/fasestorneo.component';
 
 import { NgxLoadingModule ,ngxLoadingAnimationTypes } from 'ngx-loading';
-import { CampeonatoComponent } from './pages/campeonato/campeonato.component';
+import { CampeonatoComponent } from './components/campeonato/campeonato.component';
 import { EncuentroCampeonatoComponent } from './pages/encuentro-campeonato/encuentro-campeonato.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { CompraComponent } from './pages/compra/compra.component';
@@ -46,6 +46,9 @@ import { FaqsComponent } from './pages/faqs/faqs.component';
 import { PruebasComponent } from './pages/pruebas/pruebas.component';
 import { AmigosComponent } from './pages/amigos/amigos.component';
 import { GamesComponent } from './pages/games/games.component';
+import { TorneoComponent } from './components/torneo/torneo.component';
+import { apiv2Service } from './provides/apiv2.service';
+import { CampeonatosComponent } from './pages/campeonatos/campeonatos.component';
 
 
 @NgModule({
@@ -64,6 +67,7 @@ import { GamesComponent } from './pages/games/games.component';
     EncuentroComponent,
     EncuentrotorneoComponent,
     FasestorneoComponent,
+    CampeonatosComponent,
     CampeonatoComponent,
     EncuentroCampeonatoComponent,
     CheckoutComponent,
@@ -76,7 +80,9 @@ import { GamesComponent } from './pages/games/games.component';
     FaqsComponent,
     PruebasComponent,
     AmigosComponent,
-    GamesComponent
+    GamesComponent,
+    TorneoComponent,
+    CampeonatosComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +101,8 @@ import { GamesComponent } from './pages/games/games.component';
     SocketsService,
     GlobalService, 
     GamersService ,
-    UIGamersService
+    UIGamersService,
+    apiv2Service
   ],
   bootstrap: [AppComponent]
 })

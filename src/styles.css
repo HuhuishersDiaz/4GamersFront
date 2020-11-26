@@ -640,3 +640,60 @@
 }
 
 
+
+
+
+
+/* // Extra small devices (portrait phones, less than 576px) */
+/* @media (max-width: 575.98px) {
+
+} */
+
+.btnreglas {
+  background-color: rgb(50, 76, 109);
+}
+
+.popup-class{
+  padding:10px 0px  !important; 
+}
+/* // Small devices (landscape phones, 576px and up) */
+@media  (max-width: 767.98px) {
+  .confirm-button-class{
+    background-color: #27313D  !important;
+    padding: 1px 10px 1px 10px !important;
+    width: 140px !important;
+    white-space: nowrap;
+    font-size: .8rem !important;
+  }
+  .deny-button-class{
+    background-color: #f91757 !important;
+    padding: 1px 10px 1px 10px !important;
+    width: 98px !important;
+    white-space: nowrap;
+    font-size: .8rem !important;
+  
+  }
+
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px)  {
+  .confirm-button-class{
+    background-color: #27313D  !important;
+    padding: 1px 10px 1px 10px !important;
+    width: 110px;
+    white-space: nowrap;
+    font-size: .8rem !important;
+  }
+  .deny-button-class{
+    background-color: #f91757 !important;
+    padding: 1px 10px 1px 10px !important;
+    width: 110px;
+    white-space: nowrap;
+    font-size: .8rem !important;
+
+  }
+}
+
+
+

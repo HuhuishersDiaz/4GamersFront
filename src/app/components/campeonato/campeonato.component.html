@@ -1,0 +1,53 @@
+<div class="card bg-dark text-white mb-3">
+    <img class="card-img" [src]="urldata + '/presentacion/' + campeonato.imgPrecentacion" alt="Card image">
+    <div class="card-img-overlay">
+        <div class="row">
+            <div class="col-4 text-center">
+                <img class="logotorneo" [src]="urldata + '/logo/' + campeonato.imgLogo" alt="" style="width: 100%;">
+                <p class="titulos">GANA HASTA:</p>
+
+                <p style='vertical-align:middle; display:inline;'> 
+                    <img src="../../../assets/tokens.svg" alt="" width="20">
+                    <strong>120</strong> 
+                </p>
+
+            </div>
+            <div class="col-8 mb-3">
+                <div class="row infoTorneo" >
+                    <div class="col-6">
+                        <p class="titulos">COSTO DE ENTRADA:</p>
+
+                        <p style='vertical-align:middle; display:inline;'> 
+                            <img src="../../../assets/tokens.svg" alt="" width="20">
+                            <strong>{{ campeonato.CosEntrada }}</strong> 
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p  class="titulos">TORNEO INICIA EN:</p>
+                        <p class="contador">
+                            <!-- validamos si el torneo esta por comenzar  -->
+                            <strong *ngIf="campeonato.inicio > 0">    
+                            00:<countdown #cd [config]="{leftTime : campeonato.inicio}" (event)="contador($event)"></countdown>
+                            </strong> 
+                            <!-- Validamos si el torneo esta en tiempo de finalizar  -->
+                            <strong *ngIf="campeonato.inicio < 0">    
+                                00:<countdown #cd [config]="{leftTime : campeonato.fin}" (event)="contador($event)"></countdown>
+                            </strong> 
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <button class=" btn btn-sm btnreglas" (click)="verReglas(campeonato.descripcion)">REGLAS DEL<br>TORNEO</button>
+                    </div>
+                    <div class="col-6">
+                        <div class="lugares">
+                            {{ campeonato.inscripciones }}/{{ campeonato.numJugadores }} LUGARES <br> 
+                            <p *ngIf=" campeonato.numJugadores > campeonato.inscripciones ">DISPONIBLES </p> 
+                        </div>
+                        <button class=" btn btn-sm btn-danger btnentrar float-right" (click)="entrar(campeonato)">IR AL CAMPEONATO</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,13 +6,13 @@ import swal from 'sweetalert';
 import { CountdownComponent } from 'ngx-countdown';
 import { SocketsService } from 'src/app/services/sockets.service';
 
+
 @Component({
-  selector: 'app-campeonato',
-  templateUrl: './campeonato.component.html',
-  styleUrls: ['./campeonato.component.css']
+  selector: 'app-campeonatos',
+  templateUrl: './campeonatos.component.html',
+  styleUrls: ['./campeonatos.component.css']
 })
-export class CampeonatoComponent implements OnInit {
-  
+export class CampeonatosComponent implements OnInit {
   @ViewChild('cd', { static: false }) private countdown: CountdownComponent;
 
   baseUrl : string = "http://4gamers.xplainerservicios.com/content/";
@@ -54,13 +54,11 @@ export class CampeonatoComponent implements OnInit {
   puedojugar: boolean;
   infoEncuentro: any;
   faseActiva: number ;
-  // faseActiva: number = 3;
 
   constructor(private api : GamersService,private router : Router, private route : ActivatedRoute,private _sockets : SocketsService) {
     this.idpersona = localStorage.getItem("idPersona");
     this.username = localStorage.getItem("Username");
    }
-
   async ngOnInit() {
     this.idCampeonato = this.route.snapshot.paramMap.get("id");
 
@@ -281,8 +279,6 @@ export class CampeonatoComponent implements OnInit {
 
     }
   }
-
-
 
 
 

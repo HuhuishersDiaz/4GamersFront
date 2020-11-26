@@ -1,0 +1,287 @@
+<div class="container-fluid ">
+
+
+    <div class="row">
+        <div class="col-md-2">
+           <div class="text-white">
+               <p *ngIf="infoCampeonato.iniciaen > 0">LA PARTIDA INICIA EN:</p>
+               <p *ngIf="infoCampeonato.iniciaen < 0">LA PARTIDA FINALIZA EN:</p>
+                 
+               <strong *ngIf="infoCampeonato.iniciaen > 0" > 00:<countdown #cd [config]="{leftTime : infoCampeonato.iniciaen}" (event)="inicio($event)" ></countdown></strong>
+               <strong *ngIf="infoCampeonato.iniciaen < 0" > 00:<countdown #cd [config]="{leftTime : infoCampeonato.finaliza}"  (event)="final($event)"></countdown></strong>
+               <br>
+               <button *ngIf="podemosbuscar" class="btn btn-danger btn-sm" (click)="BuscarRival()">Buscar Rival</button>
+           </div>
+          
+        </div>
+        <div class="col-md-10">
+           <div class="  " style="width: 100%; height: auto; overflow: scroll;">
+               <div class="d-flex ">
+                   <div id="organigrama" *ngIf="infoCampeonato.numjugadores  == 8" name="organigrama" class="organigrama" style="margin: auto;">
+                       <ul id="ul1" name="ul1">
+                           <li style="width: 720px; overflow: scroll; height: 425px;">
+                               <a class="itemCampeonato" (click)="abrirEncuentro(infoGanador)"  [ngStyle]="{'background-image': 'url(' + baseUrl + (infoGanador.img || 'boton_editarfotos.png') + ')' }"> 
+                               <!-- <label class="h1">1° </label>  -->
+                               </a>
+                               <p class="text-white">{{infoGanador.username}}</p>
+                               <ul>
+                                   <li>
+                                       <a class="itemCampeonato" (click)="abrirEncuentro(fase1[0])" href="javascript:void(0)" [ngStyle]="{'background-image': 'url(' + baseUrl + (fase1[0].imgAnfitrion || 'boton_editarfotos.png') + ')' }">
+                                           <!-- semifinal  jugador 1 -->
+                                                                                   </a>
+                                       <p class="text-white">{{fase1[0].nombreanfitrion}}</p>
+                                       <ul>
+                                           <li>
+                                               <a class="itemCampeonato" (click)="abrirEncuentro(fase2[0])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase2[0].imgAnfitrion || 'boton_editarfotos.png') + ')' }">
+                                                                                                   </a>
+                                               <ul>
+                                                   <li>
+                                                       <a class="itemCampeonato" (click)="abrirEncuentro(fase3[0])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[0].imgAnfitrion || 'boton_editarfotos.png') + ')'}">
+                                                                                                                   </a>
+                                                   </li>
+                                                   <li>
+                                                       <a class="itemCampeonato" (click)="abrirEncuentro(fase3[0])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[0].imgRival|| 'boton_editarfotos.png') + ')'}" >
+                                                                                                               </a>
+                                                   </li>
+                                               </ul>
+                                           </li>
+                                           <li>
+                                               <a class="itemCampeonato" (click)="abrirEncuentro(fase2[0])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase2[0].imgRival || 'boton_editarfotos.png') + ')' }">
+                                                                                             </a>
+                                               <ul>
+                                                   <li>
+                                                       <a class="itemCampeonato" (click)="abrirEncuentro(fase3[1])" [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[1].imgAnfitrion || 'boton_editarfotos.png') + ')' }" >
+                                                                                                                   </a>
+                                                   </li>
+                                                   <li>
+                                                       <a class="itemCampeonato" (click)="abrirEncuentro(fase3[1])" [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[1].imgRival || 'boton_editarfotos.png') + ')' }" >
+                                                                                                               </a>
+                                                   </li>
+                                               </ul>
+                                           </li>
+                                       </ul>
+                                   </li>
+                                   <li>
+                                       <a class="itemCampeonato" (click)="abrirEncuentro(fase1[0])" [ngStyle]="{'background-image':'url(' + baseUrl +( fase1[0].imgRival || 'boton_editarfotos.png' ) + ')' }" >
+                                           <!-- semifinal  jugador 2 -->
+                                                                               </a>
+                                       <p class="text-white">{{fase1[0].nombrerival}}</p>
+
+                                       <ul>
+                                           <li>
+                                               <a class="itemCampeonato" (click)="abrirEncuentro(fase2[1])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase2[1].imgAnfitrion || 'boton_editarfotos.png') + ')' }">
+                                                                                                 </a>
+                                               <ul>
+                                                   <li>
+                                                       <a class="itemCampeonato" (click)="abrirEncuentro(fase3[2])" [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[2].imgAnfitrion || 'boton_editarfotos.png') + ')' }" >
+                                                                                                                   </a>
+                                                   </li>
+                                                   <li>
+                                                       <a class="itemCampeonato" (click)="abrirEncuentro(fase3[2])" [ngStyle]="{'background-image':'url(' + baseUrl +( fase3[2].imgRival || 'boton_editarfotos.png' ) + ')' }" >
+                                                                                                               </a>
+                                                   </li>
+                                               </ul>
+                                           </li>
+                                           <li>
+                                               <a class="itemCampeonato" (click)="abrirEncuentro(fase2[1])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase2[1].imgRival || 'boton_editarfotos.png') + ')' }">
+                                                                                             </a>
+                                               <ul>
+                                                   <li>
+                                                       <a class="itemCampeonato" (click)="abrirEncuentro(fase3[3])" [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[3].imgAnfitrion || 'boton_editarfotos.png') + ')'}" >
+                                                                                                                   </a>
+                                                   </li>
+                                                   <li>
+                                                       <a class="itemCampeonato" (click)="abrirEncuentro(fase3[3])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[3].imgRival || 'boton_editarfotos.png') + ')' }">
+                                                                                                               </a>
+                                                   </li>
+                                               </ul>
+                                           </li>
+                                       </ul>
+                                   </li>
+                               </ul>
+                           </li>
+                       </ul>
+                   </div>  
+                   <div id="organigrama" *ngIf="infoCampeonato.numjugadores  == 16" name="organigrama" class="organigrama" style="margin: auto;">
+                      
+                       <strong>Este es de 16</strong> 
+                       <ul id="ul1" name="ul1">
+                           <li style="width: 880px; overflow: scroll;min-height: 850px;">
+                               <a class="itemCampeonato2" (click)="abrirEncuentro(infoGanador)"  [ngStyle]="{'background-image': 'url(' + baseUrl + (infoGanador.img || 'boton_editarfotos.png') + ')' }"> 
+                               <!-- <label class="h1">1° </label>  -->
+                               </a>
+                               <p class="text-white">{{infoGanador.username}}</p>
+                               <ul>
+                                   <li>
+                                       <a class="itemCampeonato2" (click)="abrirEncuentro(fase1[0])" href="javascript:void(0)" [ngStyle]="{'background-image': 'url(' + baseUrl + (fase1[0].imgAnfitrion || 'boton_editarfotos.png') + ')' }">
+                                           <!-- semifinal  jugador 1 -->
+                                                                                   </a>
+                                       <p class="text-white">{{fase1[0].nombreanfitrion}}</p>
+                                       <ul>
+                                           <li>
+                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase2[0])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase2[0].imgAnfitrion || 'boton_editarfotos.png') + ')' }">
+                                                                                                   </a>
+                                               <ul>
+                                                   <li>
+                                                       <a class="itemCampeonato2" (click)="abrirEncuentro(fase3[0])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[0].imgAnfitrion || 'boton_editarfotos.png') + ')'}">
+                                                          </a> 
+                                                          <ul>
+                                                               <li>
+                                                                   <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[0])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[0].imgAnfitrion || 'boton_editarfotos.png') + ')'}">
+                                                                                                                               </a>
+                                                               </li>
+                                                               <li>
+                                                                   <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[0])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[0].imgRival|| 'boton_editarfotos.png') + ')'}" >
+                                                                                                                           </a>
+                                                               </li>
+                                                           </ul>                                                 
+                                                   </li>
+                                                   <li>
+                                                       <a class="itemCampeonato2" (click)="abrirEncuentro(fase3[0])"  
+                                                       [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[0].imgRival|| 'boton_editarfotos.png') + ')'}" ></a>
+                                                       <ul>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[1])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[1].imgAnfitrion || 'boton_editarfotos.png') + ')'}">
+                                                                                                                           </a>
+                                                           </li>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[1])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[1].imgRival|| 'boton_editarfotos.png') + ')'}" >
+                                                                                                                       </a>
+                                                           </li>
+                                                       </ul>    
+                                                   </li>
+                                               </ul>
+                                           </li>
+                                           <li>
+                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase2[0])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase2[0].imgRival || 'boton_editarfotos.png') + ')' }">
+                                               </a>
+                                               <ul>
+                                                   <li>
+                                                       <a class="itemCampeonato2" (click)="abrirEncuentro(fase3[1])" [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[1].imgAnfitrion || 'boton_editarfotos.png') + ')' }" >
+                                                       </a>    
+                                                       <ul>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[2])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[2].imgAnfitrion || 'boton_editarfotos.png') + ')'}">
+                                                               </a>
+                                                           </li>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[2])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[2].imgRival|| 'boton_editarfotos.png') + ')'}" >
+                                                               </a>
+                                                           </li>
+                                                       </ul>                                                           
+                                                   </li>
+                                                   <li>
+                                                       <a class="itemCampeonato2" (click)="abrirEncuentro(fase3[1])" [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[1].imgRival || 'boton_editarfotos.png') + ')' }" >
+                                                       </a>
+                                                       <ul>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[3])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[3].imgAnfitrion || 'boton_editarfotos.png') + ')'}">
+                                                               </a>
+                                                           </li>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[3])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[3].imgRival|| 'boton_editarfotos.png') + ')'}" >
+                                                               </a>
+                                                           </li>
+                                                       </ul> 
+                                                   </li>
+                                               </ul>
+                                           </li>
+                                       </ul>
+                                   </li>
+                                   <li>
+                                       <a class="itemCampeonato2" (click)="abrirEncuentro(fase1[0])" [ngStyle]="{'background-image':'url(' + baseUrl +( fase1[0].imgRival || 'boton_editarfotos.png' ) + ')' }" >
+                                           <!-- semifinal  jugador 2 -->
+                                                                               </a>
+                                       <p class="text-white">{{fase1[0].nombrerival}}</p>
+
+                                       <ul>
+                                           <li>
+                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase2[1])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase2[1].imgAnfitrion || 'boton_editarfotos.png') + ')' }">
+                                                                                                 </a>
+                                               <ul>
+                                                   <li>
+                                                       <a class="itemCampeonato2" (click)="abrirEncuentro(fase3[2])" [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[2].imgAnfitrion || 'boton_editarfotos.png') + ')' }" >                                                            
+                                                       </a>
+                                                       <ul>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[4])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[4].imgAnfitrion || 'boton_editarfotos.png') + ')'}">
+                                                               </a>
+                                                           </li>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[4])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[4].imgRival|| 'boton_editarfotos.png') + ')'}" >
+                                                               </a>
+                                                           </li>
+                                                       </ul> 
+                                                   </li>
+                                                   <li>
+                                                       <a class="itemCampeonato2" (click)="abrirEncuentro(fase3[2])" [ngStyle]="{'background-image':'url(' + baseUrl +( fase3[2].imgRival || 'boton_editarfotos.png' ) + ')' }" >
+                                                       </a>
+                                                       <ul>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[5])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[5].imgAnfitrion || 'boton_editarfotos.png') + ')'}">
+                                                               </a>
+                                                           </li>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[5])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[5].imgRival|| 'boton_editarfotos.png') + ')'}" >
+                                                               </a>
+                                                           </li>
+                                                       </ul> 
+
+                                                   </li>
+                                               </ul>
+                                           </li>
+                                           <li>
+                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase2[1])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase2[1].imgRival || 'boton_editarfotos.png') + ')' }">
+                                                                                             </a>
+                                               <ul>
+                                                   <li>
+                                                       <a class="itemCampeonato2" (click)="abrirEncuentro(fase3[3])" [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[3].imgAnfitrion || 'boton_editarfotos.png') + ')'}" >
+                                                       </a>
+                                                       <ul>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[6])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[6].imgAnfitrion || 'boton_editarfotos.png') + ')'}">
+                                                               </a>
+                                                           </li>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[6])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[6].imgRival|| 'boton_editarfotos.png') + ')'}" >
+                                                               </a>
+                                                           </li>
+                                                       </ul>
+                                                   </li>
+                                                   <li>
+                                                       <a class="itemCampeonato2" (click)="abrirEncuentro(fase3[3])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase3[3].imgRival || 'boton_editarfotos.png') + ')' }">
+                                                       </a>
+                                                       <ul>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[7])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[7].imgAnfitrion || 'boton_editarfotos.png') + ')'}">
+                                                               </a>
+                                                           </li>
+                                                           <li>
+                                                               <a class="itemCampeonato2" (click)="abrirEncuentro(fase4[7])"  [ngStyle]="{'background-image': 'url(' + baseUrl + (fase4[7].imgRival|| 'boton_editarfotos.png') + ')'}" >
+                                                               </a>
+                                                           </li>
+                                                       </ul>
+                                                   </li>
+                                               </ul>
+                                           </li>
+                                       </ul>
+                                   </li>
+                               </ul>
+                           </li>
+                       </ul>
+                   </div>   
+               </div>
+           </div>
+           <div *ngIf="podemosjugar" style="width: 100%;" class="text-center">
+               <button class="btn btn-sm btn-danger" (click)="jugar()"  >JUGAR</button>
+           </div>
+           <!-- <ul class="list-group list-group-flush">
+               <li class="list-group-item active">Insripciones</li>
+
+               <li class="list-group-item" *ngFor="let item of numInscripciones"> {{item.username}} </li>
+             </ul> -->
+       </div>
+    </div>  
+  
+</div>
+

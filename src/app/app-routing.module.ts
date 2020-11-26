@@ -11,7 +11,7 @@ import { EncuentroComponent } from './pages/encuentro/encuentro.component';
 import { TorneosComponent } from './pages/torneos/torneos.component';
 import { EncuentrotorneoComponent } from './pages/encuentrotorneo/encuentrotorneo.component';
 import { FasestorneoComponent } from './pages/fasestorneo/fasestorneo.component';
-import { CampeonatoComponent } from './pages/campeonato/campeonato.component';
+import { CampeonatosComponent } from './pages/campeonatos/campeonatos.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { CompraComponent } from './pages/compra/compra.component';
 import { RetiroComponent } from './pages/retiro/retiro.component';
@@ -59,7 +59,7 @@ const routes: Routes = [
     path : 'torneos/torneo/:idtorneo/fases/:idfase/encuentro/:idencuentro', component : EncuentrotorneoComponent
   },
   {
-    path : 'campeonato/:id', component : CampeonatoComponent
+    path : 'campeonato/:id', component : CampeonatosComponent
   },
   {
     path : 'campeonato/:idcampeonato/encuentro/:idEncuentro', component : EncuentroCampeonatoComponent

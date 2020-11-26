@@ -14,6 +14,7 @@ import {CountdownComponent, CountdownConfig} from 'ngx-countdown';
 import swal from 'sweetalert';
 import swal2 from 'sweetalert2';
 import {BsModalService, BsModalRef, ModalOptions} from 'ngx-bootstrap/modal';
+import { apiv2Service } from 'src/app/provides/apiv2.service';
 
 @Component({selector: 'app-torneos', templateUrl: './torneos.component.html', styleUrls: ['./torneos.component.css']})
 export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: false }) private countdown: CountdownComponent;
@@ -38,7 +39,7 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
     listCampeonatos : any[];
     idpersona : string;
     TorneoActivo : any ;
-    constructor(private api : GamersService, private global : GlobalService, private router : Router, private modalService : BsModalService) {
+    constructor(private api : GamersService,private apiv2 : apiv2Service, private global : GlobalService, private router : Router, private modalService : BsModalService) {
         this.idpersona = localStorage.getItem("idPersona") || null;
     }
 
@@ -59,14 +60,14 @@ export class TorneosComponent implements OnInit { // @ViewChild('cd', { static: 
     }
 
     async verTorneos() {
-        await this.api.getTorneos().then((data : any[]) => {
-            this.listTorneos = data;
+        await this.apiv2.TorneosDisponibles().then((data : any) => {
+            this.listTorneos = data.items;
         }).catch(err => err);
         // this.listTorneos = torneos;
     }
     async verCampeonatos() {
-        await this.api.getCampeonatos().then((data : any[]) => {
-            this.listCampeonatos = data;
+        await this.apiv2.CampeonatosDisponibles().then((data : any) => {
+            this.listCampeonatos = data.items;
         }).catch(err => err);
         // this.listTorneos = torneos;
     }
